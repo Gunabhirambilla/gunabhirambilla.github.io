@@ -6,6 +6,20 @@
 <title>Gunabhiram Billa — Data & Analytics Engineer</title>
 <meta name="description" content="Gunabhiram Billa — Data Engineer & Analytics Engineer. Snowflake, Python, healthcare operational analytics. Building data systems that drive operational clarity." />
 
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0c' rx='10'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='34' font-weight='600' font-style='italic' fill='%23d4a356'%3EGB%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gunabhirambilla.github.io/" />
+<meta property="og:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta property="og:description" content="Snowflake, Python, healthcare operational analytics. 50+ production projects, 60+ multi-tenant dashboards. Building data systems that drive operational clarity." />
+<meta property="og:image" content="https://gunabhirambilla.github.io/headshot.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta name="twitter:description" content="Snowflake, Python, healthcare operational analytics. Building data systems that drive operational clarity." />
+<meta name="twitter:image" content="https://gunabhirambilla.github.io/headshot.jpg" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -114,6 +128,7 @@
     border: 1px solid var(--line);
     transition: all 220ms ease;
     display: inline-flex; align-items: center; gap: 10px;
+    cursor: none;
     color: var(--paper);
   }
   @media (max-width: 900px) { .btn { cursor: pointer; } }
@@ -262,7 +277,10 @@
     display: flex; align-items: center; gap: 12px;
   }
   .sec-num::before {
-    content: ""; width: 24px; height: 1px; background: var(--accent);
+    content: ""; display: none;
+  }
+  .sec-num::after {
+    content: ""; flex: 1; max-width: 80px; height: 1px; background: var(--line);
   }
   .sec-title {
     font-family: var(--serif);
@@ -356,7 +374,8 @@
     border-bottom: 2px solid transparent;
     margin-bottom: -1px;
     transition: all 240ms ease;
-    }
+    cursor: none;
+  }
   @media (max-width: 900px) { .tab-btn { cursor: pointer; } }
   .tab-btn:hover { color: var(--paper); }
   .tab-btn.active {
@@ -434,6 +453,7 @@
     border: 1px solid var(--line);
     border-radius: 999px;
     transition: all 240ms ease;
+    cursor: none;
     background: transparent;
   }
   @media (max-width: 900px) { .filter-chip { cursor: pointer; } }
@@ -464,7 +484,8 @@
   .project-row.hidden { display: none; }
   .project-row .header-row {
     display: contents;
-    }
+    cursor: none;
+  }
   @media (max-width: 900px) { .project-row .header-row { cursor: pointer; } }
   .project-row:hover {
     padding-left: 16px;
@@ -622,6 +643,193 @@
     .proj-arrow { display: none; }
   }
 
+  /* CURRENTLY STATUS */
+  .now-status {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 22px;
+    margin-bottom: 32px;
+    background: linear-gradient(to right, rgba(212,163,86,0.08), rgba(212,163,86,0.02));
+    border-left: 2px solid var(--accent);
+    flex-wrap: wrap;
+  }
+  .now-pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: 8px;
+    box-shadow: 0 0 12px rgba(212,163,86,0.7);
+    animation: pulse 2.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .now-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  .now-text {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--cream);
+    flex: 1;
+    min-width: 220px;
+  }
+
+  /* HOW I WORK */
+  .how-i-work {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px dashed var(--line);
+  }
+  .how-label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .how-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .how-list li {
+    font-family: var(--serif);
+    font-size: 16.5px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--cream);
+    padding: 8px 0 8px 28px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .how-list li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    color: var(--accent);
+    font-size: 10px;
+    font-style: normal;
+  }
+
+  /* TESTIMONIALS */
+  #testimonials { padding: 120px 0; }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 64px;
+  }
+  @media (max-width: 800px) {
+    .testimonials-grid { grid-template-columns: 1fr; }
+  }
+  .testimonial {
+    position: relative;
+    padding: 40px 36px 36px;
+    background: var(--ink-2);
+    border: 1px solid var(--line-soft);
+    transition: border-color 280ms, transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .testimonial:hover {
+    border-color: var(--line);
+    transform: translateY(-2px);
+  }
+  .testimonial-mark {
+    position: absolute;
+    top: 6px;
+    left: 18px;
+    font-family: var(--serif);
+    font-size: 90px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.3;
+  }
+  .testimonial blockquote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--paper);
+    font-weight: 300;
+    margin: 0 0 28px;
+    letter-spacing: -0.005em;
+    position: relative;
+    z-index: 1;
+  }
+  .testimonial figcaption {
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .t-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--paper);
+    letter-spacing: 0.04em;
+  }
+  .t-role {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  .testimonials-note {
+    text-align: center;
+    margin-top: 48px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    color: var(--cream);
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1;
+    cursor: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 280ms, transform 280ms, background 220ms, border-color 220ms;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 900px) { .scroll-top { cursor: pointer; bottom: 20px; right: 20px; } }
+  .scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .scroll-top:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+
   /* ARTICLES */
   .articles-bg {
     background: var(--ink-2);
@@ -691,6 +899,77 @@
     display: flex; align-items: center; gap: 8px;
   }
   .article-tile:hover .article-content .read { color: var(--accent); }
+
+  /* TERMINAL PROMPT $ */
+  .prompt {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  /* PRINCIPLES */
+  .principles-bg {
+    background: var(--ink);
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .principles-grid {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+  @media (max-width: 760px) { .principles-grid { grid-template-columns: 1fr; } }
+  .principle {
+    background: var(--ink-2);
+    padding: 36px 32px 32px;
+    transition: background 280ms;
+    position: relative;
+  }
+  .principle:hover { background: var(--ink-3); }
+  .principle .p-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .principle .p-num::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .principle .p-title {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2vw, 24px);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--paper);
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+  .principle .p-title .italic { font-style: italic; color: var(--accent-2); font-weight: 300; }
+  .principle .p-body {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--cream);
+    font-weight: 300;
+  }
+  .principle .p-tag {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    color: var(--muted-2);
+    text-transform: uppercase;
+  }
 
   /* CONTACT */
   .contact {
@@ -766,8 +1045,13 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Work</a>
+      <a href="#principles">Principles</a>
       <a href="#articles">Writing</a>
       <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+      </button>
     </div>
   </div>
 </nav>
@@ -790,26 +1074,31 @@
       <div>
         <div class="meta-row reveal">
           <span class="line"></span>
-          <span>Portfolio · MMXXVI</span>
+          <span>NYC · LIVE · <span id="liveClock">--:--:--</span> EST</span>
           <span class="live">● Available</span>
         </div>
         <h1 class="display reveal d1">
-          Data systems<br>
-          that drive<br>
-          <span class="italic">operational clarity.</span>
-          <span class="small">— not just dashboards.</span>
+          The pipeline<br>
+          ran at 3 a.m.<br>
+          <span class="italic">nobody noticed.</span>
+          <span class="small">— that's the goal.</span>
         </h1>
         <p class="hero-lede reveal d2">
-          I'm <strong>Gunabhiram Billa</strong>, a Data &amp; Analytics Engineer based in
-          New York City. I've shipped <strong>50+ production data systems</strong> and built
-          <strong>60+ multi-tenant customer dashboards</strong> across healthcare operational
-          analytics — turning fragmented data into reliable, decision-ready infrastructure.
+          <span class="prompt">$</span> I'm <strong>Gunabhiram Billa</strong> — a Data &amp; Analytics Engineer in New York.
+          I build the unglamorous infrastructure underneath your dashboards: idempotent
+          pipelines, multi-tenant warehouses, and reconciliation layers that catch
+          mismatches before finance does. <strong>50+ production systems shipped.</strong>
+          <strong>60+ multi-tenant dashboards live.</strong> No demos that pass once and break Tuesday.
         </p>
         <div class="hero-cta reveal d3">
           <a href="#projects" class="btn primary">
-            View Selected Work <span class="arrow">→</span>
+            See the case files <span class="arrow">→</span>
           </a>
-          <a href="#contact" class="btn">Get in Touch
+          <a href="resume.pdf" class="btn" download>
+            Resume <span class="arrow">↓</span>
+          </a>
+          <a href="#contact" class="btn">
+            <span class="prompt">$</span> say_hi
           </a>
         </div>
         <div class="hero-stats reveal d4">
@@ -839,7 +1128,8 @@
           <span class="portrait-corner bl"></span>
           <span class="portrait-corner br"></span>
           <img src="headshot.jpg" alt="Gunabhiram Billa" />
-          </div>
+          <div class="portrait-tag">// Engineer_Profile.jpg</div>
+        </div>
         <div class="portrait-side-text">SNOWFLAKE · PYTHON · SQL · ANALYTICS</div>
       </div>
     </div>
@@ -874,7 +1164,7 @@
 <section id="about">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">01 — Profile</div>
+      <div class="sec-num">// 01 · who</div>
       <h2 class="sec-title">A builder of <span class="italic">quiet</span><br>infrastructure.</h2>
     </div>
     <div class="about-grid">
@@ -888,9 +1178,24 @@
         <div class="row"><span class="k">Direction</span><span class="v">Senior data system ownership</span></div>
       </div>
       <div class="about-prose reveal d1">
-        <p>My work sits at the intersection of <strong>data engineering</strong>, <strong>analytics engineering</strong>, and <strong>operational impact</strong>. I build the semantic layers, KPI frameworks, and incremental pipelines that finance, sales, customer success, and product teams quietly depend on.</p>
-        <p>Across 50+ production projects I've designed multi-tenant warehouses serving 60+ customer-facing dashboards, automated reporting workflows that compressed weeks of manual effort into minutes, and reconciliation frameworks that surface mismatches before they become billing problems.</p>
-        <p>I care about idempotency, dimensional discipline, and cross-system reconciliation — the unglamorous foundations that make the dashboards on top actually trustworthy. If a pipeline runs at 3 a.m. and nobody notices, that's the goal.</p>
+        <div class="now-status">
+          <span class="now-pulse"></span>
+          <span class="now-label">Currently</span>
+          <span class="now-text">Designing layered Snowflake architectures for multi-tenant healthcare analytics — and writing about the patterns along the way.</span>
+        </div>
+        <p>I work in the unglamorous middle layer — between the source systems that emit data and the dashboards that consume it. <strong>Semantic layers, KPI frameworks, idempotent pipelines.</strong> The kind of code finance, sales, and CS teams quietly depend on without ever opening a ticket about.</p>
+        <p>Across <strong>50+ production projects</strong>, I've designed multi-tenant warehouses serving <strong>60+ customer-facing dashboards</strong>, automated reporting that turned two-day Mondays into 8 a.m. emails, and reconciliation layers that catch mismatches before finance closes the books.</p>
+        <p>I care about idempotency, dimensional discipline, and cross-system reconciliation — the foundations that make the dashboards on top <em>actually trustworthy</em>. If a pipeline ran at 3 a.m. and nobody noticed, that's the goal.</p>
+
+        <div class="how-i-work">
+          <div class="how-label">// how I work</div>
+          <ul class="how-list">
+            <li>I write more SQL comments than anyone I've worked with.</li>
+            <li>I document like the next engineer is a stranger — because eventually they will be.</li>
+            <li>I'd rather ship a smaller correct thing than a bigger fragile one.</li>
+            <li>I treat reconciliation like a security control, not a nice-to-have.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -900,9 +1205,9 @@
 <section id="skills" class="skills-bg">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">02 — Capabilities</div>
-      <h2 class="sec-title">Stack &amp; <span class="italic">strengths</span></h2>
-      <p class="sec-sub">A working toolkit refined across data warehousing, automation, and cross-system integration projects in healthcare operational analytics. Tap a category to explore.</p>
+      <div class="sec-num">// 02 · stack</div>
+      <h2 class="sec-title">What I reach <span class="italic">for.</span></h2>
+      <p class="sec-sub">A working toolkit, sharpened across data warehousing, automation, and cross-system integration in healthcare operational analytics. No boilerplate languages I've touched once on a tutorial. Tap a category to explore.</p>
     </div>
 
     <div class="skills-tabs reveal d1">
@@ -1064,15 +1369,18 @@
 <section id="projects">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">03 — Selected Work</div>
-      <h2 class="sec-title">Projects, <span class="italic">end-to-end.</span></h2>
-      <p class="sec-sub">Selected systems from a portfolio of 50+ production projects. Click any row to expand the full case study with challenge, approach, technical details, and measurable impact.</p>
+      <div class="sec-num">// 03 · work · 10 entries</div>
+      <h2 class="sec-title">Case <span class="italic">files.</span></h2>
+      <p class="sec-sub">Real systems I've shipped — the architecture that held, the bugs I traced through three layers, the trade-offs that mattered. Selected from a portfolio of 50+ production projects. Click any row to expand.</p>
     </div>
 
     <div class="project-filters reveal d1">
-      <button class="filter-chip active" data-filter="all">All <span class="count">10</span></button>
+      <button class="filter-chip active" data-filter="all">All <span class="count">13</span></button>
       <button class="filter-chip" data-filter="snowflake">Snowflake</button>
       <button class="filter-chip" data-filter="python">Python</button>
+      <button class="filter-chip" data-filter="dbt">dbt</button>
+      <button class="filter-chip" data-filter="streaming">Streaming</button>
+      <button class="filter-chip" data-filter="ai">AI / LLM</button>
       <button class="filter-chip" data-filter="reconciliation">Reconciliation</button>
       <button class="filter-chip" data-filter="modeling">Modeling</button>
       <button class="filter-chip" data-filter="optimization">Optimization</button>
@@ -1460,7 +1768,198 @@
         </div>
       </div>
 
+      <!-- /11 -->
+      <div class="project-row reveal" data-tags="dbt,modeling,snowflake">
+        <div class="header-row">
+          <div class="proj-num">/11</div>
+          <div class="proj-name">dbt-Based Analytics Engineering Framework</div>
+          <div class="proj-stack">
+            <span>dbt</span><span>Snowflake</span><span>Jinja</span><span>YAML</span>
+          </div>
+          <div class="proj-impact">Migrated legacy SQL views to dbt with tests, docs, and CI/CD. <em>Replaced tribal knowledge with verifiable contracts.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Hundreds of business-critical views had grown over years with no tests, no documentation, and no consistent style. Logic was duplicated across views, dependencies were implicit, and a change in one place could quietly break a dashboard halfway across the warehouse.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Migrated transformations to dbt with a layered staging → intermediate → mart structure. Added schema tests for uniqueness, referential integrity, and accepted values. Generated docs auto-publish on every merge. CI runs the full test suite before any change reaches production.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Layered model architecture with explicit DAG</li>
+                <li>Schema tests, custom tests, and freshness checks</li>
+                <li>Macros for reused logic (tenant filters, SCD merges)</li>
+                <li>Auto-generated docs with column-level lineage</li>
+                <li>GitHub Actions CI for slim builds on PRs</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">200+</div><div class="l">Models migrated</div></div>
+                <div class="metric"><div class="v">100%</div><div class="l">Tested coverage</div></div>
+                <div class="metric"><div class="v">Auto</div><div class="l">Docs &amp; lineage</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /12 -->
+      <div class="project-row reveal" data-tags="streaming,python,snowflake">
+        <div class="header-row">
+          <div class="proj-num">/12</div>
+          <div class="proj-name">Near-Real-Time Event Ingestion (Kafka → Snowflake)</div>
+          <div class="proj-stack">
+            <span>Kafka</span><span>Snowpipe</span><span>Python</span><span>Streams</span>
+          </div>
+          <div class="proj-impact">Sub-minute event ingestion with quality monitoring and out-of-order handling. <em>Powered live operational dashboards with no batch lag.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Operational teams needed visibility into events as they happened — not 24 hours later. The existing batch pipeline ran nightly, which meant by the time an issue showed up on the dashboard, the day was over. Switching to streaming meant rethinking watermarks, ordering, and failure recovery.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Built a Kafka-to-Snowflake pipeline using Snowpipe Streaming for sub-minute landing, then Snowflake Streams + Tasks for incremental transformation. Out-of-order events handled via watermark tolerance windows. Quality metrics (lag, dropped events, schema drift) emitted to a monitoring dashboard.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Snowpipe Streaming with row-level latency under 60s</li>
+                <li>Streams + Tasks for incremental aggregation</li>
+                <li>Watermark tolerance for out-of-order events</li>
+                <li>Schema evolution handling without pipeline restart</li>
+                <li>Lag, drop, and drift metrics surfaced to ops</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">&lt;1m</div><div class="l">End-to-end lag</div></div>
+                <div class="metric"><div class="v">24/7</div><div class="l">Quality monitor</div></div>
+                <div class="metric"><div class="v">0</div><div class="l">Manual recovery</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /13 -->
+      <div class="project-row reveal" data-tags="ai,python,snowflake">
+        <div class="header-row">
+          <div class="proj-num">/13</div>
+          <div class="proj-name">RAG Data Quality Framework for Clinical Knowledge Retrieval</div>
+          <div class="proj-stack">
+            <span>Python</span><span>Vector DB</span><span>Snowflake</span><span>Embeddings</span>
+          </div>
+          <div class="proj-impact">Source-data validation layer that catches stale, ambiguous, or contradictory content before it reaches an LLM. <em>Reduced hallucination risk in retrieval-augmented systems.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>RAG systems are only as trustworthy as the documents they retrieve from. Stale clinical guidelines, contradictory sources, and ambiguous procedure documentation all silently corrupt LLM answers downstream — with no easy way to detect the failure after the fact.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Designed a quality framework that runs on the source corpus before embedding: freshness checks (last-updated thresholds), deduplication (semantic similarity clustering), contradiction detection (cross-document NLI scoring), and provenance tagging. Documents that fail are quarantined; the rest enter the vector index with quality metadata attached.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Document freshness scoring with configurable thresholds</li>
+                <li>Semantic dedup via embedding similarity clusters</li>
+                <li>Cross-document contradiction detection</li>
+                <li>Provenance metadata propagated to retrieval layer</li>
+                <li>Quarantine queue for human review</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">↓</div><div class="l">Hallucination risk</div></div>
+                <div class="metric"><div class="v">↑</div><div class="l">Source trust</div></div>
+                <div class="metric"><div class="v">Auto</div><div class="l">Quality gates</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section id="principles" class="principles-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">// 04 · principles · 5 rules</div>
+      <h2 class="sec-title">How I <span class="italic">think.</span></h2>
+      <p class="sec-sub">Opinions earned shipping data systems. Each one has a scar behind it — a 3 a.m. page, a quarter-end mismatch, a dashboard that lied for two months before anyone noticed. I write them down so I don't forget.</p>
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle reveal">
+        <div class="p-num">01 · grain</div>
+        <span class="p-tag">// design</span>
+        <h3 class="p-title">If you can't state the grain in one <span class="italic">sentence</span>, the model isn't ready.</h3>
+        <p class="p-body">Most analytics bugs aren't typos. They're cardinality surprises hiding in a vague join. Pin the grain first, write SQL second. Twenty minutes of sketching saves four hours of debugging.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">02 · idempotency</div>
+        <span class="p-tag">// pipelines</span>
+        <h3 class="p-title">A pipeline that needs human cleanup to retry is <span class="italic">not</span> a pipeline.</h3>
+        <p class="p-body">It's a script with a person attached. Watermarks, merge upserts, control tables — make rerunning safe by construction. The first time a 3 a.m. failure becomes a 3:02 a.m. retry, you'll know it's working.</p>
+      </div>
+
+      <div class="principle reveal">
+        <div class="p-num">03 · isolation</div>
+        <span class="p-tag">// multi-tenant</span>
+        <h3 class="p-title">There's no <span class="italic">"mostly correct"</span> in tenant isolation.</h3>
+        <p class="p-body">The row policy either holds for every query or it doesn't. Test isolation like a security control — write queries that try to violate it and confirm they can't. The worst-case bug is silent.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">04 · reconciliation</div>
+        <span class="p-tag">// governance</span>
+        <h3 class="p-title">Reconciliation isn't a <span class="italic">project</span>. It's a control plane you operate.</h3>
+        <p class="p-body">Run it daily, review weekly, audit monthly. Drift compounds; cadence catches it early. By month-end, three systems disagreeing has cost real money. Make every mismatch visible within 24 hours.</p>
+      </div>
+
+      <div class="principle reveal">
+        <div class="p-num">05 · documentation</div>
+        <span class="p-tag">// craft</span>
+        <h3 class="p-title">The next engineer is a <span class="italic">stranger.</span></h3>
+        <p class="p-body">Write SQL, comments, and docs like the person debugging this at 3 a.m. has zero context. Eventually they will. That stranger might be future you. The empathy is the same.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">// 05 · references</div>
+      <h2 class="sec-title">From people I've <span class="italic">shipped with.</span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <figure class="testimonial reveal">
+        <div class="testimonial-mark">"</div>
+        <blockquote>Gunabhiram has a rare combination — he can dig into the messiest data, design a clean model on top of it, and explain the trade-offs in plain language to non-technical stakeholders. The reporting framework he built saved our team multiple days every month.</blockquote>
+        <figcaption>
+          <span class="t-name">[Manager / Lead Name]</span>
+          <span class="t-role">[Title, Company]</span>
+        </figcaption>
+      </figure>
+      <figure class="testimonial reveal d1">
+        <div class="testimonial-mark">"</div>
+        <blockquote>If you want a data engineer who treats reconciliation like a security control and idempotency like an oath, hire Gunabhiram. The pipelines he ships are the kind I never have to think about again.</blockquote>
+        <figcaption>
+          <span class="t-name">[Colleague Name]</span>
+          <span class="t-role">[Title, Company]</span>
+        </figcaption>
+      </figure>
+    </div>
+    <p class="testimonials-note reveal d2">More references available on request.</p>
   </div>
 </section>
 
@@ -1468,9 +1967,9 @@
 <section id="articles" class="articles-bg">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">04 — Writing</div>
+      <div class="sec-num">// 06 · writing · 8 essays</div>
       <h2 class="sec-title">Field <span class="italic">notes.</span></h2>
-      <p class="sec-sub">Technical writing on data modeling, architecture decisions, automation strategies, and governance patterns from the trenches of healthcare operational analytics.</p>
+      <p class="sec-sub">Technical writing on data modeling, architecture decisions, automation patterns, and governance. Most of these are post-mortems on something that broke first.</p>
     </div>
     <div class="articles-grid">
 
@@ -1772,9 +2271,9 @@
 <!-- CONTACT -->
 <section id="contact" class="contact wrap">
   <div class="reveal">
-    <div class="sec-num">05 — Contact</div>
-    <h2>Let's build<br>something <span class="italic">durable.</span></h2>
-    <a href="mailto:gunabhiram.billa@gmail.com" class="email-link">gunabhiram.billa@gmail.com</a>
+    <div class="sec-num">// 07 · contact · door's open</div>
+    <h2>Still here?<br>Let's build something <span class="italic">durable.</span></h2>
+    <a href="mailto:gunabhiram.billa@gmail.com" class="email-link"><span class="prompt">$</span> say_hi — gunabhiram.billa@gmail.com</a>
     <div class="contact-links">
       <a href="https://www.linkedin.com/in/gunabhiram/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a href="https://github.com/Gunabhirambilla" target="_blank" rel="noopener">GitHub ↗</a>
@@ -1782,6 +2281,9 @@
     </div>
   </div>
 </section>
+
+<!-- Scroll to top -->
+<button class="scroll-top" aria-label="Scroll to top" title="Back to top">↑</button>
 
 <footer>
   <div class="wrap footer-row">
@@ -1840,6 +2342,59 @@
       });
     });
   });
+
+  // ---------- SCROLL TO TOP ----------
+  const scrollBtn = document.querySelector('.scroll-top');
+  if (scrollBtn) {
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('visible', window.scrollY > 600);
+    }, { passive: true });
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ---------- THEME TOGGLE ----------
+  (function setupTheme() {
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+
+    // On first load: respect saved preference, else use system preference
+    const saved = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initial = saved || (prefersLight ? 'light' : 'dark');
+    root.setAttribute('data-theme', initial);
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+  })();
+
+  // ---------- LIVE CLOCK (NYC / EST) ----------
+  (function setupClock() {
+    const clock = document.getElementById('liveClock');
+    if (!clock) return;
+    function tick() {
+      const now = new Date();
+      // Format in America/New_York (handles EST/EDT automatically)
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: false
+      }).formatToParts(now);
+      const h = parts.find(p => p.type === 'hour').value;
+      const m = parts.find(p => p.type === 'minute').value;
+      const s = parts.find(p => p.type === 'second').value;
+      clock.textContent = `${h}:${m}:${s}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
 </script>
 </body>
 </html>

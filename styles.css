@@ -1,6 +1,6 @@
 /* ===== PORTFOLIO SHARED STYLES ===== */
 
-:root {
+:root, [data-theme="dark"] {
   --ink: #0d0d0c;
   --ink-2: #161614;
   --ink-3: #1f1e1b;
@@ -20,6 +20,31 @@
   --mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
+[data-theme="light"] {
+  --ink: #f5f1e8;        /* light cream — the new "background" */
+  --ink-2: #ebe5d6;      /* slightly darker cream surface */
+  --ink-3: #ddd5c2;      /* deeper cream for cards */
+  --line: #c5bca6;       /* warm muted divider */
+  --line-soft: #d8d0bc;  /* softer divider */
+  --paper: #1a1814;      /* dark text on light bg */
+  --cream: #2c2820;      /* secondary text */
+  --muted: #6b6555;      /* muted text */
+  --muted-2: #8a8472;    /* extra muted */
+  --accent: #a67c2e;     /* deeper amber for contrast on light */
+  --accent-2: #8a6622;
+  --accent-3: #c89244;
+  --green: #4a6b3a;      /* deeper green */
+  --red: #a85638;        /* deeper red */
+}
+
+/* Smooth transitions on theme change */
+body, nav, .marquee, .skills-bg, .articles-bg, .article-tile, .skill-card,
+.project-row, .proj-stack span, .filter-chip, .btn, footer, .article-end,
+.code, .figure, .pullquote, .callout, .related-tile, .compare-cell,
+.metric, .portrait, .toc, .hero-image {
+  transition: background-color 280ms ease, border-color 280ms ease, color 200ms ease;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
@@ -31,7 +56,8 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  }
+  cursor: none;
+}
 
 @media (max-width: 900px) {
   body { cursor: auto; }
@@ -76,7 +102,7 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 }
 
-/* Atmospheric gradient washes */
+/* Atmospheric gradient washes (dark theme — default) */
 body::after {
   content: "";
   position: fixed; inset: 0;
@@ -87,6 +113,27 @@ body::after {
     radial-gradient(ellipse 700px 500px at 95% 25%, rgba(212,163,86,0.06) 0%, transparent 55%),
     radial-gradient(ellipse 800px 600px at 85% 100%, rgba(107,142,90,0.08) 0%, transparent 55%),
     radial-gradient(ellipse 600px 400px at 5% 75%, rgba(196,118,102,0.05) 0%, transparent 55%);
+}
+[data-theme="light"] body::after,
+body[data-theme="light"]::after {
+  background-image:
+    radial-gradient(ellipse 900px 600px at 15% -5%, rgba(166,124,46,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 500px at 95% 25%, rgba(166,124,46,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 800px 600px at 85% 100%, rgba(74,107,58,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 600px 400px at 5% 75%, rgba(168,86,56,0.04) 0%, transparent 55%);
+}
+
+/* Light-mode-specific overrides */
+[data-theme="light"] body::before {
+  opacity: 0.04;  /* subtler grain on light bg */
+}
+[data-theme="light"] .portrait img {
+  filter: contrast(1.02);  /* remove grayscale in light mode */
+}
+[data-theme="light"] .bg-grid {
+  background-image:
+    linear-gradient(rgba(166,124,46,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(166,124,46,0.05) 1px, transparent 1px);
 }
 
 /* Grid pattern layer (between gradient and content) */
@@ -168,7 +215,7 @@ body::after {
 ::selection { background: var(--accent); color: var(--ink); }
 
 a { color: inherit; text-decoration: none; }
-button { font: inherit; background: none; border: none; color: inherit; }
+button { font: inherit; background: none; border: none; color: inherit; cursor: none; }
 @media (max-width: 900px) { button { cursor: pointer; } }
 
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
@@ -263,3 +310,33 @@ footer {
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(107,142,90,0.6);
 }
+
+/* ===== THEME TOGGLE BUTTON ===== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  margin-left: 16px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 50%;
+  transition: all 240ms ease;
+  position: relative;
+  overflow: hidden;
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(15deg);
+}
+.theme-toggle svg {
+  width: 14px; height: 14px;
+  transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 240ms;
+  position: absolute;
+}
+.theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+.theme-toggle .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg) scale(1); }
+[data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
