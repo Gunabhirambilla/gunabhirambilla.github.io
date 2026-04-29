@@ -37,6 +37,92 @@
   --red: #a85638;        /* deeper red */
 }
 
+/* Light-mode grain — needs to be dark dots on light bg */
+[data-theme="light"] body::before {
+  opacity: 0.10;
+  filter: invert(1);
+}
+
+/* Light-mode atmospheric gradients — softer warm washes */
+[data-theme="light"] body::after {
+  background-image:
+    radial-gradient(ellipse 900px 600px at 15% -5%, rgba(166,124,46,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 500px at 95% 25%, rgba(166,124,46,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 800px 600px at 85% 100%, rgba(74,107,58,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 600px 400px at 5% 75%, rgba(168,86,56,0.04) 0%, transparent 55%) !important;
+}
+
+/* Light-mode portrait — full color */
+[data-theme="light"] .portrait img {
+  filter: contrast(1.02) !important;
+}
+
+/* Light-mode grid pattern */
+[data-theme="light"] .bg-grid {
+  background-image:
+    linear-gradient(rgba(166,124,46,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(166,124,46,0.06) 1px, transparent 1px);
+}
+
+/* Light-mode corner brackets and rules */
+[data-theme="light"] .bg-rules::before,
+[data-theme="light"] .bg-rules::after {
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(166,124,46,0.25) 8%,
+    rgba(150,138,118,0.5) 30%,
+    rgba(150,138,118,0.5) 70%,
+    rgba(166,124,46,0.25) 92%,
+    transparent 100%);
+}
+
+/* Marquee items in light mode */
+[data-theme="light"] .marquee-item {
+  color: var(--cream);
+}
+
+/* Article thumbnails stay dark in light mode (decorative) — add a frame */
+[data-theme="light"] .article-thumb {
+  background: #1f1e1b;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Hero SQL decoration in light mode */
+[data-theme="light"] .hero-sql {
+  color: rgba(107, 101, 85, 0.6);
+  opacity: 0.65;
+}
+
+/* Portrait tag badge stays amber-on-cream */
+[data-theme="light"] .portrait-tag {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+/* Ensure subtle gradient hovers are visible in light mode */
+[data-theme="light"] .about-meta .row:hover {
+  background: linear-gradient(to right, rgba(166,124,46,0.08), transparent) !important;
+}
+[data-theme="light"] .project-row:hover {
+  background: linear-gradient(to right, transparent, rgba(166,124,46,0.06), transparent) !important;
+}
+
+/* Pulsing brand dot — give it a glow in light mode too */
+[data-theme="light"] .brand-dot {
+  box-shadow: 0 0 12px rgba(166,124,46,0.5);
+}
+
+/* Scroll-top button in light mode */
+[data-theme="light"] .scroll-top:hover {
+  color: var(--ink);
+}
+
+/* Selection */
+[data-theme="light"] ::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
 /* Smooth transitions on theme change */
 body, nav, .marquee, .skills-bg, .articles-bg, .article-tile, .skill-card,
 .project-row, .proj-stack span, .filter-chip, .btn, footer, .article-end,
@@ -56,7 +142,6 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none;
 }
 
 @media (max-width: 900px) {
@@ -121,19 +206,6 @@ body[data-theme="light"]::after {
     radial-gradient(ellipse 700px 500px at 95% 25%, rgba(166,124,46,0.05) 0%, transparent 55%),
     radial-gradient(ellipse 800px 600px at 85% 100%, rgba(74,107,58,0.06) 0%, transparent 55%),
     radial-gradient(ellipse 600px 400px at 5% 75%, rgba(168,86,56,0.04) 0%, transparent 55%);
-}
-
-/* Light-mode-specific overrides */
-[data-theme="light"] body::before {
-  opacity: 0.04;  /* subtler grain on light bg */
-}
-[data-theme="light"] .portrait img {
-  filter: contrast(1.02);  /* remove grayscale in light mode */
-}
-[data-theme="light"] .bg-grid {
-  background-image:
-    linear-gradient(rgba(166,124,46,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(166,124,46,0.05) 1px, transparent 1px);
 }
 
 /* Grid pattern layer (between gradient and content) */
@@ -215,7 +287,7 @@ body[data-theme="light"]::after {
 ::selection { background: var(--accent); color: var(--ink); }
 
 a { color: inherit; text-decoration: none; }
-button { font: inherit; background: none; border: none; color: inherit; cursor: none; }
+button { font: inherit; background: none; border: none; color: inherit; cursor: pointer; }
 @media (max-width: 900px) { button { cursor: pointer; } }
 
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
