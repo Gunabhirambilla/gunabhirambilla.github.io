@@ -1,7 +1,7 @@
 /* ===== PORTFOLIO INTERACTIVE BEHAVIORS ===== */
 
 // ---------- CUSTOM CURSOR ----------
-(function setupCursor() {
+(function setupCursor() { return;
   if (window.matchMedia('(max-width: 900px)').matches) return;
 
   const dot = document.createElement('div');

@@ -31,8 +31,7 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none;
-}
+  }
 
 @media (max-width: 900px) {
   body { cursor: auto; }
@@ -169,7 +168,7 @@ body::after {
 ::selection { background: var(--accent); color: var(--ink); }
 
 a { color: inherit; text-decoration: none; }
-button { font: inherit; background: none; border: none; color: inherit; cursor: none; }
+button { font: inherit; background: none; border: none; color: inherit; }
 @media (max-width: 900px) { button { cursor: pointer; } }
 
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
