@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Snowflake Credit Optimization at Scale — Gunabhiram Billa</title>
+<meta name="description" content="A practical, repeatable framework for finding and fixing Snowflake cost waste — workload segmentation, query history forensics, and warehouse right-sizing." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Cost Optimization</span><span class="dot">/</span>
+      <span>Snowflake</span><span class="dot">/</span>
+      <span>10 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">Snowflake Credit <span class="italic">Optimization</span> at Scale.</h1>
+    <p class="article-deck reveal d2">Snowflake bills are often a slow leak, not a sudden flood. Here's the framework I use to diagnose, segment, and right-size compute — with cost reductions that hold up over time.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hbg3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#hbg3)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · CREDIT BURN — BEFORE / AFTER</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- Two-panel chart -->
+        <g transform="translate(80, 110)">
+          <text x="0" y="-20" fill="#c47666" font-family="JetBrains Mono" font-size="10" letter-spacing="2">BEFORE</text>
+          <line x1="0" y1="240" x2="500" y2="240" stroke="#2a2823" stroke-width="1"/>
+          <line x1="0" y1="0" x2="0" y2="240" stroke="#2a2823" stroke-width="1"/>
+          <!-- Spiky bars climbing -->
+          <g fill="#c47666" opacity="0.9">
+            <rect x="20" y="180" width="20" height="60"/>
+            <rect x="50" y="160" width="20" height="80"/>
+            <rect x="80" y="140" width="20" height="100"/>
+            <rect x="110" y="150" width="20" height="90"/>
+            <rect x="140" y="120" width="20" height="120"/>
+            <rect x="170" y="100" width="20" height="140"/>
+            <rect x="200" y="110" width="20" height="130"/>
+            <rect x="230" y="80" width="20" height="160"/>
+            <rect x="260" y="60" width="20" height="180"/>
+            <rect x="290" y="70" width="20" height="170"/>
+            <rect x="320" y="40" width="20" height="200"/>
+            <rect x="350" y="50" width="20" height="190"/>
+            <rect x="380" y="20" width="20" height="220"/>
+            <rect x="410" y="30" width="20" height="210"/>
+            <rect x="440" y="10" width="20" height="230"/>
+          </g>
+          <text x="250" y="265" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">UNCONTROLLED GROWTH</text>
+        </g>
+
+        <g transform="translate(640, 110)">
+          <text x="0" y="-20" fill="#6b8e5a" font-family="JetBrains Mono" font-size="10" letter-spacing="2">AFTER</text>
+          <line x1="0" y1="240" x2="500" y2="240" stroke="#2a2823" stroke-width="1"/>
+          <line x1="0" y1="0" x2="0" y2="240" stroke="#2a2823" stroke-width="1"/>
+          <!-- Stable bars -->
+          <g fill="#6b8e5a" opacity="0.9">
+            <rect x="20" y="100" width="20" height="140"/>
+            <rect x="50" y="120" width="20" height="120"/>
+            <rect x="80" y="110" width="20" height="130"/>
+            <rect x="110" y="115" width="20" height="125"/>
+            <rect x="140" y="105" width="20" height="135"/>
+            <rect x="170" y="118" width="20" height="122"/>
+            <rect x="200" y="112" width="20" height="128"/>
+            <rect x="230" y="100" width="20" height="140"/>
+            <rect x="260" y="115" width="20" height="125"/>
+            <rect x="290" y="108" width="20" height="132"/>
+            <rect x="320" y="120" width="20" height="120"/>
+            <rect x="350" y="110" width="20" height="130"/>
+            <rect x="380" y="115" width="20" height="125"/>
+            <rect x="410" y="105" width="20" height="135"/>
+            <rect x="440" y="118" width="20" height="122"/>
+          </g>
+          <text x="250" y="265" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">PREDICTABLE · RIGHT-SIZED</text>
+        </g>
+
+        <!-- Divider with arrow -->
+        <g transform="translate(595, 230)">
+          <line x1="0" y1="0" x2="50" y2="0" stroke="#d4a356" stroke-width="1.5"/>
+          <polygon points="50,0 42,-4 42,4" fill="#d4a356"/>
+          <text x="25" y="-12" text-anchor="middle" fill="#d4a356" font-family="Fraunces" font-size="14" font-style="italic">tune</text>
+        </g>
+      </svg>
+      <div class="caption">Spiky → stable · same workload, sized correctly</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#diagnose">01 Diagnose First</a></li>
+          <li><a href="#segment">02 Workload Segmentation</a></li>
+          <li><a href="#queries">03 The Top-10 List</a></li>
+          <li><a href="#suspend">04 Auto-Suspend Tuning</a></li>
+          <li><a href="#takeaways">05 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="diagnose"><span class="num">01 — Step one</span>Diagnose before you tune</h2>
+        <p>Most cost-cutting efforts start in the wrong place — with the warehouses. Resist that. Start with attribution: <em>which queries, in which warehouses, run by which roles, are burning the most credits?</em> Until you can answer that, every change is a guess.</p>
+
+        <p>Snowflake's <code>QUERY_HISTORY</code> and <code>WAREHOUSE_METERING_HISTORY</code> views give you what you need. Join them on warehouse and time window, group by query pattern, and you have a credit-attribution table for the last year.</p>
+
+        <div class="code">
+          <div class="code-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span style="margin-left: 8px;">credit_attribution.sql</span>
+          </div>
+<pre><span class="kw">SELECT</span>
+  q.warehouse_name,
+  q.role_name,
+  <span class="fn">REGEXP_REPLACE</span>(q.query_text, <span class="str">'[0-9]+|''[^'']*'''</span>, <span class="str">'?'</span>) <span class="kw">AS</span> query_pattern,
+  <span class="fn">COUNT</span>(*)                       <span class="kw">AS</span> exec_count,
+  <span class="fn">SUM</span>(q.execution_time)/<span class="num">1000</span>      <span class="kw">AS</span> total_seconds,
+  <span class="fn">SUM</span>(q.credits_used_cloud_services) <span class="kw">AS</span> cloud_credits
+<span class="kw">FROM</span> snowflake.account_usage.query_history q
+<span class="kw">WHERE</span> q.start_time &gt; <span class="fn">DATEADD</span>(day, <span class="num">-90</span>, <span class="fn">CURRENT_DATE</span>())
+<span class="kw">GROUP BY</span> <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>
+<span class="kw">ORDER BY</span> total_seconds <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">50</span>;</pre>
+        </div>
+
+        <p>What you'll find, almost universally, is that <strong>5–10 query patterns account for the majority of compute</strong>. That's where you focus.</p>
+
+        <h2 id="segment"><span class="num">02 — Step two</span>Workload segmentation</h2>
+        <p>The single biggest wins usually come from running different workload types on different warehouses, sized appropriately to each. Mixing ad-hoc analyst queries with overnight ETL on one warehouse means you're paying for the larger size 24/7 — even when only one workload needs it.</p>
+
+        <div class="compare">
+          <div class="compare-cell">
+            <h4>ETL_WH (medium)</h4>
+            <p>Scheduled pipelines. Runs in batches. Predictable, contained. Auto-suspend at 60s. Sized for throughput, not interactivity.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>BI_WH (small, multi-cluster)</h4>
+            <p>Dashboard queries. High concurrency, low individual cost. Auto-suspend at 60s. Multi-cluster for spike absorption.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>ADHOC_WH (x-small)</h4>
+            <p>Analyst exploration. Bursty, unpredictable. Auto-suspend at 30s. Smaller size forces analysts to think about query shape.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>LOAD_WH (large, suspend aggressively)</h4>
+            <p>Bulk loads only. Used briefly, then suspended. Sized for time-to-completion, not concurrency. Strict suspend window.</p>
+          </div>
+        </div>
+
+        <p>Resize each warehouse based on its workload, not on the worst case across all workloads.</p>
+
+        <h2 id="queries"><span class="num">03 — Step three</span>The top-10 query list</h2>
+        <p>Take your attribution query above, sort by total compute time, and pick the top ten. For each, ask three questions:</p>
+
+        <ol>
+          <li><strong>Is it doing a full table scan?</strong> Check the query profile. If yes, look for clustering keys, partition pruning, or rewriting filters to use indexed columns.</li>
+          <li><strong>Is it materializing intermediate sets larger than necessary?</strong> CTEs and subqueries that produce 100M rows for a final 1K-row result are silent budget killers.</li>
+          <li><strong>Is it running more often than it needs to?</strong> Some dashboard queries run on every page load when caching every 15 minutes would suffice.</li>
+        </ol>
+
+        <div class="pullquote">Optimizing the top ten queries usually moves the bill more than upgrading every warehouse to a smaller size.</div>
+
+        <h2 id="suspend"><span class="num">04 — Detail</span>Auto-suspend, the silent saver</h2>
+        <p>Snowflake bills per-second after the first minute. A warehouse left running with no queries is pure burn. Default <code>AUTO_SUSPEND</code> values (often 600 seconds) are too generous for most workloads.</p>
+
+        <div class="figure">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="200" fill="#0d0d0c"/>
+            <g transform="translate(40, 50)">
+              <text x="0" y="-10" fill="#8a857a" font-family="JetBrains Mono" font-size="10" letter-spacing="2">WAREHOUSE ACTIVITY OVER 1 HOUR</text>
+              <line x1="0" y1="40" x2="720" y2="40" stroke="#2a2823" stroke-width="1"/>
+              <!-- Activity blocks -->
+              <rect x="20" y="20" width="40" height="40" fill="#6b8e5a" opacity="0.8"/>
+              <rect x="160" y="20" width="60" height="40" fill="#6b8e5a" opacity="0.8"/>
+              <rect x="380" y="20" width="30" height="40" fill="#6b8e5a" opacity="0.8"/>
+              <rect x="520" y="20" width="50" height="40" fill="#6b8e5a" opacity="0.8"/>
+              <!-- Idle warning regions -->
+              <rect x="60" y="20" width="100" height="40" fill="#c47666" opacity="0.25" stroke="#c47666" stroke-width="1" stroke-dasharray="3,3"/>
+              <rect x="220" y="20" width="160" height="40" fill="#c47666" opacity="0.25" stroke="#c47666" stroke-width="1" stroke-dasharray="3,3"/>
+              <rect x="410" y="20" width="110" height="40" fill="#c47666" opacity="0.25" stroke="#c47666" stroke-width="1" stroke-dasharray="3,3"/>
+
+              <text x="40" y="80" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9">QUERY</text>
+              <text x="110" y="80" text-anchor="middle" fill="#c47666" font-family="JetBrains Mono" font-size="9">IDLE</text>
+              <text x="190" y="80" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9">QUERY</text>
+              <text x="300" y="80" text-anchor="middle" fill="#c47666" font-family="JetBrains Mono" font-size="9">IDLE — STILL BILLING</text>
+            </g>
+          </svg>
+          <figcaption><strong>Fig. 02</strong> · Every red block is money spent on a warehouse that isn't doing anything.</figcaption>
+        </div>
+
+        <p>For ETL warehouses, set auto-suspend to 60 seconds. For BI warehouses serving cached dashboards, 60 seconds is fine — the cache rehydration cost is small. For ad-hoc warehouses, 30 seconds. The savings compound: every minute you trim off idle is a minute you don't pay for, every day, forever.</p>
+
+        <div class="callout">
+          <span class="callout-label">→ Caveat</span>
+          <p>Aggressive auto-suspend has one cost: cold-start latency. If your dashboards are sensitive to first-query latency, balance auto-suspend with multi-cluster scale-out instead of a single oversized warehouse left running.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">05 — Takeaways</span>Cost as a habit</h2>
+        <p>Cost optimization isn't a one-time project. It's a habit you bake into the engineering cadence. Build a credit-attribution dashboard. Review it weekly. When a new pipeline ships, check whether it changed the shape of the top-10 list. When a customer onboards, anticipate the load.</p>
+
+        <ul>
+          <li><strong>Attribute first, optimize second.</strong> You can't fix what you can't see.</li>
+          <li><strong>Segment workloads onto purpose-sized warehouses.</strong> Mixed workloads pay the worst-case rate.</li>
+          <li><strong>The top-10 list is where the money is.</strong> Optimize those before touching anything else.</li>
+          <li><strong>Auto-suspend is silent savings.</strong> Tighter is almost always better.</li>
+        </ul>
+
+        <p>The goal isn't a one-time spike of savings — it's a credit profile that grows linearly with your business, not exponentially with your tech debt.</p>
+
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="multi-tenant-warehouse.html" class="related-tile">
+        <span class="tag">Architecture</span>
+        <h5>Designing a Multi-Tenant Healthcare Data Warehouse in Snowflake</h5>
+      </a>
+      <a href="idempotent-etl.html" class="related-tile">
+        <span class="tag">Engineering</span>
+        <h5>Building Idempotent ETL Pipelines in Snowflake + Python</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

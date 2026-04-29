@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Workflow as an Analytics Engineer — Gunabhiram Billa</title>
+<meta name="description" content="How I move from a vague stakeholder request to a reliable, production-ready insight — define, model, build, test, ship." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Workflow</span><span class="dot">/</span>
+      <span>Process</span><span class="dot">/</span>
+      <span>8 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">My Workflow as an Analytics Engineer: <span class="italic">Complex Data → Reliable Insights.</span></h1>
+    <p class="article-deck reveal d2">A stakeholder asks a question. Six weeks later, the answer is wrong. This is the process I use to make sure that doesn't happen — repeatable, boring, and effective.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hbg7" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#hbg7)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · ANALYTICS ENGINEERING WORKFLOW</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- 5-step horizontal flow -->
+        <g transform="translate(80, 230)">
+          <!-- Connecting line -->
+          <line x1="0" y1="0" x2="1040" y2="0" stroke="#2a2823" stroke-width="1" stroke-dasharray="4,4"/>
+
+          <g>
+            <circle cx="0" cy="0" r="32" fill="#0d0d0c" stroke="#d4a356" stroke-width="2"/>
+            <text y="6" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="14" font-weight="600">01</text>
+            <text y="-58" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11" letter-spacing="2">DEFINE</text>
+            <text y="60" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">capture intent</text>
+            <text y="78" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">find the question</text>
+          </g>
+
+          <g transform="translate(260, 0)">
+            <circle r="32" fill="#0d0d0c" stroke="#d4a356" stroke-width="2"/>
+            <text y="6" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="14" font-weight="600">02</text>
+            <text y="-58" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11" letter-spacing="2">MODEL</text>
+            <text y="60" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">grain · joins</text>
+            <text y="78" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">edge cases</text>
+          </g>
+
+          <g transform="translate(520, 0)">
+            <circle r="32" fill="#0d0d0c" stroke="#d4a356" stroke-width="2"/>
+            <text y="6" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="14" font-weight="600">03</text>
+            <text y="-58" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11" letter-spacing="2">BUILD</text>
+            <text y="60" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">layered SQL</text>
+            <text y="78" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">readable code</text>
+          </g>
+
+          <g transform="translate(780, 0)">
+            <circle r="32" fill="#0d0d0c" stroke="#d4a356" stroke-width="2"/>
+            <text y="6" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="14" font-weight="600">04</text>
+            <text y="-58" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11" letter-spacing="2">TEST</text>
+            <text y="60" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">spot checks</text>
+            <text y="78" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">reconcile</text>
+          </g>
+
+          <g transform="translate(1040, 0)">
+            <circle r="32" fill="#0d0d0c" stroke="#d4a356" stroke-width="2"/>
+            <text y="6" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="14" font-weight="600">05</text>
+            <text y="-58" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11" letter-spacing="2">SHIP</text>
+            <text y="60" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">deploy · doc</text>
+            <text y="78" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">monitor</text>
+          </g>
+        </g>
+
+        <text x="600" y="400" text-anchor="middle" fill="#e9c98a" font-family="Fraunces" font-size="16" font-style="italic">linear, mostly. with one feedback loop where it counts.</text>
+      </svg>
+      <div class="caption">5 steps · 1 feedback loop between Build and Test</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#define">01 Define</a></li>
+          <li><a href="#model">02 Model</a></li>
+          <li><a href="#build">03 Build</a></li>
+          <li><a href="#test">04 Test</a></li>
+          <li><a href="#ship">05 Ship</a></li>
+          <li><a href="#takeaways">06 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="define"><span class="num">01 — Define</span>Capture the actual question</h2>
+        <p>Most stakeholder requests come in as a deliverable — "I need a dashboard for X" — when what's actually needed is the answer to a decision. The first job is to translate the request into the underlying decision, because the decision determines the metric, and the metric determines everything downstream.</p>
+
+        <p>Three questions I always ask:</p>
+        <ol>
+          <li><strong>What decision will you make differently based on this?</strong> If the answer is "none," the work isn't worth doing.</li>
+          <li><strong>What's the smallest version that would tell you what you need?</strong> Always start there.</li>
+          <li><strong>What would change your mind?</strong> If no answer would, it's a confirmation request, not an analysis.</li>
+        </ol>
+
+        <h2 id="model"><span class="num">02 — Model</span>Sketch the joins before writing SQL</h2>
+        <p>Before I write a line of SQL, I sketch the join graph on paper. What's the grain of the output? Which dimensions does it need? Where do the joins lose rows or duplicate rows? What's the time-window logic?</p>
+
+        <p>This step takes 20 minutes and saves 4 hours of debugging. The most common bugs in analytics SQL aren't typos — they're cardinality surprises: "I joined on user, but the right side has multiple rows per user, so my counts doubled." A grain check at the modeling stage catches these.</p>
+
+        <div class="pullquote">SQL bugs hide in joins. Joins hide in vague grain. Pin the grain, and the bugs surface.</div>
+
+        <h2 id="build"><span class="num">03 — Build</span>Layered, readable, deterministic</h2>
+        <p>I build in layers — staging, then intermediate logic, then the final query. Each layer is a CTE or a view. The names match what they represent. Comments explain <em>why</em>, not <em>what</em>. The final query reads like prose because the CTEs above it have done the hard work.</p>
+
+        <p>The discipline is to write SQL that someone else can debug at 3 a.m. without context. That means meaningful aliases, no clever one-liners, and — crucially — deterministic ordering wherever ordering matters.</p>
+
+        <h2 id="test"><span class="num">04 — Test</span>Spot-check, then reconcile</h2>
+        <p>Two kinds of testing matter:</p>
+
+        <ul>
+          <li><strong>Spot checks</strong> — pick three known cases and verify the output by hand. If the customer KPI says 47, walk through the data for that one customer and confirm 47 is right.</li>
+          <li><strong>Reconciliation</strong> — totals against a known source. If you're computing revenue, the total should match the billing system within tolerance. If it doesn't, find out why before the dashboard ships.</li>
+        </ul>
+
+        <p>Automated tests are valuable but they're a complement, not a replacement. Tests catch regressions; they don't catch the original misinterpretation.</p>
+
+        <div class="callout">
+          <span class="callout-label">→ The 3-customer test</span>
+          <p>For any new metric, pick three customers — small, medium, large — and walk through the calculation manually. Do this <em>before</em> showing the dashboard to anyone. The number of times this catches errors that automated tests didn't is humbling.</p>
+        </div>
+
+        <h2 id="ship"><span class="num">05 — Ship</span>Deploy, document, monitor</h2>
+        <p>Shipping isn't deploying. It's deploying plus making the work durable: writing a one-page document explaining the metric (definition, edge cases, known limitations), setting up monitoring so silent failures don't go unnoticed, and following up with the stakeholder a week later to see whether the answer actually changed their decision.</p>
+
+        <p>The follow-up is the part most engineers skip. It's also the part that determines whether the work was useful. If the dashboard didn't change anyone's behavior, the work didn't ship — it just deployed.</p>
+
+        <h2 id="takeaways"><span class="num">06 — Takeaways</span>Boring is the goal</h2>
+        <p>This workflow is unspectacular. There's no novel framework, no clever trick. What it gives you is reliability — the same kind of question, asked six months later, gets the same kind of answer. That's the actual product.</p>
+
+        <ul>
+          <li><strong>The question is always upstream of the SQL.</strong> Get it right first.</li>
+          <li><strong>Sketch joins before writing them.</strong> 20 minutes saves 4 hours.</li>
+          <li><strong>Spot-check three customers.</strong> Manually. Every time.</li>
+          <li><strong>Follow up a week later.</strong> If the dashboard didn't change a decision, find out why.</li>
+        </ul>
+
+        <p>Reliability is a habit. The workflow is the structure that makes the habit easy.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="reconciliation-layer.html" class="related-tile">
+        <span class="tag">Governance</span>
+        <h5>Designing a Reconciliation Layer Between CRM, Billing &amp; Operational Systems</h5>
+      </a>
+      <a href="sms-optimization.html" class="related-tile">
+        <span class="tag">SQL Story</span>
+        <h5>Reducing SMS Message Segments to Save $$$</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

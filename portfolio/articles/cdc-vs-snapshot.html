@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Snapshot vs CDC vs Full-Load — Gunabhiram Billa</title>
+<meta name="description" content="The three patterns for moving data from source to warehouse, the tradeoffs each makes, and how to pick one without regretting it." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Modeling</span><span class="dot">/</span>
+      <span>ELT Patterns</span><span class="dot">/</span>
+      <span>9 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">Snapshot vs CDC vs Full-Load: Practical <span class="italic">Tradeoffs</span> in Modern ELT.</h1>
+    <p class="article-deck reveal d2">Three ways to move data from source to warehouse. Each one solves a problem the others can't. Pick the wrong one, and you'll spend years explaining why your numbers don't reconcile.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hbg4" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#hbg4)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · THREE PATTERNS, ONE TIMELINE</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- Snapshot -->
+        <g transform="translate(80, 130)">
+          <text x="0" y="-15" fill="#d4a356" font-family="JetBrains Mono" font-size="11" letter-spacing="3">SNAPSHOT</text>
+          <text x="0" y="2" fill="#8a857a" font-family="JetBrains Mono" font-size="9">PERIODIC FULL CAPTURES</text>
+          <g transform="translate(280, -10)">
+            <rect x="0" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="60" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="120" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="180" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="240" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="300" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="360" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="420" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="480" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="540" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="600" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+            <rect x="660" y="0" width="36" height="36" fill="#d4a356" opacity="0.85"/>
+          </g>
+        </g>
+
+        <!-- CDC -->
+        <g transform="translate(80, 240)">
+          <text x="0" y="-15" fill="#6b8e5a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">CDC</text>
+          <text x="0" y="2" fill="#8a857a" font-family="JetBrains Mono" font-size="9">EVENT-LEVEL DELTA STREAM</text>
+          <line x1="280" y1="8" x2="976" y2="8" stroke="#6b8e5a" stroke-width="1.5"/>
+          <g fill="#6b8e5a">
+            <circle cx="290" cy="8" r="6"/><circle cx="320" cy="8" r="6"/>
+            <circle cx="370" cy="8" r="6"/><circle cx="395" cy="8" r="6"/>
+            <circle cx="445" cy="8" r="6"/><circle cx="510" cy="8" r="6"/>
+            <circle cx="540" cy="8" r="6"/><circle cx="600" cy="8" r="6"/>
+            <circle cx="650" cy="8" r="6"/><circle cx="680" cy="8" r="6"/>
+            <circle cx="745" cy="8" r="6"/><circle cx="800" cy="8" r="6"/>
+            <circle cx="850" cy="8" r="6"/><circle cx="900" cy="8" r="6"/>
+            <circle cx="940" cy="8" r="6"/>
+          </g>
+        </g>
+
+        <!-- Full Load -->
+        <g transform="translate(80, 350)">
+          <text x="0" y="-15" fill="#c47666" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FULL-LOAD</text>
+          <text x="0" y="2" fill="#8a857a" font-family="JetBrains Mono" font-size="9">REPLACE EVERYTHING, EACH RUN</text>
+          <rect x="280" y="-10" width="696" height="36" fill="#c47666" opacity="0.5" stroke="#c47666" stroke-width="1.5"/>
+          <text x="628" y="14" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11">TRUNCATE → COPY → REBUILD</text>
+        </g>
+      </svg>
+      <div class="caption">Three patterns · same timeline · very different costs</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#snapshot">01 Snapshot</a></li>
+          <li><a href="#cdc">02 Change Data Capture</a></li>
+          <li><a href="#full">03 Full-Load</a></li>
+          <li><a href="#choose">04 How to Choose</a></li>
+          <li><a href="#takeaways">05 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="snapshot"><span class="num">01 — Pattern A</span>Snapshot</h2>
+        <p>You take a full picture of the source table at regular intervals — once an hour, once a day — and store each picture. The warehouse becomes a sequence of states over time, and you reason about change by diffing snapshots.</p>
+        <p><strong>Strengths:</strong> Simple. No source-side instrumentation required. Works on any system you can SELECT from. Captures soft deletes naturally.</p>
+        <p><strong>Weaknesses:</strong> Storage grows linearly with snapshot frequency. You lose the granularity of <em>when</em> a change happened — only that something differed between two snapshots. Bandwidth-heavy on large tables.</p>
+        <p><strong>When it shines:</strong> Slowly-changing reference data, configuration tables, customer-managed lookups. Anything where "show me what it looked like last Tuesday" is a useful question.</p>
+
+        <h2 id="cdc"><span class="num">02 — Pattern B</span>Change Data Capture</h2>
+        <p>The source emits an event for every row-level change — insert, update, delete — and your pipeline applies those events incrementally. The warehouse stays in sync with the source, often within seconds.</p>
+        <p><strong>Strengths:</strong> Low bandwidth (only deltas move). Fine-grained timing — you know exactly when each change happened. Near-real-time freshness possible. Naturally compatible with SCD Type 2.</p>
+        <p><strong>Weaknesses:</strong> Requires source-side support (binlog, write-ahead log, or application-level event emission). Operational complexity — out-of-order events, replays, and schema drift all need handling. One missed event is silent corruption.</p>
+        <p><strong>When it shines:</strong> High-velocity transactional data, where freshness matters and full snapshots are too expensive. Audit-trail-grade history requirements.</p>
+
+        <div class="pullquote">CDC is the right answer until you realize you have to operate it. Then full-load looks tempting again.</div>
+
+        <h2 id="full"><span class="num">03 — Pattern C</span>Full-Load</h2>
+        <p>Every run truncates the target and copies the source in its entirety. No deltas, no watermarks, no merge logic.</p>
+        <p><strong>Strengths:</strong> The simplest possible model. Always self-consistent — there is no "drift" because every run is a fresh start. Perfect for small reference tables.</p>
+        <p><strong>Weaknesses:</strong> Doesn't scale with table size. Bandwidth and compute proportional to total table size, not change rate. You lose all history unless you wrap it in snapshot-style captures yourself.</p>
+        <p><strong>When it shines:</strong> Small tables (&lt; few million rows). Reference data with no inherent history. Cases where "always reflects the source as of now" is the only requirement.</p>
+
+        <h2 id="choose"><span class="num">04 — Decision</span>How to choose</h2>
+
+        <div class="compare">
+          <div class="compare-cell">
+            <h4>Choose Snapshot when</h4>
+            <p>Source has no CDC support · table is too large for full-load but slow-changing · history of state-at-a-time is genuinely useful · you want simplicity over freshness.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>Choose CDC when</h4>
+            <p>Freshness is a product requirement (minutes, not hours) · source supports it natively · you have engineering capacity to operate it · history of every change matters.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>Choose Full-Load when</h4>
+            <p>Table is small enough that full reload is cheap · history isn't needed · you value simplicity and self-consistency above all else.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>Choose hybrid when</h4>
+            <p>You have a mix — most warehouses do. Use full-load for reference data, snapshot for slowly-changing dimensions, CDC for high-velocity facts. Pick per table, not per project.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <span class="callout-label">→ The trap</span>
+          <p>The most common mistake is choosing CDC for every table because "real-time is better." It's not better — it's faster. If nobody is reading the data more than once a day, CDC's cost (operational and engineering) buys you nothing the snapshot approach wouldn't.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">05 — Takeaways</span>Match the pattern to the data</h2>
+        <p>None of these patterns is universally correct. The right answer for a single warehouse is usually all three, applied per table. The wrong answer is picking one and forcing every table into it.</p>
+
+        <ul>
+          <li><strong>Pattern follows the data, not the project.</strong> Different tables justify different patterns.</li>
+          <li><strong>CDC is powerful but expensive to operate.</strong> Use it where freshness matters; not as a default.</li>
+          <li><strong>Snapshots are underrated.</strong> They're simple, they capture soft deletes, and they give you point-in-time views.</li>
+          <li><strong>Full-load is fine for small tables.</strong> Don't over-engineer reference data.</li>
+        </ul>
+
+        <p>The discipline is in matching the pattern to the table — and being willing to revisit the choice when a table grows past its original assumptions.</p>
+
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="idempotent-etl.html" class="related-tile">
+        <span class="tag">Engineering</span>
+        <h5>Building Idempotent ETL Pipelines in Snowflake + Python</h5>
+      </a>
+      <a href="fact-dimension-modeling.html" class="related-tile">
+        <span class="tag">Dimensional Modeling</span>
+        <h5>Designing Fact &amp; Dimension Models for Behavioral Analytics</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

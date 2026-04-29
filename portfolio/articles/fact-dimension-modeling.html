@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Designing Fact &amp; Dimension Models for Behavioral Analytics — Gunabhiram Billa</title>
+<meta name="description" content="A practical guide to dimensional modeling for behavioral and operational data — grain, conformed dimensions, and the patterns that survive contact with real users." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Dimensional Modeling</span><span class="dot">/</span>
+      <span>Star Schema</span><span class="dot">/</span>
+      <span>10 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">Designing Fact &amp; Dimension Models for <span class="italic">Behavioral Analytics.</span></h1>
+    <p class="article-deck reveal d2">Behavioral data tells you what users did. A good model tells you why it matters. Here's how I think about grain, conformed dimensions, and the patterns that hold up under real questions.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hbg5" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#hbg5)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · STAR SCHEMA · BEHAVIORAL FACT</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <g transform="translate(600, 250)">
+          <!-- Connecting lines -->
+          <g stroke="#2a2823" stroke-width="1">
+            <line x1="0" y1="0" x2="-280" y2="-130"/>
+            <line x1="0" y1="0" x2="280" y2="-130"/>
+            <line x1="0" y1="0" x2="-280" y2="130"/>
+            <line x1="0" y1="0" x2="280" y2="130"/>
+            <line x1="0" y1="0" x2="0" y2="-180"/>
+            <line x1="0" y1="0" x2="0" y2="180"/>
+          </g>
+
+          <!-- Center fact -->
+          <rect x="-90" y="-50" width="180" height="100" fill="#d4a356"/>
+          <text y="-15" text-anchor="middle" fill="#0d0d0c" font-family="JetBrains Mono" font-size="11" font-weight="600">FACT_EVENT</text>
+          <line x1="-70" y1="-3" x2="70" y2="-3" stroke="#0d0d0c" stroke-width="1" opacity="0.3"/>
+          <text y="14" text-anchor="middle" fill="#0d0d0c" font-family="JetBrains Mono" font-size="9">tenant_id · user_key</text>
+          <text y="28" text-anchor="middle" fill="#0d0d0c" font-family="JetBrains Mono" font-size="9">event_key · event_ts</text>
+          <text y="42" text-anchor="middle" fill="#0d0d0c" font-family="JetBrains Mono" font-size="9">measure_value</text>
+
+          <!-- Dimensions -->
+          <g fill="none" stroke="#e9c98a" stroke-width="1.4">
+            <rect x="-360" y="-160" width="160" height="60"/>
+            <rect x="200" y="-160" width="160" height="60"/>
+            <rect x="-360" y="100" width="160" height="60"/>
+            <rect x="200" y="100" width="160" height="60"/>
+            <rect x="-80" y="-220" width="160" height="40"/>
+            <rect x="-80" y="180" width="160" height="40"/>
+          </g>
+
+          <text x="-280" y="-125" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5">DIM_DATE</text>
+          <text x="280" y="-125" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5">DIM_USER</text>
+          <text x="-280" y="135" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5">DIM_PROVIDER</text>
+          <text x="280" y="135" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5">DIM_GEOGRAPHY</text>
+          <text y="-195" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5">DIM_TENANT</text>
+          <text y="205" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="1.5">DIM_EVENT_TYPE</text>
+
+          <!-- Annotation -->
+          <text x="-280" y="-90" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SCD T1</text>
+          <text x="280" y="-90" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SCD T2</text>
+          <text x="-280" y="170" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SCD T2</text>
+          <text x="280" y="170" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SCD T1</text>
+        </g>
+      </svg>
+      <div class="caption">Star · 1 fact · 6 conformed dimensions</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#grain">01 Start with Grain</a></li>
+          <li><a href="#dimensions">02 Dimensions, Done Right</a></li>
+          <li><a href="#scd">03 SCD: When &amp; Which</a></li>
+          <li><a href="#facts">04 Fact Types</a></li>
+          <li><a href="#takeaways">05 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="grain"><span class="num">01 — Foundation</span>Start with grain</h2>
+        <p>The first decision in any fact table — and the one most people get wrong — is the <em>grain</em>. Grain is the answer to: "what does one row in this fact represent?" Until that's pinned down, every other decision is provisional.</p>
+        <p>For behavioral data, the grain is usually one row per event. One row per page view. One row per visit status change. One row per transaction. The temptation is to pre-aggregate to "one row per user per day" because it feels smaller and faster. <strong>Resist this for the source of truth.</strong> You can always aggregate later; you cannot disaggregate what you've already collapsed.</p>
+
+        <div class="pullquote">If you can&apos;t state the grain in one sentence, the model isn&apos;t ready.</div>
+
+        <h2 id="dimensions"><span class="num">02 — Structure</span>Dimensions, done right</h2>
+        <p>Every fact joins to dimensions. Good dimensions share three properties:</p>
+        <ul>
+          <li><strong>Wide, not deep.</strong> Many descriptive columns, few rows. <code>dim_user</code> with 50 attributes is fine; what matters is that each row is one user.</li>
+          <li><strong>Conformed across facts.</strong> The same <code>dim_user</code> joins to <code>fact_visit</code>, <code>fact_message</code>, <code>fact_payment</code>. One definition of "user" everywhere.</li>
+          <li><strong>Surrogate keys.</strong> An integer <code>user_key</code>, not the natural <code>email</code>. Email changes; surrogate keys don't.</li>
+        </ul>
+
+        <h2 id="scd"><span class="num">03 — History</span>SCD: when, and which type</h2>
+        <p>Slowly Changing Dimensions are how you handle the fact that descriptive attributes change. Two patterns matter most:</p>
+
+        <div class="compare">
+          <div class="compare-cell">
+            <h4>SCD Type 1 — Overwrite</h4>
+            <p>Update in place. No history. Simple, fast, fine for attributes where history doesn't matter (current display name, email).</p>
+          </div>
+          <div class="compare-cell">
+            <h4>SCD Type 2 — Track history</h4>
+            <p>Add a new row with effective_from / effective_to / is_current. Preserves the full history. Use for attributes where "as of last quarter" is a real question (provider specialty, customer tier, billing plan).</p>
+          </div>
+        </div>
+
+        <p>The decision rule: if a metric reported last quarter must remain reproducible after a dimension changes, use Type 2. If it doesn't, Type 1 is fine. Most real-world dimensions need a mix — some Type 1 columns, some Type 2 columns, on the same dimension table.</p>
+
+        <h2 id="facts"><span class="num">04 — Variants</span>Three fact types worth knowing</h2>
+
+        <ol>
+          <li><strong>Transaction facts</strong> — one row per event, immutable once written. Most behavioral data.</li>
+          <li><strong>Periodic snapshot facts</strong> — one row per entity per period. Useful for <em>state</em>, not events. (How many active users on this date?)</li>
+          <li><strong>Accumulating snapshot facts</strong> — one row per process instance, updated as the process advances. Useful for funnels with definite start/end states. (Visit lifecycle, order processing.)</li>
+        </ol>
+
+        <p>Behavioral analytics typically uses transaction facts as the source of truth and builds periodic snapshots on top for dashboard performance. Accumulating snapshots are the right tool when you need to track <em>elapsed time between phases</em> — like "how long are visits spending in checked-in status?"</p>
+
+        <div class="callout">
+          <span class="callout-label">→ Conformed dimensions are organizational</span>
+          <p>The hardest part of dimensional modeling isn't SQL — it's getting two teams to agree on what "user" or "customer" means. The schema is downstream of that agreement. Don't try to model around organizational misalignment; surface it and resolve it.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">05 — Takeaways</span>Discipline over cleverness</h2>
+        <p>Dimensional modeling is unglamorous. There's no novel technology, no impressive architecture diagram. What it gives you is a warehouse where the same question, asked from two different dashboards, returns the same answer. That's the actual product.</p>
+
+        <ul>
+          <li><strong>Pin the grain first.</strong> Everything else follows.</li>
+          <li><strong>Conformed dimensions across all facts.</strong> Inconsistency here is how trust dies.</li>
+          <li><strong>Mix SCD types within a dimension.</strong> Not every column needs history.</li>
+          <li><strong>Pick the right fact type.</strong> Transactional, periodic, or accumulating — they answer different questions.</li>
+        </ul>
+
+        <p>When the model is right, the BI layer becomes thin. That's the goal: every dashboard becomes a question, not a recomputation.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="multi-tenant-warehouse.html" class="related-tile">
+        <span class="tag">Architecture</span>
+        <h5>Designing a Multi-Tenant Healthcare Data Warehouse in Snowflake</h5>
+      </a>
+      <a href="cdc-vs-snapshot.html" class="related-tile">
+        <span class="tag">Modeling</span>
+        <h5>Snapshot vs CDC vs Full-Load: Practical Tradeoffs</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

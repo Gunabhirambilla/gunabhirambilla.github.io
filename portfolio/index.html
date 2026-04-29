@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gunabhiram Billa — Data & Analytics Engineer</title>
+<meta name="description" content="Gunabhiram Billa — Data Engineer & Analytics Engineer. Snowflake, Python, healthcare operational analytics. Building data systems that drive operational clarity." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+  /* ===== HOME-SPECIFIC STYLES ===== */
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 0 80px;
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+  }
+
+  /* Floating decoration: SQL fragment */
+  .hero-sql {
+    position: absolute;
+    top: 18%;
+    right: -100px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted-2);
+    line-height: 1.9;
+    z-index: 1;
+    opacity: 0.5;
+    transform: rotate(-2deg);
+    pointer-events: none;
+  }
+  .hero-sql .kw { color: var(--accent); }
+  .hero-sql .str { color: var(--green); }
+  @media (max-width: 1180px) { .hero-sql { display: none; } }
+
+  .meta-row {
+    display: flex; gap: 16px; align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .meta-row .line { flex: 0 0 40px; height: 1px; background: var(--line); }
+  .meta-row .live { color: var(--accent); }
+
+  h1.display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(56px, 8vw, 112px);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+  h1.display .italic {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent-2);
+  }
+  h1.display .small {
+    display: block;
+    font-size: 0.42em;
+    font-style: italic;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-lede {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--cream);
+    max-width: 520px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .hero-lede strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  .hero-cta {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+  .btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 14px 22px;
+    border: 1px solid var(--line);
+    transition: all 220ms ease;
+    display: inline-flex; align-items: center; gap: 10px;
+    cursor: none;
+    color: var(--paper);
+  }
+  @media (max-width: 900px) { .btn { cursor: pointer; } }
+  .btn:hover { border-color: var(--paper); transform: translateY(-1px); }
+  .btn.primary {
+    background: var(--accent);
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+  .btn.primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+  .btn .arrow { transition: transform 200ms; display: inline-block; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line-soft);
+    max-width: 720px;
+  }
+  @media (max-width: 720px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat .num {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 400;
+    color: var(--accent-2);
+    font-variation-settings: "opsz" 144;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .stat .lbl {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Portrait */
+  .portrait-wrap { position: relative; align-self: stretch; }
+  .portrait {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--ink-2);
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .portrait:hover { transform: translateY(-4px); }
+  .portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    filter: grayscale(0.15) contrast(1.05);
+    transition: filter 600ms ease, transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .portrait:hover img { filter: grayscale(0) contrast(1.05); transform: scale(1.03); }
+
+  .portrait-corner {
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--accent);
+    z-index: 2;
+  }
+  .portrait-corner.tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+  .portrait-corner.tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
+  .portrait-corner.bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
+  .portrait-corner.br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+  .portrait-tag {
+    position: absolute;
+    bottom: -1px; left: -1px;
+    background: var(--accent);
+    color: var(--ink);
+    padding: 10px 16px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    z-index: 3;
+  }
+
+  .portrait-side-text {
+    position: absolute;
+    top: 50%;
+    right: -28px;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--muted-2);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  @media (max-width: 900px) { .portrait-side-text { display: none; } }
+
+  /* MARQUEE */
+  .marquee {
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    overflow: hidden;
+    background: var(--ink-2);
+    padding: 22px 0;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 56px;
+    animation: scroll 36s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-item {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--cream);
+    display: flex; align-items: center; gap: 56px;
+  }
+  .marquee-item::after {
+    content: "✦";
+    color: var(--accent);
+    font-style: normal;
+    font-size: 12px;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* SECTION HEADERS */
+  section { padding: 120px 0; position: relative; }
+  .sec-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sec-num::before {
+    content: ""; width: 24px; height: 1px; background: var(--accent);
+  }
+  .sec-title {
+    font-family: var(--serif);
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 400;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    font-variation-settings: "opsz" 144;
+  }
+  .sec-title .italic { font-style: italic; color: var(--accent-2); }
+  .sec-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 620px;
+    line-height: 1.65;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+  }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .about-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .about-meta .row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line-soft);
+    align-items: baseline;
+    transition: padding-left 280ms ease, background 280ms ease;
+  }
+  .about-meta .row:hover {
+    padding-left: 8px;
+    background: linear-gradient(to right, rgba(212,163,86,0.04), transparent);
+  }
+  .about-meta .row .k {
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 10.5px;
+  }
+  .about-meta .row .v {
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 14px;
+  }
+
+  .about-prose p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--cream);
+    margin-bottom: 22px;
+    font-weight: 300;
+  }
+  .about-prose p:first-child::first-letter {
+    font-family: var(--serif);
+    font-size: 4.4em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.08em 0.1em 0 -0.04em;
+    color: var(--accent);
+    font-weight: 400;
+    font-style: italic;
+  }
+  .about-prose strong { color: var(--paper); font-weight: 500; }
+
+  /* SKILLS */
+  .skills-bg { background: var(--ink-2); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+
+  .skills-tabs {
+    display: flex; gap: 4px; flex-wrap: wrap;
+    margin: 56px 0 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .tab-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 14px 20px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 240ms ease;
+    cursor: none;
+  }
+  @media (max-width: 900px) { .tab-btn { cursor: pointer; } }
+  .tab-btn:hover { color: var(--paper); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .skills-panels { margin-top: 40px; min-height: 360px; }
+  .skill-panel { display: none; }
+  .skill-panel.active { display: grid; animation: fadeIn 500ms ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .skill-panel {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+  @media (max-width: 900px) { .skill-panel { grid-template-columns: 1fr; } }
+
+  .skill-card {
+    background: var(--ink-2);
+    padding: 36px 32px;
+    transition: background 280ms;
+  }
+  .skill-card:hover { background: var(--ink-3); }
+  .skill-card h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--paper);
+    font-style: italic;
+  }
+  .skill-card .num {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .skill-card ul { list-style: none; margin-top: 18px; }
+  .skill-card li {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--cream);
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--line-soft);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .skill-card li:last-child { border-bottom: none; }
+  .skill-card li::before {
+    content: ">";
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* PROJECTS */
+  .project-filters {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 48px;
+  }
+  .filter-chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: all 240ms ease;
+    cursor: none;
+    background: transparent;
+  }
+  @media (max-width: 900px) { .filter-chip { cursor: pointer; } }
+  .filter-chip:hover { color: var(--paper); border-color: var(--paper); }
+  .filter-chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+  .filter-chip .count {
+    margin-left: 6px;
+    opacity: 0.6;
+  }
+
+  .projects-list { margin-top: 56px; }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr 60px;
+    gap: 32px;
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+    transition: padding 320ms ease, background 320ms ease;
+    position: relative;
+  }
+  .project-row:last-child { border-bottom: 1px solid var(--line); }
+  .project-row.hidden { display: none; }
+  .project-row .header-row {
+    display: contents;
+    cursor: none;
+  }
+  @media (max-width: 900px) { .project-row .header-row { cursor: pointer; } }
+  .project-row:hover {
+    padding-left: 16px;
+    padding-right: 16px;
+    background: linear-gradient(to right, transparent, rgba(212,163,86,0.04), transparent);
+  }
+  .project-row:hover .proj-name { color: var(--accent-2); }
+  .project-row.expanded .proj-arrow { transform: rotate(45deg); color: var(--accent); }
+
+  .proj-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted-2);
+    letter-spacing: 0.12em;
+  }
+  .proj-name {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--paper);
+    transition: color 240ms;
+    letter-spacing: -0.01em;
+  }
+  .proj-stack {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+  }
+  .proj-stack span {
+    display: inline-block;
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    margin: 2px 4px 2px 0;
+    border-radius: 2px;
+    color: var(--cream);
+  }
+  .proj-impact {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--cream);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+  .proj-impact em {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .proj-arrow {
+    font-size: 24px;
+    color: var(--muted);
+    transition: all 320ms ease;
+    text-align: right;
+    line-height: 1;
+  }
+
+  /* Expandable project details */
+  .proj-details {
+    grid-column: 1 / -1;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 480ms ease, opacity 320ms ease, margin 380ms ease;
+  }
+  .project-row.expanded .proj-details {
+    max-height: 1200px;
+    opacity: 1;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px dashed var(--line);
+  }
+  .proj-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  @media (max-width: 760px) { .proj-details-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .proj-detail-block h5 {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .proj-detail-block p {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    color: var(--cream);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+  .proj-detail-block ul {
+    list-style: none;
+  }
+  .proj-detail-block li {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--cream);
+    line-height: 1.6;
+    padding: 6px 0 6px 20px;
+    position: relative;
+    font-weight: 300;
+  }
+  .proj-detail-block li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  .proj-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--line);
+  }
+  @media (max-width: 760px) { .proj-metrics { grid-template-columns: 1fr 1fr; } }
+  .metric {
+    padding: 14px;
+    background: var(--ink-2);
+    border: 1px solid var(--line-soft);
+  }
+  .metric .v {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--accent-2);
+    font-style: italic;
+    margin-bottom: 4px;
+    line-height: 1.1;
+  }
+  .metric .l {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .project-row {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 28px 0;
+    }
+    .proj-arrow { display: none; }
+  }
+
+  /* ARTICLES */
+  .articles-bg {
+    background: var(--ink-2);
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .articles-grid {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 760px) { .articles-grid { grid-template-columns: 1fr; } }
+
+  .article-tile {
+    background: var(--ink);
+    border: 1px solid var(--line-soft);
+    overflow: hidden;
+    transition: all 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .article-tile:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+  .article-thumb {
+    aspect-ratio: 16/9;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: var(--ink-3);
+  }
+  .article-thumb svg {
+    width: 100%; height: 100%;
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .article-tile:hover .article-thumb svg { transform: scale(1.04); }
+
+  .article-content { padding: 24px 26px 28px; }
+  .article-content .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .article-content h4 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--paper);
+    letter-spacing: -0.01em;
+    transition: color 220ms;
+  }
+  .article-tile:hover .article-content h4 { color: var(--accent-2); }
+  .article-content .read {
+    margin-top: 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .article-tile:hover .article-content .read { color: var(--accent); }
+
+  /* CONTACT */
+  .contact {
+    text-align: center;
+    padding: 160px 0 120px;
+  }
+  .contact .sec-num { justify-content: center; }
+  .contact .sec-num::before { display: none; }
+  .contact h2 {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 130px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin: 12px 0 40px;
+    font-variation-settings: "opsz" 144;
+  }
+  .contact h2 .italic { font-style: italic; color: var(--accent-2); }
+  .contact .email-link {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(24px, 3vw, 36px);
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 6px;
+    transition: all 240ms;
+    display: inline-block;
+  }
+  .contact .email-link:hover {
+    color: var(--accent-2);
+    border-color: var(--accent-2);
+    transform: translateY(-2px);
+  }
+  .contact-links {
+    margin-top: 56px;
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+  }
+  .contact-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 20px;
+    border: 1px solid var(--line);
+    transition: all 220ms;
+  }
+  .contact-links a:hover {
+    color: var(--paper);
+    border-color: var(--paper);
+    background: var(--ink-2);
+  }
+</style>
+</head>
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>GB / Data Engineer</span>
+    </div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Work</a>
+      <a href="#articles">Writing</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap" style="position: relative; width: 100%;">
+    <div class="hero-sql">
+<span class="kw">WITH</span> impact <span class="kw">AS</span> (<br>
+&nbsp;&nbsp;<span class="kw">SELECT</span> project_id,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'production'</span> <span class="kw">AS</span> status,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;measurable_value<br>
+&nbsp;&nbsp;<span class="kw">FROM</span> portfolio.systems<br>
+&nbsp;&nbsp;<span class="kw">WHERE</span> built_with_care = <span class="str">'true'</span><br>
+)<br>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> impact;
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <div class="meta-row reveal">
+          <span class="line"></span>
+          <span>Portfolio · MMXXVI</span>
+          <span class="live">● Available</span>
+        </div>
+        <h1 class="display reveal d1">
+          Data systems<br>
+          that drive<br>
+          <span class="italic">operational clarity.</span>
+          <span class="small">— not just dashboards.</span>
+        </h1>
+        <p class="hero-lede reveal d2">
+          I'm <strong>Gunabhiram Billa</strong>, a Data &amp; Analytics Engineer based in
+          New York City. I've shipped <strong>50+ production data systems</strong> and built
+          <strong>60+ multi-tenant customer dashboards</strong> across healthcare operational
+          analytics — turning fragmented data into reliable, decision-ready infrastructure.
+        </p>
+        <div class="hero-cta reveal d3">
+          <a href="#projects" class="btn primary">
+            View Selected Work <span class="arrow">→</span>
+          </a>
+          <a href="mailto:gunabhiram.billa@gmail.com" class="btn">
+            Get in Touch
+          </a>
+        </div>
+        <div class="hero-stats reveal d4">
+          <div class="stat">
+            <div class="num"><span data-count="50" data-suffix="+">0</span></div>
+            <div class="lbl">Production Projects</div>
+          </div>
+          <div class="stat">
+            <div class="num"><span data-count="60" data-suffix="+">0</span></div>
+            <div class="lbl">Customer Dashboards</div>
+          </div>
+          <div class="stat">
+            <div class="num"><span data-count="80" data-suffix="%">0</span></div>
+            <div class="lbl">Reporting Time Saved</div>
+          </div>
+          <div class="stat">
+            <div class="num"><span data-count="14">0</span></div>
+            <div class="lbl">Technical Articles</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portrait-wrap reveal d2">
+        <div class="portrait">
+          <span class="portrait-corner tl"></span>
+          <span class="portrait-corner tr"></span>
+          <span class="portrait-corner bl"></span>
+          <span class="portrait-corner br"></span>
+          <img src="headshot.jpg" alt="Gunabhiram Billa" />
+          <div class="portrait-tag">// Engineer_Profile.jpg</div>
+        </div>
+        <div class="portrait-side-text">SNOWFLAKE · PYTHON · SQL · ANALYTICS</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Snowflake</span>
+    <span class="marquee-item">Python Automation</span>
+    <span class="marquee-item">Dimensional Modeling</span>
+    <span class="marquee-item">Healthcare Analytics</span>
+    <span class="marquee-item">Idempotent Pipelines</span>
+    <span class="marquee-item">KPI Frameworks</span>
+    <span class="marquee-item">Reconciliation Systems</span>
+    <span class="marquee-item">Operational Clarity</span>
+    <span class="marquee-item">Multi-Tenant Architecture</span>
+    <span class="marquee-item">Snowflake</span>
+    <span class="marquee-item">Python Automation</span>
+    <span class="marquee-item">Dimensional Modeling</span>
+    <span class="marquee-item">Healthcare Analytics</span>
+    <span class="marquee-item">Idempotent Pipelines</span>
+    <span class="marquee-item">KPI Frameworks</span>
+    <span class="marquee-item">Reconciliation Systems</span>
+    <span class="marquee-item">Operational Clarity</span>
+    <span class="marquee-item">Multi-Tenant Architecture</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">01 — Profile</div>
+      <h2 class="sec-title">A builder of <span class="italic">quiet</span><br>infrastructure.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-meta reveal">
+        <div class="row"><span class="k">Role</span><span class="v">Data & Analytics Engineer</span></div>
+        <div class="row"><span class="k">Based</span><span class="v">New York City</span></div>
+        <div class="row"><span class="k">Status</span><span class="v">Open to hybrid / remote</span></div>
+        <div class="row"><span class="k">Stack</span><span class="v">Snowflake · Python · SQL</span></div>
+        <div class="row"><span class="k">Domain</span><span class="v">Healthcare operational analytics</span></div>
+        <div class="row"><span class="k">Shipped</span><span class="v">50+ projects · 60+ dashboards</span></div>
+        <div class="row"><span class="k">Direction</span><span class="v">Senior data system ownership</span></div>
+      </div>
+      <div class="about-prose reveal d1">
+        <p>My work sits at the intersection of <strong>data engineering</strong>, <strong>analytics engineering</strong>, and <strong>operational impact</strong>. I build the semantic layers, KPI frameworks, and incremental pipelines that finance, sales, customer success, and product teams quietly depend on.</p>
+        <p>Across 50+ production projects I've designed multi-tenant warehouses serving 60+ customer-facing dashboards, automated reporting workflows that compressed weeks of manual effort into minutes, and reconciliation frameworks that surface mismatches before they become billing problems.</p>
+        <p>I care about idempotency, dimensional discipline, and cross-system reconciliation — the unglamorous foundations that make the dashboards on top actually trustworthy. If a pipeline runs at 3 a.m. and nobody notices, that's the goal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">02 — Capabilities</div>
+      <h2 class="sec-title">Stack &amp; <span class="italic">strengths</span></h2>
+      <p class="sec-sub">A working toolkit refined across data warehousing, automation, and cross-system integration projects in healthcare operational analytics. Tap a category to explore.</p>
+    </div>
+
+    <div class="skills-tabs reveal d1">
+      <button class="tab-btn active" data-tab="engineering">Engineering</button>
+      <button class="tab-btn" data-tab="platforms">Platforms</button>
+      <button class="tab-btn" data-tab="modeling">Modeling</button>
+      <button class="tab-btn" data-tab="business">Business</button>
+    </div>
+
+    <div class="skills-panels">
+      <div class="skill-panel active" data-panel="engineering">
+        <div class="skill-card">
+          <div class="num">// 01</div>
+          <h3>SQL Mastery</h3>
+          <ul>
+            <li>Complex joins &amp; CTE pipelines</li>
+            <li>Window functions &amp; analytics</li>
+            <li>Query plan analysis</li>
+            <li>Performance &amp; scan reduction</li>
+            <li>Procedural SQL &amp; scripting</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 02</div>
+          <h3>Python Automation</h3>
+          <ul>
+            <li>Snowflake connector workflows</li>
+            <li>Pandas &amp; openpyxl reporting</li>
+            <li>Word/PDF document generation</li>
+            <li>API ingestion &amp; pagination</li>
+            <li>Scheduled job orchestration</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 03</div>
+          <h3>Pipeline Engineering</h3>
+          <ul>
+            <li>Idempotent incremental loads</li>
+            <li>Watermark &amp; control tables</li>
+            <li>Merge upsert patterns</li>
+            <li>Late-arriving data handling</li>
+            <li>Recovery &amp; retry logic</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill-panel" data-panel="platforms">
+        <div class="skill-card">
+          <div class="num">// 01</div>
+          <h3>Snowflake</h3>
+          <ul>
+            <li>Warehouse design &amp; sizing</li>
+            <li>Role/grant/secure-share patterns</li>
+            <li>Query optimization &amp; clustering</li>
+            <li>Credit metering &amp; cost tuning</li>
+            <li>Streams, tasks, &amp; materialized views</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 02</div>
+          <h3>BI &amp; Visualization</h3>
+          <ul>
+            <li>Tableau dashboards</li>
+            <li>Amazon QuickSight (embedded)</li>
+            <li>Excel automation &amp; charting</li>
+            <li>Multi-tenant dashboard frameworks</li>
+            <li>Semantic layer design</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 03</div>
+          <h3>Integrations &amp; Cloud</h3>
+          <ul>
+            <li>AWS — S3, API logs, IAM</li>
+            <li>Zoho CRM / Desk integrations</li>
+            <li>QuickBooks reconciliation</li>
+            <li>REST API ingestion</li>
+            <li>Git / GitHub workflows</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill-panel" data-panel="modeling">
+        <div class="skill-card">
+          <div class="num">// 01</div>
+          <h3>Dimensional Modeling</h3>
+          <ul>
+            <li>Star &amp; snowflake schemas</li>
+            <li>SCD Type 1 &amp; Type 2</li>
+            <li>Conformed dimensions</li>
+            <li>Bridge &amp; junk tables</li>
+            <li>Grain definition discipline</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 02</div>
+          <h3>Multi-Tenant Architecture</h3>
+          <ul>
+            <li>Tenant-aware fact tables</li>
+            <li>Row-level isolation patterns</li>
+            <li>Cross-tenant benchmarking</li>
+            <li>Shared dimension governance</li>
+            <li>Customer-specific overrides</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 03</div>
+          <h3>Layered Transformations</h3>
+          <ul>
+            <li>Staging → intermediate → mart</li>
+            <li>Snapshot vs CDC vs full-load</li>
+            <li>Behavioral fact patterns</li>
+            <li>Time-aware joins</li>
+            <li>Semantic exposure layers</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill-panel" data-panel="business">
+        <div class="skill-card">
+          <div class="num">// 01</div>
+          <h3>Operational Analytics</h3>
+          <ul>
+            <li>Funnel &amp; drop-off analysis</li>
+            <li>Provider productivity metrics</li>
+            <li>Visit lifecycle tracking</li>
+            <li>Engagement &amp; adoption KPIs</li>
+            <li>Customer health scoring</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 02</div>
+          <h3>Financial Reconciliation</h3>
+          <ul>
+            <li>CRM ↔ billing alignment</li>
+            <li>FTE thresholds &amp; classification</li>
+            <li>Daily reconciliation snapshots</li>
+            <li>Exception reporting views</li>
+            <li>Audit trail design</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="num">// 03</div>
+          <h3>Cross-Functional Delivery</h3>
+          <ul>
+            <li>Stakeholder requirement capture</li>
+            <li>ROI framework design</li>
+            <li>Renewal &amp; upsell analytics</li>
+            <li>Executive reporting cadence</li>
+            <li>Documentation &amp; handoff</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">03 — Selected Work</div>
+      <h2 class="sec-title">Projects, <span class="italic">end-to-end.</span></h2>
+      <p class="sec-sub">Selected systems from a portfolio of 50+ production projects. Click any row to expand the full case study with challenge, approach, technical details, and measurable impact.</p>
+    </div>
+
+    <div class="project-filters reveal d1">
+      <button class="filter-chip active" data-filter="all">All <span class="count">10</span></button>
+      <button class="filter-chip" data-filter="snowflake">Snowflake</button>
+      <button class="filter-chip" data-filter="python">Python</button>
+      <button class="filter-chip" data-filter="reconciliation">Reconciliation</button>
+      <button class="filter-chip" data-filter="modeling">Modeling</button>
+      <button class="filter-chip" data-filter="optimization">Optimization</button>
+    </div>
+
+    <div class="projects-list">
+
+      <!-- /01 -->
+      <div class="project-row reveal" data-tags="snowflake,python,optimization">
+        <div class="header-row">
+          <div class="proj-num">/01</div>
+          <div class="proj-name">Automated KPI Reporting Pipeline</div>
+          <div class="proj-stack">
+            <span>Snowflake</span><span>Python</span><span>SQL</span><span>Word/PDF</span>
+          </div>
+          <div class="proj-impact">Fully automated extraction → templated Excel charts → Word reports → PDF distribution. <em>~80% reduction in manual reporting time.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Customer Success was spending two full days every week assembling a recurring KPI report — pulling SQL exports, copying values into Excel templates, refreshing charts manually, then re-typing summaries into a Word doc and exporting to PDF. The same humans were doing the same clicks every Monday.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Designed a parameterized Python pipeline that reads customer config from a control table, runs templated Snowflake queries, populates an Excel workbook (preserving formatting and pivot logic), and injects the results plus auto-generated narrative into a Word template via python-docx. Final step exports to PDF for leadership distribution.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Parameterized SQL with config-driven date windows and tenant filters</li>
+                <li>openpyxl for chart-preserving Excel population</li>
+                <li>python-docx with bookmarked placeholder injection</li>
+                <li>Reusable across 30+ customers with no code changes</li>
+                <li>Scheduled via cron with email distribution on success</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">~80%</div><div class="l">Time saved</div></div>
+                <div class="metric"><div class="v">30+</div><div class="l">Customers</div></div>
+                <div class="metric"><div class="v">Weekly</div><div class="l">Cadence</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /02 -->
+      <div class="project-row reveal" data-tags="snowflake,modeling">
+        <div class="header-row">
+          <div class="proj-num">/02</div>
+          <div class="proj-name">Customer ROI Metrics Engine</div>
+          <div class="proj-stack">
+            <span>Snowflake</span><span>SQL</span><span>Excel</span>
+          </div>
+          <div class="proj-impact">Standardized ROI framework modeling intake, scheduling, reminders, and engagement. <em>Backed renewal &amp; upsell with measurable product value.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>The Sales and Customer Success teams couldn't quantify product value at renewal conversations. Each rep was inventing their own ROI math, leading to inconsistent numbers across customers — and no defensible framework when leadership asked "what's the upsell story?"</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Built a unified Snowflake-backed ROI model that quantifies four pillars: intake completion lift, scheduling adoption, reminder effectiveness (no-show reduction), and engagement uplift. Each pillar maps to specific time and revenue assumptions configurable per customer segment.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Per-customer baseline measurement (pre-product window)</li>
+                <li>Configurable assumption layer for time/cost values</li>
+                <li>Versioned metric definitions in a governance table</li>
+                <li>Excel deliverable with executive summary and detail tabs</li>
+                <li>Used by Sales, CS, and Product strategy teams</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">4</div><div class="l">ROI pillars</div></div>
+                <div class="metric"><div class="v">100%</div><div class="l">Renewal coverage</div></div>
+                <div class="metric"><div class="v">All</div><div class="l">Customers</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /03 -->
+      <div class="project-row reveal" data-tags="snowflake,modeling">
+        <div class="header-row">
+          <div class="proj-num">/03</div>
+          <div class="proj-name">Multi-Tenant Data Warehouse Architecture</div>
+          <div class="proj-stack">
+            <span>Snowflake</span><span>SQL</span><span>SCD II</span>
+          </div>
+          <div class="proj-impact">Fact/dimension models, time-aware joins, layered staging→intermediate→mart. <em>Improved query performance and tenant-aware governance.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Multiple customers, shared infrastructure, divergent needs — and a warehouse that had grown organically into a tangle of one-off views. Cross-tenant benchmarking was unsafe, performance was inconsistent, and onboarding a new customer required custom code rather than configuration.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Redesigned as a layered architecture: staging mirrors source systems, intermediate handles business logic and conformed dimensions, marts expose tenant-isolated semantic models. SCD Type 2 captures historical attribution. Tenant ID propagates through every fact for safe row-level isolation.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Three-layer architecture with clear contracts between layers</li>
+                <li>SCD Type 2 with effective_from / effective_to / is_current</li>
+                <li>Conformed dimensions shared across tenants</li>
+                <li>Row-access policies for tenant isolation</li>
+                <li>Foundation for 60+ multi-tenant dashboards</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">60+</div><div class="l">Dashboards on top</div></div>
+                <div class="metric"><div class="v">3</div><div class="l">Layers</div></div>
+                <div class="metric"><div class="v">Type 2</div><div class="l">Historical SCD</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /04 -->
+      <div class="project-row reveal" data-tags="snowflake,python">
+        <div class="header-row">
+          <div class="proj-num">/04</div>
+          <div class="proj-name">Idempotent Incremental ETL Framework</div>
+          <div class="proj-stack">
+            <span>Snowflake</span><span>SQL</span><span>Python</span>
+          </div>
+          <div class="proj-impact">Watermark tracking, merge upserts, late-arriving data validation, control tables for recovery. <em>Daily pipelines hardened for safe reruns.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Daily pipelines occasionally failed mid-run or produced duplicates after partial recovery. Engineers had to manually clean state before reruns, and late-arriving source records silently corrupted aggregates. Trust in the data was eroding.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Designed an incremental framework around three principles: deterministic watermark tracking, merge-based upserts (never plain inserts), and explicit validation gates. Every run logs to a control table; every failure can be safely retried without manual cleanup.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Watermark column tracked per source-target pair</li>
+                <li>MERGE statements with deterministic match keys</li>
+                <li>Validation queries for duplicates and gaps</li>
+                <li>Late-arriving record detection &amp; backfill logic</li>
+                <li>Control tables track state for surgical recovery</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">100%</div><div class="l">Idempotent</div></div>
+                <div class="metric"><div class="v">Daily</div><div class="l">Cadence</div></div>
+                <div class="metric"><div class="v">~min</div><div class="l">Recovery time</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /05 -->
+      <div class="project-row reveal" data-tags="snowflake,reconciliation">
+        <div class="header-row">
+          <div class="proj-num">/05</div>
+          <div class="proj-name">Cross-System Data Quality &amp; Reconciliation</div>
+          <div class="proj-stack">
+            <span>Snowflake</span><span>SQL</span>
+          </div>
+          <div class="proj-impact">Automated mismatch detection across CRM, billing, and ops systems with daily reconciliation snapshots. <em>Improved trust in financial reporting.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>CRM said one number of active contracts. Billing said another. The operational system said a third. Finance was reconciling these by hand each month-end, and discrepancies often weren't surfaced until they had compounded across periods.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Built a reconciliation layer that joins all three systems on canonical entity keys and applies deterministic mismatch rules. Every mismatch is logged with a category, severity, and recommended action. Daily snapshots track drift over time, with exception reports surfaced to operations.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Canonical entity resolution across three systems</li>
+                <li>Deterministic mismatch classification rules</li>
+                <li>Daily snapshot fact for drift monitoring</li>
+                <li>Severity scoring and routing logic</li>
+                <li>Structured exception views for operations</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">3</div><div class="l">Systems</div></div>
+                <div class="metric"><div class="v">Daily</div><div class="l">Snapshots</div></div>
+                <div class="metric"><div class="v">↑</div><div class="l">Finance trust</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /06 -->
+      <div class="project-row reveal" data-tags="snowflake,optimization">
+        <div class="header-row">
+          <div class="proj-num">/06</div>
+          <div class="proj-name">Snowflake Cost &amp; Query Optimization</div>
+          <div class="proj-stack">
+            <span>Snowflake</span><span>SQL</span>
+          </div>
+          <div class="proj-impact">Workload segmentation (ETL / BI / ad hoc), right-sizing, auto-suspend policies, full-scan reduction. <em>Long-term compute cost predictability.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Snowflake credit consumption was growing faster than usage justified. A single oversized warehouse was running every workload, ad-hoc queries were doing full table scans, and no one had visibility into which queries were the actual cost drivers.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Mined query history and warehouse metering to attribute cost by workload. Split into purpose-sized warehouses (small for BI, medium for ETL, X-small for ad hoc), enforced auto-suspend, and rewrote the top expensive queries to use clustering and pruning. Built an internal cost dashboard for ongoing visibility.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Query history mining &amp; cost attribution</li>
+                <li>Workload segmentation across multiple warehouses</li>
+                <li>Auto-suspend tuning per workload pattern</li>
+                <li>Clustering keys and pruning for top queries</li>
+                <li>Ongoing cost monitoring dashboard</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">↓</div><div class="l">Credit burn</div></div>
+                <div class="metric"><div class="v">↑</div><div class="l">Predictability</div></div>
+                <div class="metric"><div class="v">3</div><div class="l">Workload tiers</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /07 -->
+      <div class="project-row reveal" data-tags="python,modeling">
+        <div class="header-row">
+          <div class="proj-num">/07</div>
+          <div class="proj-name">UrgentIQ Visit Status &amp; Event Analytics</div>
+          <div class="proj-stack">
+            <span>Python</span><span>SQL</span><span>Snowflake</span><span>API</span>
+          </div>
+          <div class="proj-impact">Event-driven pipeline, status timeline normalization, transition-duration analysis, configurable schema mapping. <em>Eliminated manual lifecycle analysis.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Visit lifecycle data lived in a noisy event stream from the UrgentIQ API. Some statuses were skipped, some were emitted out of order, and timestamps were UTC while reporting expected EST. Operations couldn't answer basic questions like "how long are visits stuck in checked-in status?"</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Built an incremental ingestion pipeline that normalizes status timelines (1 → N), gap-fills missing transitions with deterministic rules, standardizes timezone, and computes transition durations. Output is a clean lifecycle fact ready for funnel and bottleneck analysis.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>API pagination &amp; incremental ingestion</li>
+                <li>Status timeline gap-filling logic</li>
+                <li>UTC → EST timestamp normalization</li>
+                <li>Transition duration computation per status pair</li>
+                <li>Deduplication &amp; configurable schema mapping</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">0</div><div class="l">Manual analysis</div></div>
+                <div class="metric"><div class="v">↑</div><div class="l">Visibility</div></div>
+                <div class="metric"><div class="v">Reusable</div><div class="l">Framework</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /08 -->
+      <div class="project-row reveal" data-tags="reconciliation">
+        <div class="header-row">
+          <div class="proj-num">/08</div>
+          <div class="proj-name">Provider Count &amp; Billing Reconciliation</div>
+          <div class="proj-stack">
+            <span>SQL</span><span>Excel</span><span>QuickBooks</span>
+          </div>
+          <div class="proj-impact">Aligned operational provider counts with CRM contracts and billing records via FTE-threshold logic. <em>Reduced underbilling risk.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Customers were billed based on provider counts, but "provider" meant different things in different systems. Some part-time providers were counted as full FTEs, some full-time providers were missed entirely, and contract terms specified thresholds nobody was actively checking.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Designed a reconciliation workflow that joins operational provider activity with CRM contract terms and QuickBooks billing records. Applied FTE thresholds (active hours, encounter volume) to classify each provider into a billing category. Standardized monthly reconciliation checkpoints.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Three-system join: ops, CRM, billing</li>
+                <li>FTE threshold logic with multiple inputs</li>
+                <li>Provider classification into billing tiers</li>
+                <li>Monthly reconciliation checkpoint cadence</li>
+                <li>Exception reports for review by finance</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">↓</div><div class="l">Underbill risk</div></div>
+                <div class="metric"><div class="v">Monthly</div><div class="l">Cadence</div></div>
+                <div class="metric"><div class="v">↑</div><div class="l">Accuracy</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /09 -->
+      <div class="project-row reveal" data-tags="optimization">
+        <div class="header-row">
+          <div class="proj-num">/09</div>
+          <div class="proj-name">SMS Optimization &amp; Number Rationalization</div>
+          <div class="proj-stack">
+            <span>SQL</span><span>Excel</span>
+          </div>
+          <div class="proj-impact">Standardized templates at ~150-char threshold, disabled 300+ inactive numbers. <em>Lower monthly SMS spend, improved consistency.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>SMS costs were inflated by two avoidable issues: messages tipping over the 160-character single-segment threshold (doubling per-message cost) and a fleet of 300+ phone numbers that were billed monthly but no longer in use. Nobody had audited either in years.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Audited message content across templates, identified those tipping over the segment boundary, and rewrote them under a 150-character target with a margin for personalization variables. Cross-referenced active phone numbers against actual outbound traffic and decommissioned the inactive ones.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Segment count analysis across all templates</li>
+                <li>~150-character optimization threshold</li>
+                <li>Number-to-traffic cross reference</li>
+                <li>300+ inactive numbers identified &amp; disabled</li>
+                <li>Standardized template review process</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">300+</div><div class="l">Numbers cut</div></div>
+                <div class="metric"><div class="v">↓</div><div class="l">Monthly cost</div></div>
+                <div class="metric"><div class="v">~150</div><div class="l">Char target</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /10 -->
+      <div class="project-row reveal" data-tags="optimization">
+        <div class="header-row">
+          <div class="proj-num">/10</div>
+          <div class="proj-name">EMR API Usage &amp; Cost Analysis</div>
+          <div class="proj-stack">
+            <span>SQL</span><span>API Logs</span>
+          </div>
+          <div class="proj-impact">Six-month analysis surfacing high-volume endpoints and redundant call patterns. <em>Supported engineering API cost governance.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>EMR vendor API costs were rising without a clear understanding of what was driving usage. Were certain endpoints inefficient? Were features double-fetching data? Engineering needed evidence before making architectural changes.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Mined six months of API logs to surface usage patterns: top endpoints by volume, redundant call chains, customer-level cost attribution, and timing correlations with downstream features. Output was a structured report engineering used to prioritize caching and batching work.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Six months of log analysis</li>
+                <li>Endpoint volume and cost ranking</li>
+                <li>Redundant call chain detection</li>
+                <li>Customer-level cost attribution</li>
+                <li>Optimization recommendations to engineering</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">6mo</div><div class="l">Log window</div></div>
+                <div class="metric"><div class="v">↓</div><div class="l">Wasted calls</div></div>
+                <div class="metric"><div class="v">↑</div><div class="l">Governance</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section id="articles" class="articles-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">04 — Writing</div>
+      <h2 class="sec-title">Field <span class="italic">notes.</span></h2>
+      <p class="sec-sub">Technical writing on data modeling, architecture decisions, automation strategies, and governance patterns from the trenches of healthcare operational analytics.</p>
+    </div>
+    <div class="articles-grid">
+
+      <a href="articles/multi-tenant-warehouse.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="225" fill="url(#bg1)"/>
+            <!-- Three stacked tenant boxes -->
+            <g transform="translate(80, 50)">
+              <rect x="0" y="0" width="80" height="50" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+              <rect x="0" y="0" width="80" height="6" fill="#d4a356"/>
+              <text x="40" y="32" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">TENANT_A</text>
+
+              <rect x="100" y="0" width="80" height="50" fill="none" stroke="#e9c98a" stroke-width="1.5"/>
+              <rect x="100" y="0" width="80" height="6" fill="#e9c98a"/>
+              <text x="140" y="32" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">TENANT_B</text>
+
+              <rect x="200" y="0" width="80" height="50" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+              <rect x="200" y="0" width="80" height="6" fill="#6b8e5a"/>
+              <text x="240" y="32" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">TENANT_C</text>
+            </g>
+            <!-- Connecting lines down to shared base -->
+            <g stroke="#2a2823" stroke-width="1" fill="none">
+              <line x1="120" y1="100" x2="120" y2="135"/>
+              <line x1="220" y1="100" x2="220" y2="135"/>
+              <line x1="320" y1="100" x2="320" y2="135"/>
+              <line x1="80" y1="135" x2="360" y2="135"/>
+            </g>
+            <!-- Shared dimension -->
+            <rect x="80" y="145" width="280" height="40" fill="none" stroke="#8a857a" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="220" y="170" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SHARED · CONFORMED · DIMENSIONS</text>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Architecture</span>
+          <h4>Designing a Multi-Tenant Healthcare Data Warehouse in Snowflake</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/idempotent-etl.html" class="article-tile reveal d1">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1a1916"/><stop offset="1" stop-color="#0d0d0c"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="225" fill="url(#bg2)"/>
+            <!-- Circular flow -->
+            <g transform="translate(200, 112)">
+              <circle r="70" fill="none" stroke="#2a2823" stroke-width="1" stroke-dasharray="4,4"/>
+              <circle r="70" fill="none" stroke="#d4a356" stroke-width="1.5" stroke-dasharray="100 220" transform="rotate(-90)"/>
+              <!-- Arrow heads at quadrants -->
+              <g fill="#d4a356">
+                <circle cx="0" cy="-70" r="4"/>
+                <circle cx="70" cy="0" r="4"/>
+                <circle cx="0" cy="70" r="4"/>
+                <circle cx="-70" cy="0" r="4"/>
+              </g>
+              <text y="-90" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">EXTRACT</text>
+              <text x="92" y="4" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">MERGE</text>
+              <text y="92" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">VALIDATE</text>
+              <text x="-92" y="4" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">LOG</text>
+              <text y="-4" text-anchor="middle" fill="#d4a356" font-family="Fraunces" font-size="11" font-style="italic">idempotent</text>
+              <text y="14" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="8">retry-safe</text>
+            </g>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Engineering</span>
+          <h4>Building Idempotent ETL Pipelines in Snowflake + Python</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/snowflake-cost.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0d0d0c"/>
+            <!-- Descending bar chart -->
+            <g transform="translate(40, 30)">
+              <rect x="0" y="20" width="36" height="140" fill="#c47666" opacity="0.9"/>
+              <rect x="50" y="40" width="36" height="120" fill="#d4a356" opacity="0.9"/>
+              <rect x="100" y="65" width="36" height="95" fill="#d4a356" opacity="0.9"/>
+              <rect x="150" y="85" width="36" height="75" fill="#e9c98a" opacity="0.9"/>
+              <rect x="200" y="100" width="36" height="60" fill="#e9c98a" opacity="0.9"/>
+              <rect x="250" y="115" width="36" height="45" fill="#6b8e5a" opacity="0.9"/>
+              <rect x="300" y="125" width="36" height="35" fill="#6b8e5a" opacity="0.9"/>
+              <line x1="-5" y1="160" x2="340" y2="160" stroke="#2a2823" stroke-width="1"/>
+              <text x="170" y="185" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="10" letter-spacing="2">CREDIT BURN ↓ OVER TIME</text>
+            </g>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Cost Optimization</span>
+          <h4>Snowflake Credit Optimization at Scale</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/cdc-vs-snapshot.html" class="article-tile reveal d1">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#161614"/>
+            <!-- Three approach diagrams -->
+            <g transform="translate(40, 50)">
+              <!-- Snapshot -->
+              <text x="0" y="-10" fill="#d4a356" font-family="JetBrains Mono" font-size="9" letter-spacing="2">SNAPSHOT</text>
+              <rect x="0" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="20" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="40" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="60" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="80" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+
+              <!-- CDC -->
+              <text x="0" y="50" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">CDC</text>
+              <g transform="translate(0, 60)">
+                <circle cx="7" cy="7" r="5" fill="#6b8e5a"/>
+                <line x1="14" y1="7" x2="320" y2="7" stroke="#6b8e5a" stroke-width="1" stroke-dasharray="2,3"/>
+                <circle cx="60" cy="7" r="5" fill="#6b8e5a"/>
+                <circle cx="120" cy="7" r="5" fill="#6b8e5a"/>
+                <circle cx="200" cy="7" r="5" fill="#6b8e5a"/>
+                <circle cx="280" cy="7" r="5" fill="#6b8e5a"/>
+                <circle cx="320" cy="7" r="5" fill="#6b8e5a"/>
+              </g>
+
+              <!-- Full Load -->
+              <text x="0" y="110" fill="#c47666" font-family="JetBrains Mono" font-size="9" letter-spacing="2">FULL-LOAD</text>
+              <rect x="0" y="120" width="320" height="14" fill="#c47666" opacity="0.5"/>
+              <rect x="0" y="120" width="320" height="14" fill="none" stroke="#c47666" stroke-width="1"/>
+            </g>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Modeling</span>
+          <h4>Snapshot vs CDC vs Full-Load: Practical Tradeoffs in Modern ELT</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/fact-dimension-modeling.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0d0d0c"/>
+            <!-- Star schema -->
+            <g transform="translate(200, 112)">
+              <!-- Lines from center -->
+              <g stroke="#2a2823" stroke-width="1">
+                <line x1="0" y1="0" x2="-110" y2="-65"/>
+                <line x1="0" y1="0" x2="110" y2="-65"/>
+                <line x1="0" y1="0" x2="-110" y2="65"/>
+                <line x1="0" y1="0" x2="110" y2="65"/>
+                <line x1="0" y1="0" x2="0" y2="-90"/>
+                <line x1="0" y1="0" x2="0" y2="90"/>
+              </g>
+              <!-- Center fact -->
+              <rect x="-40" y="-22" width="80" height="44" fill="#d4a356"/>
+              <text y="4" text-anchor="middle" fill="#0d0d0c" font-family="JetBrains Mono" font-size="9" font-weight="600">FACT</text>
+              <!-- Dimensions -->
+              <g fill="none" stroke="#e9c98a" stroke-width="1.2">
+                <rect x="-150" y="-85" width="80" height="40"/>
+                <rect x="70" y="-85" width="80" height="40"/>
+                <rect x="-150" y="45" width="80" height="40"/>
+                <rect x="70" y="45" width="80" height="40"/>
+                <rect x="-40" y="-110" width="80" height="40"/>
+                <rect x="-40" y="70" width="80" height="40"/>
+              </g>
+              <text x="-110" y="-60" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="8">DIM_DATE</text>
+              <text x="110" y="-60" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="8">DIM_USER</text>
+              <text x="-110" y="70" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="8">DIM_PROD</text>
+              <text x="110" y="70" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="8">DIM_GEO</text>
+              <text y="-85" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="8">DIM_TENANT</text>
+              <text y="95" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="8">DIM_EVENT</text>
+            </g>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Dimensional Modeling</span>
+          <h4>Designing Fact &amp; Dimension Models for Behavioral Analytics</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/reconciliation-layer.html" class="article-tile reveal d1">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#161614"/>
+            <!-- Three system boxes converging -->
+            <g>
+              <rect x="30" y="40" width="80" height="40" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+              <text x="70" y="65" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="10" letter-spacing="1">CRM</text>
+
+              <rect x="30" y="100" width="80" height="40" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+              <text x="70" y="125" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="10" letter-spacing="1">BILLING</text>
+
+              <rect x="30" y="160" width="80" height="40" fill="none" stroke="#c47666" stroke-width="1.5"/>
+              <text x="70" y="185" text-anchor="middle" fill="#c47666" font-family="JetBrains Mono" font-size="10" letter-spacing="1">OPS</text>
+
+              <!-- Convergence lines -->
+              <g stroke="#8a857a" stroke-width="1" fill="none">
+                <path d="M 110 60 L 200 112"/>
+                <path d="M 110 120 L 200 112"/>
+                <path d="M 110 180 L 200 112"/>
+              </g>
+
+              <!-- Reconciliation box -->
+              <rect x="200" y="80" width="160" height="65" fill="#1f1e1b" stroke="#e9c98a" stroke-width="1.5"/>
+              <text x="280" y="105" text-anchor="middle" fill="#e9c98a" font-family="Fraunces" font-size="14" font-style="italic">reconcile</text>
+              <text x="280" y="128" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">DAILY · DETERMINISTIC</text>
+            </g>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Governance</span>
+          <h4>Designing a Reconciliation Layer Between CRM, Billing &amp; Operational Systems</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/analytics-workflow.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#0d0d0c"/>
+            <!-- Workflow horizontal -->
+            <g transform="translate(30, 100)">
+              <g stroke="#d4a356" stroke-width="1" fill="#0d0d0c">
+                <circle cx="0" cy="0" r="14"/>
+                <circle cx="80" cy="0" r="14"/>
+                <circle cx="160" cy="0" r="14"/>
+                <circle cx="240" cy="0" r="14"/>
+                <circle cx="320" cy="0" r="14"/>
+              </g>
+              <g fill="#d4a356" font-family="JetBrains Mono" font-size="9" text-anchor="middle">
+                <text y="4">1</text>
+                <text x="80" y="4">2</text>
+                <text x="160" y="4">3</text>
+                <text x="240" y="4">4</text>
+                <text x="320" y="4">5</text>
+              </g>
+              <g stroke="#d4a356" stroke-width="1" stroke-dasharray="3,3">
+                <line x1="14" y1="0" x2="66" y2="0"/>
+                <line x1="94" y1="0" x2="146" y2="0"/>
+                <line x1="174" y1="0" x2="226" y2="0"/>
+                <line x1="254" y1="0" x2="306" y2="0"/>
+              </g>
+              <g fill="#ebe3d2" font-family="JetBrains Mono" font-size="9" text-anchor="middle">
+                <text y="-30">DEFINE</text>
+                <text x="80" y="-30">MODEL</text>
+                <text x="160" y="-30">BUILD</text>
+                <text x="240" y="-30">TEST</text>
+                <text x="320" y="-30">SHIP</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Workflow</span>
+          <h4>My Workflow as an Analytics Engineer: Complex Data → Reliable Insights</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/sms-optimization.html" class="article-tile reveal d1">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="225" fill="#161614"/>
+            <!-- Phone-ish text bubble -->
+            <g transform="translate(100, 50)">
+              <rect x="0" y="0" width="200" height="60" rx="14" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+              <text x="100" y="28" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">Hi {name}, your appt</text>
+              <text x="100" y="42" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">is on {date}. Reply Y</text>
+              <text x="100" y="56" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="9">147 / 160 chars</text>
+
+              <!-- Char meter -->
+              <rect x="0" y="80" width="200" height="6" fill="#2a2823"/>
+              <rect x="0" y="80" width="183" height="6" fill="#6b8e5a"/>
+              <rect x="183" y="80" width="17" height="6" fill="#d4a356"/>
+            </g>
+            <text x="200" y="180" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">$$$ SAVED PER SEGMENT</text>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">SQL Story</span>
+          <h4>Reducing SMS Message Segments to Save $$$ — A SQL Optimization Story</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact wrap">
+  <div class="reveal">
+    <div class="sec-num">05 — Contact</div>
+    <h2>Let's build<br>something <span class="italic">durable.</span></h2>
+    <a href="mailto:gunabhiram.billa@gmail.com" class="email-link">gunabhiram.billa@gmail.com</a>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/gunabhiram/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/gunabhiram" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="mailto:gunabhiram.billa@gmail.com">Email ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right">
+      <span class="dot"></span>
+      Available for new opportunities
+    </span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // ---------- TABS ----------
+  document.querySelectorAll('.tab-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.skill-panel').forEach((p) => {
+        p.classList.toggle('active', p.dataset.panel === target);
+      });
+    });
+  });
+
+  // ---------- PROJECT EXPAND/COLLAPSE ----------
+  document.querySelectorAll('.project-row .header-row').forEach((row) => {
+    row.addEventListener('click', () => {
+      row.parentElement.classList.toggle('expanded');
+    });
+  });
+
+  // ---------- PROJECT FILTERS ----------
+  const filters = document.querySelectorAll('.filter-chip');
+  const rows = document.querySelectorAll('.project-row');
+  // Pre-compute counts for each filter
+  filters.forEach((f) => {
+    const filter = f.dataset.filter;
+    if (filter === 'all') return;
+    const count = Array.from(rows).filter(r => (r.dataset.tags || '').split(',').includes(filter)).length;
+    const span = document.createElement('span');
+    span.className = 'count';
+    span.textContent = count;
+    f.appendChild(span);
+  });
+
+  filters.forEach((f) => {
+    f.addEventListener('click', () => {
+      const filter = f.dataset.filter;
+      filters.forEach((b) => b.classList.toggle('active', b === f));
+      rows.forEach((row) => {
+        const tags = (row.dataset.tags || '').split(',');
+        const show = filter === 'all' || tags.includes(filter);
+        row.classList.toggle('hidden', !show);
+        if (!show) row.classList.remove('expanded');
+      });
+    });
+  });
+</script>
+</body>
+</html>

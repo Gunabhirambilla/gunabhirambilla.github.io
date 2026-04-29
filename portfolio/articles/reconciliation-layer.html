@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Designing a Reconciliation Layer — Gunabhiram Billa</title>
+<meta name="description" content="When CRM, billing, and operational systems disagree, finance pays the price. Here's how to build a reconciliation layer that catches mismatches before they compound." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Governance</span><span class="dot">/</span>
+      <span>Reconciliation</span><span class="dot">/</span>
+      <span>9 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">Designing a Reconciliation Layer Between CRM, Billing &amp; <span class="italic">Operational Systems.</span></h1>
+    <p class="article-deck reveal d2">Three systems. Three definitions of "active customer." Each one right by its own logic, all three wrong when finance closes the books. Here's the layer that fixes it.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hbg6" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#hbg6)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · THREE SYSTEMS · ONE TRUTH</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- Three systems on left -->
+        <g transform="translate(120, 130)">
+          <rect width="200" height="60" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+          <text x="100" y="36" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="13" letter-spacing="3">CRM</text>
+          <text x="100" y="80" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">contracts · accounts</text>
+        </g>
+        <g transform="translate(120, 240)">
+          <rect width="200" height="60" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+          <text x="100" y="36" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="13" letter-spacing="3">BILLING</text>
+          <text x="100" y="80" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">invoices · revenue</text>
+        </g>
+        <g transform="translate(120, 350)">
+          <rect width="200" height="60" fill="none" stroke="#c47666" stroke-width="1.5"/>
+          <text x="100" y="36" text-anchor="middle" fill="#c47666" font-family="JetBrains Mono" font-size="13" letter-spacing="3">OPS</text>
+          <text x="100" y="80" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">activity · usage</text>
+        </g>
+
+        <!-- Lines converging to recon -->
+        <g stroke="#8a857a" stroke-width="1" fill="none">
+          <path d="M 320 160 Q 460 200 580 230" />
+          <path d="M 320 270 L 580 250" />
+          <path d="M 320 380 Q 460 320 580 270" />
+        </g>
+
+        <!-- Reconciliation layer -->
+        <g transform="translate(580, 195)">
+          <rect width="280" height="120" fill="#1f1e1b" stroke="#e9c98a" stroke-width="1.5"/>
+          <text x="140" y="40" text-anchor="middle" fill="#e9c98a" font-family="Fraunces" font-size="22" font-style="italic">reconcile</text>
+          <text x="140" y="65" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">CANONICAL ENTITY KEYS</text>
+          <text x="140" y="82" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">DETERMINISTIC MISMATCH RULES</text>
+          <text x="140" y="99" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">DAILY SNAPSHOTS</text>
+        </g>
+
+        <!-- Outputs -->
+        <g stroke="#8a857a" stroke-width="1" fill="none">
+          <line x1="860" y1="225" x2="940" y2="180"/>
+          <line x1="860" y1="255" x2="940" y2="280"/>
+        </g>
+        <g transform="translate(940, 150)">
+          <rect width="180" height="60" fill="none" stroke="#8a857a" stroke-width="1"/>
+          <text x="90" y="36" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11">EXCEPTIONS REPORT</text>
+        </g>
+        <g transform="translate(940, 250)">
+          <rect width="180" height="60" fill="none" stroke="#8a857a" stroke-width="1"/>
+          <text x="90" y="36" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11">DRIFT TIMELINE</text>
+        </g>
+      </svg>
+      <div class="caption">Three systems · canonical join · daily exception output</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#why">01 Why It Breaks</a></li>
+          <li><a href="#canonical">02 Canonical Keys</a></li>
+          <li><a href="#rules">03 Mismatch Rules</a></li>
+          <li><a href="#cadence">04 Daily Cadence</a></li>
+          <li><a href="#takeaways">05 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="why"><span class="num">01 — The problem</span>Why three systems disagree</h2>
+        <p>Each system is right within its own boundaries. CRM tracks contracts. Billing tracks invoices. Operations tracks usage. The trouble is that each system has slightly different definitions of the same entity — different IDs, different start dates, different "active" criteria — and slight differences compound into real-money problems at month-end.</p>
+
+        <p>The classic failure mode: a customer signs in CRM with start date Jan 1. Billing only knows about them on the day of the first invoice (Jan 15). Ops sees them when they actually start using the product (Jan 20). At month end, Finance asks "how many active customers did we have in January?" and gets three different answers.</p>
+
+        <div class="pullquote">Reconciliation is not a project you finish. It&apos;s a control plane you operate.</div>
+
+        <h2 id="canonical"><span class="num">02 — Step one</span>Canonical entity resolution</h2>
+        <p>The first job of the reconciliation layer is to map each system's identifiers to a single canonical key. CRM has its own account IDs, billing has its customer IDs, ops has its tenant IDs. Without a canonical key, every join is approximate.</p>
+
+        <p>The mapping is usually a small table maintained as the source of truth — sometimes manually, often by joining on stable natural keys (legal name, EIN, primary domain). Once the map exists, every fact in the reconciliation layer references the canonical key, not the source-system key.</p>
+
+        <div class="code">
+          <div class="code-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span style="margin-left: 8px;">canonical_entity_map.sql</span>
+          </div>
+<pre><span class="kw">CREATE TABLE</span> canonical_entity_map (
+  canonical_id    <span class="kw">VARCHAR</span>,
+  source_system   <span class="kw">VARCHAR</span>,    <span class="com">-- 'crm' | 'billing' | 'ops'</span>
+  source_id       <span class="kw">VARCHAR</span>,
+  effective_from  <span class="kw">DATE</span>,
+  effective_to    <span class="kw">DATE</span>,
+  notes           <span class="kw">VARCHAR</span>,
+  <span class="kw">PRIMARY KEY</span> (canonical_id, source_system)
+);</pre>
+        </div>
+
+        <h2 id="rules"><span class="num">03 — Step two</span>Deterministic mismatch rules</h2>
+        <p>Once you can join the systems, you need rules for what counts as a mismatch. These have to be deterministic — no human judgment in the loop — and each rule has to produce a specific, actionable category.</p>
+
+        <p>Examples of rules that have earned their keep:</p>
+        <ul>
+          <li><strong>CRM_ACTIVE_BILLING_INACTIVE</strong> — contract live, no invoice for current period</li>
+          <li><strong>BILLING_ACTIVE_OPS_INACTIVE</strong> — invoice issued, no usage in current period (potential refund flag)</li>
+          <li><strong>OPS_ACTIVE_BILLING_INACTIVE</strong> — usage detected, no billing record (revenue leakage risk)</li>
+          <li><strong>FTE_THRESHOLD_DRIFT</strong> — billed FTEs differ from operational FTE count by more than tolerance</li>
+        </ul>
+
+        <p>Each rule is implemented as a SQL view or query, and each mismatch row is logged with its rule name, severity, and the canonical IDs involved. Operations then routes each exception to the right team — billing exceptions to AR, contract exceptions to account managers, usage anomalies to product.</p>
+
+        <h2 id="cadence"><span class="num">04 — Operationalize</span>Daily snapshots, monthly checkpoints</h2>
+        <p>A reconciliation that runs once a month is too late. By then, the source-of-the-error information has often been lost — invoices have been issued, corrections compound. Run reconciliation <strong>daily</strong>, store the snapshot, and review the exception list weekly.</p>
+
+        <p>The daily snapshot also gives you a drift timeline: you can see when a particular mismatch first appeared, which is half the battle in figuring out the root cause. A mismatch that appeared on Tuesday traces back to a specific change in the source system; a mismatch that's been there for six months is a structural issue.</p>
+
+        <div class="callout">
+          <span class="callout-label">→ Severity matters</span>
+          <p>Not every mismatch deserves a ticket. Triage by financial impact: a $500 invoice mismatch is an info-level log; a $50K mismatch is a P1. Severity rules belong in the reconciliation layer, not in human judgment downstream.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">05 — Takeaways</span>Building trust through visibility</h2>
+        <p>The goal isn't to eliminate mismatches — those are inherent to having three systems do their jobs. The goal is to make every mismatch <em>visible</em> within 24 hours, categorized, and routed. That's how finance trust gets built.</p>
+
+        <ul>
+          <li><strong>Canonical entity keys are the foundation.</strong> Without them, every join is approximate.</li>
+          <li><strong>Make mismatch rules explicit and named.</strong> "Something's off" is not a rule.</li>
+          <li><strong>Run daily, review weekly, audit monthly.</strong> Drift compounds; cadence catches it early.</li>
+          <li><strong>Severity routes the work.</strong> Not every mismatch is an emergency; some are signal worth knowing.</li>
+        </ul>
+
+        <p>When finance closes the books and the numbers match — quietly, repeatably, without heroics — the reconciliation layer is doing its job.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="multi-tenant-warehouse.html" class="related-tile">
+        <span class="tag">Architecture</span>
+        <h5>Designing a Multi-Tenant Healthcare Data Warehouse in Snowflake</h5>
+      </a>
+      <a href="analytics-workflow.html" class="related-tile">
+        <span class="tag">Workflow</span>
+        <h5>My Workflow as an Analytics Engineer</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Designing a Multi-Tenant Healthcare Data Warehouse in Snowflake — Gunabhiram Billa</title>
+<meta name="description" content="How to architect a Snowflake warehouse that safely serves multiple healthcare tenants — isolation, conformed dimensions, governance, and the patterns that scale to 60+ dashboards." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>GB / Data Engineer</span>
+    </div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a>
+      <a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Architecture</span>
+      <span class="dot">/</span>
+      <span>Snowflake</span>
+      <span class="dot">/</span>
+      <span>14 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">Designing a Multi-Tenant Healthcare Data Warehouse in <span class="italic">Snowflake.</span></h1>
+    <p class="article-deck reveal d2">Multiple customers. Shared infrastructure. Strict isolation. Here's the architecture I built to serve 60+ multi-tenant dashboards without sacrificing governance, performance, or sanity.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/>
+            <stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="500" fill="url(#hbg)"/>
+        <!-- Title row at top -->
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · MULTI-TENANT WAREHOUSE TOPOLOGY</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- Source layer -->
+        <text x="60" y="120" fill="#d4a356" font-family="JetBrains Mono" font-size="10" letter-spacing="2">SOURCE SYSTEMS</text>
+        <g transform="translate(60, 140)">
+          <rect width="180" height="60" fill="none" stroke="#2a2823" stroke-width="1"/>
+          <text x="90" y="36" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11">EHR · CRM · BILLING</text>
+        </g>
+
+        <!-- Staging -->
+        <text x="320" y="120" fill="#d4a356" font-family="JetBrains Mono" font-size="10" letter-spacing="2">STAGING</text>
+        <g transform="translate(320, 140)">
+          <rect width="180" height="60" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+          <text x="90" y="36" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11">RAW MIRRORS</text>
+        </g>
+
+        <!-- Intermediate -->
+        <text x="580" y="120" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="2">INTERMEDIATE</text>
+        <g transform="translate(580, 140)">
+          <rect width="180" height="60" fill="none" stroke="#e9c98a" stroke-width="1.5"/>
+          <text x="90" y="30" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11">CONFORMED DIMS</text>
+          <text x="90" y="48" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SCD TYPE 2 · BUSINESS LOGIC</text>
+        </g>
+
+        <!-- Marts -->
+        <text x="840" y="120" fill="#6b8e5a" font-family="JetBrains Mono" font-size="10" letter-spacing="2">MARTS / EXPOSURE</text>
+        <g transform="translate(840, 140)">
+          <rect width="55" height="60" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+          <text x="27" y="36" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="10">T_A</text>
+
+          <rect x="65" width="55" height="60" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+          <text x="92" y="36" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="10">T_B</text>
+
+          <rect x="130" width="55" height="60" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+          <text x="157" y="36" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="10">T_C</text>
+
+          <rect x="195" width="55" height="60" fill="none" stroke="#6b8e5a" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="222" y="36" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="10">...</text>
+        </g>
+
+        <!-- Arrows -->
+        <g stroke="#2a2823" stroke-width="1" fill="none">
+          <line x1="240" y1="170" x2="320" y2="170"/>
+          <line x1="500" y1="170" x2="580" y2="170"/>
+          <line x1="760" y1="170" x2="840" y2="170"/>
+          <polygon points="320,170 312,167 312,173" fill="#2a2823"/>
+          <polygon points="580,170 572,167 572,173" fill="#2a2823"/>
+          <polygon points="840,170 832,167 832,173" fill="#2a2823"/>
+        </g>
+
+        <!-- Governance layer -->
+        <text x="60" y="280" fill="#c47666" font-family="JetBrains Mono" font-size="10" letter-spacing="2">GOVERNANCE LAYER</text>
+        <g transform="translate(60, 300)">
+          <rect width="1080" height="50" fill="none" stroke="#c47666" stroke-width="1" stroke-dasharray="4,4"/>
+          <text x="540" y="22" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="11">ROW-ACCESS POLICIES · TAG-BASED MASKING · WAREHOUSE GRANTS · ROLE HIERARCHY</text>
+          <text x="540" y="40" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">↑  applied at every layer  ↑</text>
+        </g>
+
+        <!-- Annotation -->
+        <g transform="translate(60, 410)">
+          <rect width="1080" height="50" fill="none" stroke="#2a2823" stroke-width="1"/>
+          <text x="540" y="22" text-anchor="middle" fill="#d4a356" font-family="Fraunces" font-size="14" font-style="italic">tenant_id propagates through every fact — no shortcut, no exception</text>
+          <text x="540" y="42" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">DESIGN PRINCIPLE · 01</text>
+        </g>
+      </svg>
+      <div class="caption">Topology · 4 layers · 1 governance plane</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#problem">01 The Problem</a></li>
+          <li><a href="#layers">02 The Layered Architecture</a></li>
+          <li><a href="#tenancy">03 Tenancy Patterns</a></li>
+          <li><a href="#dimensions">04 Conformed Dimensions</a></li>
+          <li><a href="#governance">05 Governance &amp; Isolation</a></li>
+          <li><a href="#takeaways">06 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="problem"><span class="num">01 — Problem</span>One warehouse, many customers</h2>
+        <p>When you serve a B2B SaaS product into healthcare, your warehouse is rarely just <em>your</em> warehouse. It's the foundation under every customer-facing dashboard, every renewal conversation, every operational alert. And it has to be all of those things — for many customers — without ever leaking data across boundaries.</p>
+        <p>The warehouse I inherited had grown organically. Each customer's analytics needs were met with bespoke views and one-off SQL. Cross-tenant benchmarking was impossible without manually joining customer-specific tables. Onboarding new customers required engineering work, not configuration. And the lurking risk — quietly visible to anyone who knew where to look — was that <strong>nothing structurally prevented one tenant's row from being returned to another</strong>.</p>
+
+        <div class="callout">
+          <span class="callout-label">⚠ The risk</span>
+          <p>In multi-tenant analytics, the worst-case bug is silent. A query returns extra rows. A dashboard shows a number that's wrong by 3%. Nobody notices until someone does — and at that point, trust is already gone.</p>
+        </div>
+
+        <h2 id="layers"><span class="num">02 — Architecture</span>The layered architecture</h2>
+        <p>The redesign was anchored on three layers, each with explicit contracts:</p>
+
+        <ol>
+          <li><strong>Staging</strong> — exact mirrors of source systems, no transformations, no joins. The job here is fidelity.</li>
+          <li><strong>Intermediate</strong> — business logic applied. Conformed dimensions built. SCD Type 2 history tracked. Tenant ID propagated. The job here is correctness.</li>
+          <li><strong>Marts</strong> — semantic exposure, denormalized for dashboard performance. Tenant-isolated views built on top of conformed facts. The job here is speed.</li>
+        </ol>
+
+        <div class="figure">
+          <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="280" fill="#0d0d0c"/>
+            <g transform="translate(40, 40)">
+              <!-- Layer 1 -->
+              <rect x="0" y="0" width="220" height="200" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+              <text x="110" y="-10" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="10" letter-spacing="2">STAGING</text>
+              <text x="110" y="80" text-anchor="middle" fill="#ebe3d2" font-family="Fraunces" font-size="22" font-style="italic">fidelity</text>
+              <text x="110" y="110" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">EXACT MIRRORS</text>
+              <text x="110" y="128" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">NO LOGIC</text>
+              <text x="110" y="146" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">RAW SCHEMA</text>
+
+              <!-- Layer 2 -->
+              <rect x="250" y="0" width="220" height="200" fill="none" stroke="#e9c98a" stroke-width="1.5"/>
+              <text x="360" y="-10" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="10" letter-spacing="2">INTERMEDIATE</text>
+              <text x="360" y="80" text-anchor="middle" fill="#ebe3d2" font-family="Fraunces" font-size="22" font-style="italic">correctness</text>
+              <text x="360" y="110" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">CONFORMED DIMS</text>
+              <text x="360" y="128" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SCD TYPE 2</text>
+              <text x="360" y="146" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">TENANT_ID PROPAGATED</text>
+
+              <!-- Layer 3 -->
+              <rect x="500" y="0" width="220" height="200" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+              <text x="610" y="-10" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="10" letter-spacing="2">MARTS</text>
+              <text x="610" y="80" text-anchor="middle" fill="#ebe3d2" font-family="Fraunces" font-size="22" font-style="italic">speed</text>
+              <text x="610" y="110" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">DENORMALIZED</text>
+              <text x="610" y="128" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">DASHBOARD-READY</text>
+              <text x="610" y="146" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">ROW-ACCESS POLICY</text>
+
+              <!-- Arrows -->
+              <line x1="220" y1="100" x2="250" y2="100" stroke="#2a2823" stroke-width="1.5"/>
+              <line x1="470" y1="100" x2="500" y2="100" stroke="#2a2823" stroke-width="1.5"/>
+              <polygon points="250,100 240,96 240,104" fill="#2a2823"/>
+              <polygon points="500,100 490,96 490,104" fill="#2a2823"/>
+            </g>
+          </svg>
+          <figcaption><strong>Fig. 02</strong> · Each layer has one job. Crossing layers without going through the right contract is a code smell.</figcaption>
+        </div>
+
+        <p>The temptation in any growing warehouse is to skip the middle layer — to let dashboards reach into staging when the business logic is "obvious." Resist this. Every shortcut that bypasses the intermediate layer is a place where business rules drift between consumers.</p>
+
+        <h2 id="tenancy"><span class="num">03 — Tenancy</span>Three patterns for tenancy</h2>
+        <p>You have roughly three options for serving multiple tenants from one warehouse:</p>
+
+        <div class="compare">
+          <div class="compare-cell">
+            <h4>① Database per tenant</h4>
+            <p>Hardest to leak across, but operationally expensive. Schema migrations multiply. Cross-tenant analytics require external joins. Reasonable when tenants need radically different schemas.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>② Schema per tenant</h4>
+            <p>Middle ground. Easier to manage than DB-per-tenant. Cross-tenant queries possible but ugly. Schema drift between tenants becomes a real risk.</p>
+          </div>
+          <div class="compare-cell">
+            <h4>③ Tenant column + row policies</h4>
+            <p>One physical table for each fact, with <code>tenant_id</code> propagated and a row-access policy enforcing isolation. Cleanest for benchmarking, easiest to maintain. <em>This is what I chose.</em></p>
+          </div>
+          <div class="compare-cell">
+            <h4>Hybrid</h4>
+            <p>Shared dimensions in row-policy mode; tenant-specific marts in schema-per-tenant mode for customer-facing exposure. Pragmatic for most cases. Used selectively here for customer-export marts.</p>
+          </div>
+        </div>
+
+        <p>The decision hinges on what you optimize for. Going row-policy-first lets the warehouse benchmark, aggregate, and govern in one place — at the cost of getting the row-access policy <em>exactly right, every time</em>. There is no margin for error there.</p>
+
+        <div class="pullquote">There is no &quot;mostly correct&quot; in tenant isolation. The policy either holds for every query, or it doesn&apos;t.</div>
+
+        <h2 id="dimensions"><span class="num">04 — Conformed</span>Conformed dimensions across tenants</h2>
+        <p>Some entities are tenant-private (a customer's own provider list). Others are shared and conformed across tenants (calendar, geography, ICD-10 codes, payer lookups). Mixing these without discipline is how drift creeps in.</p>
+
+        <p>The rule I settled on: <strong>shared dimensions are owned centrally and live in a single schema</strong>. Tenant-specific overrides go into a parallel <code>tenant_overrides</code> table that joins back via tenant ID. Reports always join through a view that applies overrides where present and falls back to the shared dimension otherwise.</p>
+
+        <div class="code">
+          <div class="code-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span style="margin-left: 8px;">conformed_dim_provider.sql</span>
+          </div>
+<pre><span class="com">-- Conformed dimension with tenant overrides</span>
+<span class="kw">CREATE OR REPLACE VIEW</span> dim_provider <span class="kw">AS</span>
+<span class="kw">SELECT</span>
+  <span class="kw">COALESCE</span>(o.provider_key, b.provider_key)   <span class="kw">AS</span> provider_key,
+  <span class="kw">COALESCE</span>(o.display_name, b.display_name)   <span class="kw">AS</span> display_name,
+  <span class="kw">COALESCE</span>(o.specialty,    b.specialty)      <span class="kw">AS</span> specialty,
+  b.tenant_id,
+  b.effective_from,
+  b.effective_to,
+  b.is_current
+<span class="kw">FROM</span> dim_provider_base b
+<span class="kw">LEFT JOIN</span> dim_provider_tenant_overrides o
+  <span class="kw">ON</span>  b.provider_key = o.provider_key
+  <span class="kw">AND</span> b.tenant_id    = o.tenant_id;</pre>
+        </div>
+
+        <p>This pattern keeps the shared schema canonical while letting individual tenants rename, recategorize, or hide entries without forking the dimension.</p>
+
+        <h2 id="governance"><span class="num">05 — Governance</span>Isolation enforced at the platform</h2>
+        <p>Code is fallible. Reviews miss things. The only durable answer is to enforce isolation at a layer below the SQL — at the warehouse itself.</p>
+
+        <p>In Snowflake, this means:</p>
+        <ul>
+          <li><strong>Row-access policies</strong> on every fact table, keyed off the calling role's tenant claim</li>
+          <li><strong>Tag-based masking</strong> on PHI columns so dev and staging environments never see real data</li>
+          <li><strong>Role hierarchy</strong> built top-down: tenant roles inherit from a base read-role with the row policy applied; admin roles bypass it explicitly and audibly</li>
+          <li><strong>Warehouse grants</strong> separated from schema grants so compute access can be revoked without restructuring data permissions</li>
+        </ul>
+
+        <div class="callout">
+          <span class="callout-label">→ Test it like a security control</span>
+          <p>Write tests that try to violate the policy. Pick a query, run it as Tenant A, capture the count. Run it as Tenant B, capture the count. Run it as the platform role with no tenant — capture the union. The first two must never overlap. The third must equal their sum.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">06 — Takeaways</span>What this bought us</h2>
+        <p>This architecture became the foundation for <strong>60+ multi-tenant customer dashboards</strong> and dozens of internal analytical use cases. Onboarding a new customer is now a config change, not a code change. Cross-tenant benchmarking — once a manual spreadsheet exercise — runs as a single query. Drift between consumers stopped, because there is one place where business logic lives.</p>
+
+        <p>If I had to compress what I learned into a few lines:</p>
+
+        <ul>
+          <li><strong>Pick one tenancy pattern and apply it everywhere.</strong> Hybrid is fine, but only by exception, and only with documentation.</li>
+          <li><strong>Make tenant_id structural, not a convention.</strong> It belongs in primary keys, indexes, and access policies — not just SELECT lists.</li>
+          <li><strong>Conformed dimensions are organizational design</strong>, not just data design. Decide who owns them before you build them.</li>
+          <li><strong>Test isolation like a security boundary</strong>, because that's what it is.</li>
+        </ul>
+
+        <p>The dashboards on top of this warehouse are the visible product. The architecture under them is the reason the dashboards are trusted. That's a trade-off I'll always take.</p>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="idempotent-etl.html" class="related-tile">
+        <span class="tag">Engineering</span>
+        <h5>Building Idempotent ETL Pipelines in Snowflake + Python</h5>
+      </a>
+      <a href="reconciliation-layer.html" class="related-tile">
+        <span class="tag">Governance</span>
+        <h5>Designing a Reconciliation Layer Between CRM, Billing &amp; Operational Systems</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right">
+      <span class="dot"></span>
+      Available for new opportunities
+    </span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
