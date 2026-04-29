@@ -15,6 +15,7 @@
   --accent-3: #c89244;
   --green: #6b8e5a;
   --red: #c47666;
+  --nav-bg: rgba(13,13,12,0.72);
   --serif: "Fraunces", Georgia, serif;
   --sans: "Inter Tight", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, monospace;
@@ -35,6 +36,7 @@
   --accent-3: #c89244;
   --green: #4a6b3a;      /* deeper green */
   --red: #a85638;        /* deeper red */
+  --nav-bg: rgba(245,241,232,0.78);
 }
 
 /* Light-mode grain — needs to be dark dots on light bg */
@@ -115,6 +117,11 @@
 /* Scroll-top button in light mode */
 [data-theme="light"] .scroll-top:hover {
   color: var(--ink);
+}
+
+/* Stronger nav border in light mode for clarity */
+[data-theme="light"] nav {
+  border-bottom-color: var(--line);
 }
 
 /* Selection */
@@ -297,7 +304,7 @@ nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 50;
   backdrop-filter: blur(14px);
-  background: rgba(13,13,12,0.72);
+  background: var(--nav-bg);
   border-bottom: 1px solid var(--line-soft);
 }
 nav .inner {
