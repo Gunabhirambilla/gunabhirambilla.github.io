@@ -1288,6 +1288,17 @@
             <li>Git / GitHub workflows</li>
           </ul>
         </div>
+        <div class="skill-card">
+          <div class="num">// 04</div>
+          <h3>Databricks &amp; Spark</h3>
+          <ul>
+            <li>Serverless compute (Python + Spark SQL)</li>
+            <li>PySpark job scheduling &amp; alerting</li>
+            <li>Workspace-based state (DBFS-restricted patterns)</li>
+            <li>Genie-driven notebook workflows</li>
+            <li>Window-function &amp; CTE-heavy query design</li>
+          </ul>
+        </div>
       </div>
 
       <div class="skill-panel" data-panel="modeling">
@@ -1375,7 +1386,7 @@
     </div>
 
     <div class="project-filters reveal d1">
-      <button class="filter-chip active" data-filter="all">All <span class="count">13</span></button>
+      <button class="filter-chip active" data-filter="all">All <span class="count">17</span></button>
       <button class="filter-chip" data-filter="snowflake">Snowflake</button>
       <button class="filter-chip" data-filter="python">Python</button>
       <button class="filter-chip" data-filter="dbt">dbt</button>
@@ -1882,6 +1893,154 @@
         </div>
       </div>
 
+      <!-- /14 -->
+      <div class="project-row reveal" data-tags="python,streaming,optimization">
+        <div class="header-row">
+          <div class="proj-num">/14</div>
+          <div class="proj-name">Hourly Slack Alerting for Commercial Ops</div>
+          <div class="proj-stack">
+            <span>Databricks</span><span>PySpark</span><span>Slack API</span><span>Serverless</span>
+          </div>
+          <div class="proj-impact">Real-time Slack alerts for new cases, replies, and reassignments straight from Siebel CRM activity. <em>Zero duplicate or missed alerts after fixing a 4.5-hour source lag.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Analysts relied on manually refreshing Siebel to catch new cases, customer replies, and reassignments. The existing hourly job used a 60-minute lookback window that almost never caught anything, because the source activity view had an undocumented ~4.5-hour lag between an activity being created and it appearing in the queryable view.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Ruled out timezone misalignment, confirmed the lag, then widened the lookback window to 720 minutes, wide enough for a ~7.5-hour catch window past the lag. Built three alert types with cross-alert priority so a case only fires its highest-priority alert per run, and protected the wider window with a three-layer dedup system: a workspace watermark file, per-send incremental writes, and max_retries: 0 at the job level.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Siebel CRM activity view queried hourly via PySpark</li>
+                <li>Slack Block Kit messages with direct @mentions via a name-to-user-ID map</li>
+                <li>Workspace JSON watermark written after every send (Serverless blocks DBFS writes)</li>
+                <li>RuntimeError on failure triggers a job-level email alert, no silent retries</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">12h</div><div class="l">Lookback window</div></div>
+                <div class="metric"><div class="v">3</div><div class="l">Alert types</div></div>
+                <div class="metric"><div class="v">0</div><div class="l">Duplicate resends</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /15 -->
+      <div class="project-row reveal" data-tags="python,ai,optimization">
+        <div class="header-row">
+          <div class="proj-num">/15</div>
+          <div class="proj-name">Tiered Diagnostic Notebook for Fleet Telemetry</div>
+          <div class="proj-stack">
+            <span>Databricks</span><span>PySpark</span><span>LLM</span><span>Serverless</span>
+          </div>
+          <div class="proj-impact">A three-tier decision tree plus an AI case-note layer, replacing manual multi-system lookups for fleet telemetry support. <em>Resolves most cases without ever leaving the fast path.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>When a fleet partner reports a vehicle isn't reporting telemetry, the root cause could live in any of five or six backend systems — consent, enrollment, push history, SIM status, GPS flags. Analysts were manually querying each system and the CRM before they could even start the case note.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Built a stateful notebook with a single input cell (VIN, case number, analyst) feeding all downstream cells. Tier 1 runs five queries in one cell, merges them per VIN, and feeds a deterministic gate function that walks a fixed decision tree to a verdict and issue code, resolving most cases immediately. Tier 2 adds nine independent deep-dive cells, run only when Tier 1 flags them. Tier 3 is an LLM call that turns the collected diagnostic variables into a ready-to-send, strictly-formatted partner case note.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Deterministic gate function: consent, account/vehicle gates, unit state, connectivity, FAN mapping, push history</li>
+                <li>9 independent Tier 2 cells for SIM, GPS, tasks, plan ID, and event traces</li>
+                <li>LLM case-note generator enforcing a verdict/findings/next-steps format</li>
+                <li>Fully drivable via Genie — paste VIN, case, and email, get cells run and a note generated</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">3</div><div class="l">Diagnostic tiers</div></div>
+                <div class="metric"><div class="v">9</div><div class="l">Deep-dive cells</div></div>
+                <div class="metric"><div class="v">5</div><div class="l">Fast-path queries</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /16 -->
+      <div class="project-row reveal" data-tags="python,reconciliation,optimization">
+        <div class="header-row">
+          <div class="proj-num">/16</div>
+          <div class="proj-name">Scheduled Health Export for Partner Containment</div>
+          <div class="proj-stack">
+            <span>Databricks</span><span>PySpark</span><span>openpyxl</span><span>Excel</span>
+          </div>
+          <div class="proj-impact">Automated healthy/unhealthy vehicle classification for partner containment programs, delivered as a formatted, date-stamped Excel report. <em>One shared CTE, zero overlap between tabs.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Partner operations teams needed a recurring, reliable answer to one question: which enrolled vehicles resolved cleanly, and which are stuck unresolved and need attention, without manually cross-referencing processing runs.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Built a two-cell notebook around one shared CTE that ranks each vehicle's most recent processing record, using window functions to dedupe and forward-fill so every vehicle appears exactly once. A CASE expression classifies known failure codes as unhealthy and everything else as healthy; the healthy tab uses a rolling lookback window while the unhealthy tab is scoped strictly to the latest run date. A null-partner-reference check runs before the file writes to catch data quality issues early.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Shared CTE with window-function ranking and forward-filled reference fields</li>
+                <li>CASE-based health classification against a fixed failure-code list</li>
+                <li>openpyxl formatting: bold headers, borders, auto-fit columns, two named tabs</li>
+                <li>Date-stamped filename for run-over-run versioning</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">2</div><div class="l">Report tabs</div></div>
+                <div class="metric"><div class="v">1</div><div class="l">Shared CTE</div></div>
+                <div class="metric"><div class="v">Daily</div><div class="l">Cadence</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /17 -->
+      <div class="project-row reveal" data-tags="modeling,optimization">
+        <div class="header-row">
+          <div class="proj-num">/17</div>
+          <div class="proj-name">Self-Serve Case Queue Report for Support Analysts</div>
+          <div class="proj-stack">
+            <span>Databricks SQL</span><span>Window Functions</span>
+          </div>
+          <div class="proj-impact">A parameter-driven, pure-SQL report giving every analyst a real-time view of their case queue. <em>No CRM navigation, no Python required.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Challenge</h5>
+              <p>Analysts needed a consolidated, real-time view of their open case queue and email activity, what needs a response, what's gone stale without follow-up, without manually navigating the CRM's case-by-case interface.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Built a single-parameter SQL notebook, cloned per analyst to keep execution state isolated. A UNION bridges current case status with the full historical activity record, and window functions isolate the most recent activity per case without subquery nesting. Auto-acknowledgment filtering excludes system-generated replies from needs-response counts, and pure-SQL weekday arithmetic powers a stale-follow-up queue with no UDFs or calendar tables.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Single string parameter (analyst name) drives the entire notebook</li>
+                <li>UNION plus window-function pattern isolates most-recent activity per case</li>
+                <li>Auto-ack filtering and pure-SQL business-day arithmetic</li>
+                <li>Runs entirely on a SQL warehouse, no Python</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">0</div><div class="l">Python dependencies</div></div>
+                <div class="metric"><div class="v">1</div><div class="l">Parameter</div></div>
+                <div class="metric"><div class="v">Per-analyst</div><div class="l">Cloning</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1938,7 +2097,7 @@
 <section id="articles" class="articles-bg">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 05 · writing · 8 essays</div>
+      <div class="sec-num">// 05 · writing · 12 essays</div>
       <h2 class="sec-title">Field <span class="italic">notes.</span></h2>
       <p class="sec-sub">Technical writing on data modeling, architecture decisions, automation patterns, and governance. Most of these are post-mortems on something that broke first.</p>
     </div>
@@ -2231,6 +2390,100 @@
         <div class="article-content">
           <span class="tag">SQL Story</span>
           <h4>Reducing SMS Message Segments to Save $$$ — A SQL Optimization Story</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/siebel-slack-alerting.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="tbg1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="225" fill="url(#tbg1)"/>
+            <line x1="40" y1="112" x2="360" y2="112" stroke="#2a2823" stroke-width="1" stroke-dasharray="3,3"/>
+            <circle cx="70" cy="112" r="8" fill="#6b8e5a"/>
+            <circle cx="200" cy="112" r="8" fill="#d4a356"/>
+            <circle cx="330" cy="112" r="8" fill="#8a857a"/>
+            <text x="200" y="90" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">HOURLY SLACK ALERTS</text>
+            <text x="200" y="150" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="11">4.5H LAG</text>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Reliability</span>
+          <h4>Building an Hourly Slack Alerting System on Top of a Laggy CRM View</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/vin-telemetry-diagnostic.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="tbg2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="225" fill="url(#tbg2)"/>
+            <rect x="60" y="60" width="100" height="40" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+            <text x="110" y="84" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9">TIER 1</text>
+            <rect x="60" y="115" width="100" height="40" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+            <text x="110" y="139" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="9">TIER 2</text>
+            <rect x="220" y="87" width="120" height="40" fill="none" stroke="#c8956a" stroke-width="1.5"/>
+            <text x="280" y="111" text-anchor="middle" fill="#c8956a" font-family="JetBrains Mono" font-size="9">TIER 3 · AI</text>
+            <text x="200" y="180" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">FLEET TELEMETRY DIAGNOSIS</text>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Diagnostics</span>
+          <h4>A Tiered Diagnostic Notebook for Fleet Telemetry Support</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/containment-vin-excel-export.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="tbg3" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="225" fill="url(#tbg3)"/>
+            <rect x="80" y="70" width="100" height="80" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+            <text x="130" y="115" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="10">HEALTHY</text>
+            <rect x="220" y="70" width="100" height="80" fill="none" stroke="#c0605a" stroke-width="1.5"/>
+            <text x="270" y="115" text-anchor="middle" fill="#c0605a" font-family="JetBrains Mono" font-size="10">UNHEALTHY</text>
+            <text x="200" y="180" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">CONTAINMENT HEALTH EXPORT</text>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">Reporting</span>
+          <h4>A Scheduled Health Export for Partner Containment Programs</h4>
+          <span class="read">Read essay <span>→</span></span>
+        </div>
+      </a>
+
+      <a href="articles/case-activity-self-serve.html" class="article-tile reveal">
+        <div class="article-thumb">
+          <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="tbg4" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="225" fill="url(#tbg4)"/>
+            <rect x="50" y="80" width="90" height="60" fill="none" stroke="#c0605a" stroke-width="1.5"/>
+            <rect x="155" y="80" width="90" height="60" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+            <rect x="260" y="80" width="90" height="60" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+            <text x="200" y="170" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SELF-SERVE CASE QUEUE</text>
+          </svg>
+        </div>
+        <div class="article-content">
+          <span class="tag">SQL Story</span>
+          <h4>A Self-Serve Case Queue Report Built on Two Window Functions</h4>
           <span class="read">Read essay <span>→</span></span>
         </div>
       </a>
