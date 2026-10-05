@@ -2008,7 +2008,7 @@
 <section id="principles" class="principles-bg">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 04 · principles · 5 rules</div>
+      <div class="sec-num">// 04 · principles · 8 rules</div>
       <h2 class="sec-title">How I <span class="italic">think.</span></h2>
       <p class="sec-sub">Opinions earned shipping data systems. Each one has a scar behind it — a 3 a.m. page, a quarter-end mismatch, a dashboard that lied for two months before anyone noticed. I write them down so I don't forget.</p>
     </div>
@@ -2047,6 +2047,27 @@
         <span class="p-tag">// craft</span>
         <h3 class="p-title">The next engineer is a <span class="italic">stranger.</span></h3>
         <p class="p-body">Write SQL, comments, and docs like the person debugging this at 3 a.m. has zero context. Eventually they will. That stranger might be future you. The empathy is the same.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">06 · latency</div>
+        <span class="p-tag">// reliability</span>
+        <h3 class="p-title">A source that's always a few hours behind isn't broken — it's a <span class="italic">contract</span> you design around.</h3>
+        <p class="p-body">Fighting a laggy upstream system to make it feel real-time is a losing game. Diff against last-seen state, alert on what actually changed, and let the lag be a known quantity instead of a surprise someone discovers at 9 a.m.</p>
+      </div>
+
+      <div class="principle reveal">
+        <div class="p-num">07 · escalation</div>
+        <span class="p-tag">// judgment</span>
+        <h3 class="p-title">Not every case needs an LLM. Most need a <span class="italic">rule</span> that already knows the answer.</h3>
+        <p class="p-body">Run the cheap, deterministic check first. Reserve the expensive model for whatever survives it unresolved. Tiering isn't a cost hack — it's what keeps the expensive tool's output trustworthy on the cases where it actually runs.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">08 · tooling</div>
+        <span class="p-tag">// pragmatism</span>
+        <h3 class="p-title">The right amount of tooling is the amount the problem <span class="italic">actually</span> needs.</h3>
+        <p class="p-body">A notebook with one parameter and two window functions can outperform a pipeline with a scheduler, a queue, and a dashboard nobody asked for. Match the architecture to the audience, not the resume.</p>
       </div>
     </div>
   </div>
