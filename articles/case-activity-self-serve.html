@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Self-Serve Case Queue Report Built on Two Window Functions — Gunabhiram Billa</title>
+<meta name="description" content="No Python, no shared state, no UDFs — just parameter-driven SQL that gives every analyst their own real-time view of their queue." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">SQL Story</span><span class="dot">/</span>
+      <span>Self-Serve Tools</span><span class="dot">/</span>
+      <span>6 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">A Self-Serve Case Queue Report Built on Two Window Functions: <span class="italic">No Python Required.</span></h1>
+    <p class="article-deck reveal d2">Analysts didn't need a dashboard team or a data pipeline — they needed one parameter and a query that already knew the difference between a real reply and an auto-acknowledgment.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="qbg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#qbg1)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · ONE PARAMETER, THREE QUEUES</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- parameter box -->
+        <rect x="500" y="100" width="200" height="60" fill="none" stroke="#e9c98a" stroke-width="1.5"/>
+        <text x="600" y="125" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="11">:analyst_name</text>
+        <text x="600" y="145" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">single string param</text>
+
+        <line x1="600" y1="160" x2="600" y2="200" stroke="#2a2823" stroke-width="1"/>
+        <line x1="230" y1="200" x2="970" y2="200" stroke="#2a2823" stroke-width="1"/>
+        <line x1="230" y1="200" x2="230" y2="230" stroke="#2a2823" stroke-width="1"/>
+        <line x1="600" y1="200" x2="600" y2="230" stroke="#2a2823" stroke-width="1"/>
+        <line x1="970" y1="200" x2="970" y2="230" stroke="#2a2823" stroke-width="1"/>
+
+        <!-- three queues -->
+        <rect x="90" y="230" width="280" height="150" fill="none" stroke="#c0605a" stroke-width="1.5"/>
+        <text x="230" y="258" text-anchor="middle" fill="#c0605a" font-family="JetBrains Mono" font-size="11" letter-spacing="1">NEEDS RESPONSE</text>
+        <text x="230" y="282" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">inbound not yet answered</text>
+        <text x="230" y="300" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">auto-acks filtered out</text>
+        <text x="230" y="318" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">(short-window inbound after</text>
+        <text x="230" y="336" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">an outbound = system-generated)</text>
+
+        <rect x="460" y="230" width="280" height="150" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+        <text x="600" y="258" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="11" letter-spacing="1">STALE FOLLOW-UP</text>
+        <text x="600" y="282" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">business-day arithmetic</text>
+        <text x="600" y="300" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">since last analyst outbound</text>
+        <text x="600" y="318" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">pure SQL — no UDFs,</text>
+        <text x="600" y="336" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">no calendar table</text>
+
+        <rect x="830" y="230" width="280" height="150" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+        <text x="970" y="258" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="11" letter-spacing="1">FULL INVENTORY</text>
+        <text x="970" y="282" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">every non-closed ticket</text>
+        <text x="970" y="300" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">CASE-derived urgency tier</text>
+        <text x="970" y="318" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">overdue / waiting / stale</text>
+
+        <text x="600" y="425" text-anchor="middle" fill="#e9c98a" font-family="Fraunces" font-size="14" font-style="italic">runs entirely on a SQL warehouse — no Python, no orchestration</text>
+      </svg>
+      <div class="caption">One name in, three purpose-built queues out — cloned per analyst, not shared as a live notebook.</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#context">01 The Problem</a></li>
+          <li><a href="#param">02 One Parameter, Cloned Per Analyst</a></li>
+          <li><a href="#union">03 Bridging Two Sources</a></li>
+          <li><a href="#logic">04 The Analytical Logic</a></li>
+          <li><a href="#sql-only">05 Why No Python</a></li>
+          <li><a href="#takeaways">06 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="context"><span class="num">01 — The Problem</span>The CRM has the data; analysts needed the view</h2>
+        <p>Support analysts already had everything they needed technically — it just lived in a CRM interface built for case management, not for triage. What was missing wasn't more data. It was a consolidated, real-time answer to three questions: what needs a response right now, what's been waiting too long without follow-up, and what's the full state of everything still open.</p>
+
+        <h2 id="param"><span class="num">02 — One Parameter, Cloned Per Analyst</span>Portable by design</h2>
+        <p>The notebook is pure SQL, driven by a single string parameter — the analyst's name. Every query in the notebook reads from that one parameter, which makes the whole thing portable: give a new analyst their own clone of the notebook, and there's no code to change, just the parameter to set.</p>
+
+        <p>Cloning per analyst instead of sharing one live multi-user notebook was a deliberate choice — it keeps each analyst's execution state fully isolated, so one person running the report doesn't affect another's session or results.</p>
+
+        <h2 id="union"><span class="num">03 — Bridging Two Sources</span>Current status plus full history</h2>
+        <p>The queries layer two data sources together: one gives current, authoritative case status; the other gives the full historical activity record. A <code>UNION</code> pattern bridges the two, and window functions — <code>ROW_NUMBER</code>, <code>QUALIFY</code> — isolate the most recent activity per case without needing subquery nesting to get there.</p>
+
+        <div class="pullquote">QUALIFY does in one clause what a nested subquery would take three lines to express. The SQL reads like the question it's answering, not like the plumbing underneath it.</div>
+
+        <h2 id="logic"><span class="num">04 — The Analytical Logic</span>Three small decisions that do most of the work</h2>
+        <ul>
+          <li><strong>Auto-acknowledgment filtering</strong> — an inbound email arriving within a short window after an outbound is treated as system-generated and excluded from "needs response" counts. Without this, every auto-reply looks like a customer reply waiting on the analyst.</li>
+          <li><strong>Business day calculation</strong> — a pure-SQL weekday arithmetic formula counts only working days since the last analyst outbound, powering the stale-follow-up queue with no UDFs and no calendar table to maintain.</li>
+          <li><strong>Priority flagging</strong> — inline <code>CASE</code> expressions derive urgency tiers (overdue, waiting, stale) directly from elapsed time thresholds, so the result set already carries the flag an analyst would otherwise compute by eye.</li>
+        </ul>
+
+        <h2 id="sql-only"><span class="num">05 — Why No Python</span>The right amount of tooling</h2>
+        <p>The notebook runs entirely on a SQL warehouse, with no Python involved. For a workload-management report driven by one parameter and read directly by the people using it, that's not a limitation — it's the right level of tooling. It's lightweight, fast to load, and legible to a non-engineer who wants to see or tweak the logic.</p>
+
+        <div class="callout">
+          <span class="callout-label">→ Why this matters</span>
+          <p>Not every internal tool needs a pipeline. Sometimes the fastest path to something genuinely useful is recognizing that the data's already there, and the actual job is writing a query someone can read.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">06 — Takeaways</span>Match the tool to the actual ask</h2>
+        <ul>
+          <li><strong>One parameter can make a whole notebook portable.</strong> Don't build configuration you don't need.</li>
+          <li><strong>Filter out system noise at the query level,</strong> not by asking analysts to mentally discount auto-replies every time they look at their queue.</li>
+          <li><strong>Window functions replace nested subqueries</strong> — <code>QUALIFY</code> in particular keeps "most recent per group" logic legible.</li>
+          <li><strong>SQL-only is a legitimate architecture</strong> when the audience is the query itself, not a downstream pipeline.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="containment-vin-excel-export.html" class="related-tile">
+        <span class="tag">Reporting</span>
+        <h5>A Scheduled Health Export for Partner Containment Programs</h5>
+      </a>
+      <a href="siebel-slack-alerting.html" class="related-tile">
+        <span class="tag">Reliability</span>
+        <h5>Building an Hourly Slack Alerting System on Top of a Laggy CRM View</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

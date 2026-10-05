@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Tiered Diagnostic Notebook for Fleet Telemetry Support — Gunabhiram Billa</title>
+<meta name="description" content="Why is this vehicle not reporting telemetry? A three-tier decision tree, nine deep-dive cells, and an AI layer that writes the case note." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Diagnostics</span><span class="dot">/</span>
+      <span>Fleet Telemetry</span><span class="dot">/</span>
+      <span>8 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">A Tiered Diagnostic Notebook for Fleet Telemetry Support: <span class="italic">Fast Path First, Deep Dive Only If Needed.</span></h1>
+    <p class="article-deck reveal d2">A partner reports a vehicle isn't reporting telemetry. Instead of an analyst manually querying five backend systems, a deterministic gate function walks the decision tree and tells them exactly where to look — and where not to.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="vbg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#vbg1)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · THREE-TIER DIAGNOSTIC ARCHITECTURE</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- Tier 1 -->
+        <rect x="80" y="110" width="280" height="90" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+        <text x="220" y="135" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="11" letter-spacing="1">TIER 1 · QUICK DIAGNOSTIC</text>
+        <text x="220" y="158" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">5 queries → merged DataFrame</text>
+        <text x="220" y="176" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">gate function → verdict + issue code</text>
+        <text x="220" y="194" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9">resolves most cases here</text>
+
+        <!-- arrow down conditionally -->
+        <line x1="220" y1="200" x2="220" y2="240" stroke="#2a2823" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="255" y="222" fill="#8a857a" font-family="JetBrains Mono" font-size="9">if unresolved</text>
+
+        <!-- Tier 2 -->
+        <rect x="80" y="240" width="280" height="110" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+        <text x="220" y="264" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="11" letter-spacing="1">TIER 2 · DEEP DIVE</text>
+        <text x="220" y="286" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">9 independent cells</text>
+        <text x="220" y="304" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SIM · tasks · GPS flags · plan ID</text>
+        <text x="220" y="322" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">connection &amp; enrollment traces</text>
+        <text x="220" y="340" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="9">run only what Tier 1 flags</text>
+
+        <!-- Tier 3 to the right -->
+        <line x1="360" y1="180" x2="470" y2="180" stroke="#2a2823" stroke-width="1" stroke-dasharray="3,3"/>
+        <rect x="470" y="130" width="640" height="220" fill="none" stroke="#c8956a" stroke-width="1.5"/>
+        <text x="790" y="158" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="11" letter-spacing="1">TIER 3 · AI CASE NOTE GENERATOR</text>
+        <text x="790" y="185" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="10">takes all collected diagnostic variables + Siebel case context</text>
+        <text x="790" y="205" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="10">enforces a strict output shape: verdict → findings → next steps</text>
+        <text x="790" y="225" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="10">partner identity + app ID enforced in opt-in/opt-out lines</text>
+        <line x1="590" y1="250" x2="990" y2="250" stroke="#2a2823" stroke-width="1"/>
+        <text x="790" y="280" text-anchor="middle" fill="#e9c98a" font-family="Fraunces" font-size="14" font-style="italic">driven end-to-end by Genie: paste VIN + case + email, get a case note</text>
+        <text x="790" y="320" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">Serverless CPU · Python + Spark SQL</text>
+      </svg>
+      <div class="caption">Most cases never leave Tier 1. Tier 3 turns whatever Tiers 1–2 found into a ready-to-send note.</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#context">01 The Problem</a></li>
+          <li><a href="#tier1">02 Tier 1 — Quick Diagnostic</a></li>
+          <li><a href="#tier2">03 Tier 2 — Deep Dive</a></li>
+          <li><a href="#tier3">04 Tier 3 — AI Case Notes</a></li>
+          <li><a href="#genie">05 Driven by Genie</a></li>
+          <li><a href="#takeaways">06 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="context"><span class="num">01 — The Problem</span>One report, five backend systems</h2>
+        <p>When a fleet partner reports a vehicle isn't reporting telemetry, the honest answer could live in any of five or six different places — consent status, enrollment state, the telemetry push history, the odometer feed, network reachability, SIM and carrier status, or a handful of task and event tables. Manually, that's a slow crawl through the CRM and several backend systems before an analyst can even start writing the case note.</p>
+
+        <p>The notebook exists to make that crawl unnecessary for the majority of cases, and fast for the rest.</p>
+
+        <h2 id="tier1"><span class="num">02 — Tier 1</span>A deterministic gate function, not a checklist</h2>
+        <p>A single input cell sets shared context — one or more VINs, the case number, the analyst's name — and auto-fetches case history from the CRM. Every downstream cell reads from these same variables, so the notebook behaves statefully across cells instead of each cell re-deriving context on its own.</p>
+
+        <p>Tier 1 runs five independent queries — consent, enrollment, telemetry push history, odometer, and network reachability — merges them into a single per-VIN DataFrame, and feeds that into a gate-evaluation function. The function walks a fixed decision tree: consent, then account and vehicle gates, then unit state, then connectivity agreement, then FAN mapping, then push blockers, then push history. It emits a verdict, an exact issue code, and a recommended next step. Most cases resolve here, without touching anything downstream.</p>
+
+        <div class="pullquote">A gate function that always walks the same tree in the same order is what makes the tool trustworthy. An analyst can predict what it'll say before it says it — and check its work.</div>
+
+        <h2 id="tier2"><span class="num">03 — Tier 2</span>Nine cells, run selectively</h2>
+        <p>When Tier 1's verdict doesn't fully resolve the case, nine independent cells cover the specific failure domains that Tier 1 can flag but not fully diagnose: enrollment task state, SIM and carrier status, transaction and command history, batch remediation history, full telemetry task status, GPS issue flags, enrollment event trace, connection event history, and plan ID cross-reference.</p>
+
+        <p>Each cell is scoped to one failure domain and is only run when Tier 1's verdict points there — the notebook isn't meant to be run top to bottom every time. That selectivity is what keeps a nine-cell deep dive from turning into a nine-cell ritual.</p>
+
+        <h2 id="tier3"><span class="num">04 — Tier 3</span>Turning diagnostics into a case note</h2>
+        <p>Once a verdict exists — whether from Tier 1 alone or after a Tier 2 deep dive — an LLM call takes every diagnostic variable collected so far, plus the Siebel case context, and produces a ready-to-send partner-facing case note. The prompt enforces a strict output shape: verdict, findings, recommended next steps, and — for any opt-in or opt-out action lines — the correct partner identity and app ID, so the generated note can't drift on those specifics even if the surrounding language varies.</p>
+
+        <h2 id="genie"><span class="num">05 — Driven by Genie</span>From a pasted case number to a finished note</h2>
+        <p>The whole flow is designed to be fully driven by Genie: an analyst pastes a case number, VIN, and customer email into chat, and the assistant sets the notebook's widgets, runs the appropriate cells for that case, and generates the case note automatically. The analyst's job becomes reviewing the output rather than assembling the diagnostic path by hand.</p>
+
+        <div class="callout">
+          <span class="callout-label">→ Compute</span>
+          <p>Everything runs on Serverless CPU using Python and Spark SQL only — no Scala, no R — which keeps the notebook portable and avoids any cluster-specific dependencies for what's meant to be a frontline, high-frequency tool.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">06 — Takeaways</span>Tiering is a UX decision as much as an architecture one</h2>
+        <ul>
+          <li><strong>Put the deterministic logic first.</strong> A fixed decision tree that resolves most cases builds trust before any AI-generated content ever appears.</li>
+          <li><strong>Scope deep-dive cells narrowly.</strong> Nine cells that each answer one question beat one cell that tries to answer nine.</li>
+          <li><strong>Let the AI layer generate the note, not the diagnosis.</strong> The verdict comes from deterministic logic; the LLM's job is turning that verdict into readable, correctly-formatted partner communication.</li>
+          <li><strong>Chat-driven execution is a real UX win</strong> when the underlying tool is well-tiered — Genie can only "just run the right cells" because the notebook already knows which cells are right.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="siebel-slack-alerting.html" class="related-tile">
+        <span class="tag">Reliability</span>
+        <h5>Building an Hourly Slack Alerting System on Top of a Laggy CRM View</h5>
+      </a>
+      <a href="containment-vin-excel-export.html" class="related-tile">
+        <span class="tag">Reporting</span>
+        <h5>A Scheduled Health Export for Partner Containment Programs</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

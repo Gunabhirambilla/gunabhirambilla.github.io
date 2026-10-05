@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Scheduled Health Export for Partner Containment Programs — Gunabhiram Billa</title>
+<meta name="description" content="Two SQL queries, one shared CTE pattern, and a formatted Excel file that separates healthy vehicles from ones that need attention." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../article.css">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+<div class="bg-mark">GUNABHIRAM · BILLA · DATA · ENGINEER · NYC · 2026</div>
+
+<nav>
+  <div class="inner">
+    <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <div class="nav-links">
+      <a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Work</a><a href="../index.html#articles">Writing</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="wrap">
+    <a href="../index.html#articles" class="article-back reveal"><span>←</span> All Field Notes</a>
+    <div class="article-meta reveal">
+      <span class="tag">Reporting</span><span class="dot">/</span>
+      <span>Data Quality</span><span class="dot">/</span>
+      <span>6 min read</span>
+    </div>
+    <h1 class="article-title reveal d1">A Scheduled Health Export for Partner Containment Programs: <span class="italic">Two Tabs, One Source of Truth.</span></h1>
+    <p class="article-deck reveal d2">Partner ops teams needed one clean answer: which vehicles resolved, and which ones didn't. A shared CTE pattern, a window-function dedup, and a null check that catches bad data before it reaches the report.</p>
+
+    <div class="hero-image reveal d3">
+      <svg viewBox="0 0 1200 460" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cbg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f1e1b"/><stop offset="1" stop-color="#0d0d0c"/>
+          </linearGradient>
+        </defs>
+        <rect width="1200" height="460" fill="url(#cbg1)"/>
+        <text x="60" y="50" fill="#8a857a" font-family="JetBrains Mono" font-size="11" letter-spacing="3">FIG. 01 · ONE VEHICLE, EXACTLY ONE ROW, ONE TAB</text>
+        <line x1="60" y1="62" x2="180" y2="62" stroke="#d4a356" stroke-width="1.5"/>
+
+        <!-- shared CTE box -->
+        <rect x="440" y="110" width="320" height="80" fill="none" stroke="#e9c98a" stroke-width="1.5"/>
+        <text x="600" y="140" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="11" letter-spacing="1">SHARED CTE</text>
+        <text x="600" y="160" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">rank latest run per vehicle</text>
+        <text x="600" y="176" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">window fns dedup + forward-fill</text>
+
+        <!-- lines down to two branches -->
+        <line x1="600" y1="190" x2="600" y2="230" stroke="#2a2823" stroke-width="1"/>
+        <line x1="380" y1="230" x2="820" y2="230" stroke="#2a2823" stroke-width="1"/>
+        <line x1="380" y1="230" x2="380" y2="260" stroke="#2a2823" stroke-width="1"/>
+        <line x1="820" y1="230" x2="820" y2="260" stroke="#2a2823" stroke-width="1"/>
+
+        <!-- Healthy tab -->
+        <rect x="200" y="260" width="360" height="130" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
+        <text x="380" y="288" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="12" letter-spacing="1">HEALTHY TAB</text>
+        <text x="380" y="312" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">CASE maps resolution codes</text>
+        <text x="380" y="330" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">→ anything not a known failure</text>
+        <text x="380" y="348" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">scoped to rolling lookback window</text>
+        <text x="380" y="370" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9">excludes stale resolved records</text>
+
+        <!-- Unhealthy tab -->
+        <rect x="640" y="260" width="360" height="130" fill="none" stroke="#c0605a" stroke-width="1.5"/>
+        <text x="820" y="288" text-anchor="middle" fill="#c0605a" font-family="JetBrains Mono" font-size="12" letter-spacing="1">UNHEALTHY TAB</text>
+        <text x="820" y="312" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">CASE maps known failure codes</text>
+        <text x="820" y="330" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">scoped strictly to yesterday's run</text>
+        <text x="820" y="348" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">always = latest batch output</text>
+        <text x="820" y="370" text-anchor="middle" fill="#c0605a" font-family="JetBrains Mono" font-size="9">no overlap with healthy tab</text>
+
+        <text x="600" y="430" text-anchor="middle" fill="#e9c98a" font-family="Fraunces" font-size="14" font-style="italic">null-partner check runs before the file writes</text>
+      </svg>
+      <div class="caption">Same CTE, two lenses — one for what's resolved, one for what needs a look.</div>
+    </div>
+  </div>
+</header>
+
+<main class="article-body">
+  <div class="wrap">
+    <div class="article-body-grid">
+      <aside class="toc">
+        <div class="toc-label">Contents</div>
+        <ul>
+          <li><a href="#context">01 The Ask</a></li>
+          <li><a href="#cte">02 One CTE, No Overlap</a></li>
+          <li><a href="#classification">03 Health Classification</a></li>
+          <li><a href="#quality">04 Catching Bad Data First</a></li>
+          <li><a href="#format">05 The Output File</a></li>
+          <li><a href="#takeaways">06 Takeaways</a></li>
+        </ul>
+      </aside>
+
+      <article class="prose">
+
+        <h2 id="context"><span class="num">01 — The Ask</span>Which vehicles are fine, and which aren't</h2>
+        <p>Partner operations teams running vehicle containment programs need one recurring answer: of everything enrolled, what resolved cleanly on its own, and what's stuck in an unresolved or failed state and needs a human to look at it. That's the entire report — two categories, one export, on a schedule.</p>
+
+        <p>The whole thing is a two-cell Python notebook: install a dependency, run two SQL queries against a shared source, write a dated Excel file to the workspace. No orchestration framework, no unnecessary moving parts.</p>
+
+        <h2 id="cte"><span class="num">02 — One CTE, No Overlap</span>Ranking each vehicle's latest run</h2>
+        <p>Both queries build on the same common table expression, which ranks each vehicle's most recent processing record across all historical runs. Window functions handle the deduplication and forward-fill any missing reference fields, so every vehicle shows up exactly once across the two output tabs — never zero times, never twice.</p>
+
+        <p>That guarantee — exactly one row per vehicle, split cleanly between two tabs — is what makes the report trustworthy to a partner ops team that isn't going to double-check the SQL. If a vehicle can silently appear in both tabs or neither, the report stops being a source of truth.</p>
+
+        <h2 id="classification"><span class="num">03 — Health Classification</span>Two different time windows for two different questions</h2>
+        <p>A <code>CASE</code> expression maps a fixed set of known failure resolution codes to "Unhealthy"; everything else is "Healthy" by default, rather than trying to enumerate every possible success path.</p>
+
+        <p>The two tabs use deliberately different time scoping, because they're answering different questions. The healthy tab is scoped to a rolling lookback window, filtering out stale resolved records that aren't relevant anymore. The unhealthy tab is scoped strictly to the most recent run date — yesterday — so it always reflects exactly yesterday's batch output, with no historical unhealthy records lingering in the view.</p>
+
+        <div class="pullquote">A healthy record can age out of relevance. An unhealthy one shouldn't — it should show up once, get worked, and leave. The two tabs need different clocks because they're tracking different lifecycles.</div>
+
+        <h2 id="quality"><span class="num">04 — Catching Bad Data First</span>A print statement that earns its place</h2>
+        <p>Before the file writes, a diagnostic check flags any records with a missing partner reference. It's a single print statement, not a formal validation framework — but it surfaces a real data quality issue before it reaches report consumers, rather than showing up as an unexplained blank cell in a partner's spreadsheet.</p>
+
+        <h2 id="format"><span class="num">05 — The Output File</span>Formatted so it reads like a report, not a data dump</h2>
+        <p>The Excel output is built programmatically with <code>openpyxl</code>: bold styled headers, full cell borders, auto-fitted column widths, and two named tabs. The filename is date-stamped at generation time, so every run produces its own versioned artifact rather than overwriting the previous one.</p>
+
+        <div class="callout">
+          <span class="callout-label">→ Compute</span>
+          <p>Runs on Serverless CPU, Python and Spark SQL only — appropriate for a lightweight, scheduled export where the goal is a clean file landing on time, not a heavy compute job.</p>
+        </div>
+
+        <h2 id="takeaways"><span class="num">06 — Takeaways</span>Small reports deserve the same rigor as big pipelines</h2>
+        <ul>
+          <li><strong>Share the ranking logic, split the filter.</strong> One CTE for "what's the latest state," then two different time filters for two different audiences.</li>
+          <li><strong>Guarantee exactly-once, not just correct.</strong> A vehicle appearing in both tabs or neither is a worse failure mode than a wrong classification.</li>
+          <li><strong>A print statement is a valid data quality gate</strong> when it runs before the artifact ships and someone's actually watching the logs.</li>
+          <li><strong>Formatting isn't cosmetic</strong> when the consumer is a partner ops team opening the file cold, with no context on how it was built.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="article-end">
+  <div class="wrap">
+    <div class="signoff">end of essay</div>
+    <div class="related-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="case-activity-self-serve.html" class="related-tile">
+        <span class="tag">SQL Story</span>
+        <h5>A Self-Serve Case Queue Report Built on Two Window Functions</h5>
+      </a>
+      <a href="vin-telemetry-diagnostic.html" class="related-tile">
+        <span class="tag">Diagnostics</span>
+        <h5>A Tiered Diagnostic Notebook for Fleet Telemetry Support</h5>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>NYC · 40.7128° N, 74.0060° W</span>
+    <span class="right"><span class="dot"></span>Available for new opportunities</span>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
