@@ -1851,28 +1851,29 @@
       <div class="project-row reveal" data-tags="ai,python,snowflake">
         <div class="header-row">
           <div class="proj-num">/13</div>
-          <div class="proj-name">RAG Data Quality Framework for Knowledge Retrieval</div>
+          <div class="proj-name">RAG Case Analysis &amp; Case-Note Generator on Databricks</div>
           <div class="proj-stack">
-            <span>Python</span><span>Vector DB</span><span>Snowflake</span><span>Embeddings</span>
+            <span>Databricks</span><span>Python</span><span>Vector DB</span><span>Embeddings</span>
           </div>
-          <div class="proj-impact">Source-data validation layer that catches stale, ambiguous, or contradictory content before it reaches an LLM. <em>Reduced hallucination risk in retrieval-augmented systems.</em></div>
+          <div class="proj-impact">Retrieval-augmented case analysis and note generation over CRM case history and vehicle telemetry, with a validation layer that catches stale, duplicate, or contradictory records before they reach the LLM. <em>Reduced hallucination risk in generated case notes.</em></div>
           <div class="proj-arrow">+</div>
         </div>
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
               <h5>The Challenge</h5>
-              <p>RAG systems are only as trustworthy as the documents they retrieve from. Stale articles, contradictory sources, and ambiguous procedure documentation all silently corrupt LLM answers downstream — with no easy way to detect the failure after the fact.</p>
+              <p>Case analysis and note generation are only as trustworthy as the records they retrieve from. Stale case history, duplicate or contradictory CRM entries, and telemetry that disagrees with what a case note says all silently corrupt LLM output downstream — with no easy way to detect the failure after the fact.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
-              <p>Designed a quality framework that runs on the source corpus before embedding: freshness checks (last-updated thresholds), deduplication (semantic similarity clustering), contradiction detection (cross-document NLI scoring), and provenance tagging. Documents that fail are quarantined; the rest enter the vector index with quality metadata attached.</p>
+              <p>Built the retrieval layer on Databricks over CRM case history and telemetry data, powering case analysis and a case-note generator. A quality framework runs on the source records before embedding: freshness checks (last-updated thresholds), deduplication (semantic similarity clustering), contradiction detection across records, and provenance tagging. Records that fail are quarantined; the rest enter the vector index with quality metadata attached.</p>
             </div>
             <div class="proj-detail-block">
               <h5>Technical Details</h5>
               <ul>
-                <li>Document freshness scoring with configurable thresholds</li>
+                <li>Record freshness scoring with configurable thresholds</li>
                 <li>Semantic dedup via embedding similarity clusters</li>
-                <li>Cross-document contradiction detection</li>
+                <li>Cross-record contradiction detection (case history vs. telemetry)</li>
                 <li>Provenance metadata propagated to retrieval layer</li>
+                <li>Retrieval feeds case analysis and case-note generation</li>
                 <li>Quarantine queue for human review</li>
               </ul>
               <div class="proj-metrics">
