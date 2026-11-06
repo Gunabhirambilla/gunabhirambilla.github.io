@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1454,7 +1454,7 @@
           <div class="proj-stack">
             <span>Python</span><span>SQL</span><span>LLM</span>
           </div>
-          <div class="proj-impact">Three escalating tiers — deterministic rules first, AI case notes only when needed. <em>Used daily by 15 analysts; time per case dropped from ~45 to ~10 minutes.</em></div>
+          <div class="proj-impact">Three escalating tiers — deterministic rules first, AI case notes only when needed. <em>Used daily by 15 analysts; time per case dropped from ~45 to ~10 minutes, roughly 50 analyst-hours saved a day.</em></div>
           <div class="proj-arrow">+</div>
         </div>
         <div class="proj-details">
@@ -1466,7 +1466,7 @@
               <div class="proj-adoption">
                 <div class="adopt-row"><span class="k">Used by</span><span class="v">15 support analysts, daily (~6 cases each)</span></div>
                 <div class="adopt-row"><span class="k">Before</span><span class="v">About 45 minutes per case, querying several backend systems and navigating the CRM by hand</span></div>
-                <div class="adopt-row"><span class="k">Now</span><span class="v">About 10 minutes per case, with AI notes only when the case needs them</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">About 10 minutes per case, roughly 50 analyst-hours saved a day, with AI notes only when the case needs them</span></div>
               </div>
             </div>
             <div class="proj-detail-block">
@@ -2626,10 +2626,10 @@
     const root = document.documentElement;
     const toggle = document.getElementById('themeToggle');
 
-    // On first load: respect saved preference, else use system preference
-    const saved = localStorage.getItem('theme');
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    const initial = saved || (prefersLight ? 'light' : 'dark');
+    // On first load: respect saved preference, else default to light
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    const initial = saved || 'light';
     root.setAttribute('data-theme', initial);
 
     if (toggle) {
