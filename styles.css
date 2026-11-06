@@ -22,21 +22,21 @@
 }
 
 [data-theme="light"] {
-  --ink: #f5f1e8;        /* light cream — the new "background" */
-  --ink-2: #ebe5d6;      /* slightly darker cream surface */
-  --ink-3: #ddd5c2;      /* deeper cream for cards */
-  --line: #c5bca6;       /* warm muted divider */
-  --line-soft: #d8d0bc;  /* softer divider */
-  --paper: #1a1814;      /* dark text on light bg */
-  --cream: #2c2820;      /* secondary text */
-  --muted: #6b6555;      /* muted text */
-  --muted-2: #8a8472;    /* extra muted */
-  --accent: #a67c2e;     /* deeper amber for contrast on light */
-  --accent-2: #8a6622;
-  --accent-3: #c89244;
-  --green: #4a6b3a;      /* deeper green */
-  --red: #a85638;        /* deeper red */
-  --nav-bg: rgba(245,241,232,0.78);
+  --ink: #eaf0e8;        /* pale sage background */
+  --ink-2: #dfe8dd;      /* slightly deeper sage surface */
+  --ink-3: #cfdccd;      /* deeper sage for cards */
+  --line: #b4c4b3;       /* sage divider */
+  --line-soft: #cbd8c9;  /* softer divider */
+  --paper: #13201e;      /* dark teal-black text */
+  --cream: #223330;      /* secondary text */
+  --muted: #55665f;      /* muted text */
+  --muted-2: #7b8d85;    /* extra muted */
+  --accent: #0f6b68;     /* deep teal */
+  --accent-2: #0a5250;
+  --accent-3: #1b8a85;
+  --green: #3f6b4a;
+  --red: #a85638;
+  --nav-bg: rgba(234,240,232,0.78);
 }
 
 /* Light-mode grain — needs to be dark dots on light bg */
@@ -48,8 +48,8 @@
 /* Light-mode atmospheric gradients — softer warm washes */
 [data-theme="light"] body::after {
   background-image:
-    radial-gradient(ellipse 900px 600px at 15% -5%, rgba(166,124,46,0.10) 0%, transparent 55%),
-    radial-gradient(ellipse 700px 500px at 95% 25%, rgba(166,124,46,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 900px 600px at 15% -5%, rgba(15,107,104,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 500px at 95% 25%, rgba(15,107,104,0.05) 0%, transparent 55%),
     radial-gradient(ellipse 800px 600px at 85% 100%, rgba(74,107,58,0.06) 0%, transparent 55%),
     radial-gradient(ellipse 600px 400px at 5% 75%, rgba(168,86,56,0.04) 0%, transparent 55%) !important;
 }
@@ -62,8 +62,8 @@
 /* Light-mode grid pattern */
 [data-theme="light"] .bg-grid {
   background-image:
-    linear-gradient(rgba(166,124,46,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(166,124,46,0.06) 1px, transparent 1px);
+    linear-gradient(rgba(15,107,104,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,107,104,0.06) 1px, transparent 1px);
 }
 
 /* Light-mode corner brackets and rules */
@@ -71,10 +71,10 @@
 [data-theme="light"] .bg-rules::after {
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(166,124,46,0.25) 8%,
+    rgba(15,107,104,0.25) 8%,
     rgba(150,138,118,0.5) 30%,
     rgba(150,138,118,0.5) 70%,
-    rgba(166,124,46,0.25) 92%,
+    rgba(15,107,104,0.25) 92%,
     transparent 100%);
 }
 
@@ -103,15 +103,15 @@
 
 /* Ensure subtle gradient hovers are visible in light mode */
 [data-theme="light"] .about-meta .row:hover {
-  background: linear-gradient(to right, rgba(166,124,46,0.08), transparent) !important;
+  background: linear-gradient(to right, rgba(15,107,104,0.08), transparent) !important;
 }
 [data-theme="light"] .project-row:hover {
-  background: linear-gradient(to right, transparent, rgba(166,124,46,0.06), transparent) !important;
+  background: linear-gradient(to right, transparent, rgba(15,107,104,0.06), transparent) !important;
 }
 
 /* Pulsing brand dot — give it a glow in light mode too */
 [data-theme="light"] .brand-dot {
-  box-shadow: 0 0 12px rgba(166,124,46,0.5);
+  box-shadow: 0 0 12px rgba(15,107,104,0.5);
 }
 
 /* Scroll-top button in light mode */
@@ -209,8 +209,8 @@ body::after {
 [data-theme="light"] body::after,
 body[data-theme="light"]::after {
   background-image:
-    radial-gradient(ellipse 900px 600px at 15% -5%, rgba(166,124,46,0.10) 0%, transparent 55%),
-    radial-gradient(ellipse 700px 500px at 95% 25%, rgba(166,124,46,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 900px 600px at 15% -5%, rgba(15,107,104,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 500px at 95% 25%, rgba(15,107,104,0.05) 0%, transparent 55%),
     radial-gradient(ellipse 800px 600px at 85% 100%, rgba(74,107,58,0.06) 0%, transparent 55%),
     radial-gradient(ellipse 600px 400px at 5% 75%, rgba(168,86,56,0.04) 0%, transparent 55%);
 }
