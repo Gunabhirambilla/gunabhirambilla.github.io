@@ -323,7 +323,7 @@
   }
   .about-meta .row:hover {
     padding-left: 8px;
-    background: linear-gradient(to right, color-mix(in srgb, var(--accent) 4%, transparent), transparent);
+    background: linear-gradient(to right, rgba(212,163,86,0.04), transparent);
   }
   .about-meta .row .k {
     color: var(--accent);
@@ -490,7 +490,7 @@
   .project-row:hover {
     padding-left: 16px;
     padding-right: 16px;
-    background: linear-gradient(to right, transparent, color-mix(in srgb, var(--accent) 4%, transparent), transparent);
+    background: linear-gradient(to right, transparent, rgba(212,163,86,0.04), transparent);
   }
   .project-row:hover .proj-name { color: var(--accent-2); }
   .project-row.expanded .proj-arrow { transform: rotate(45deg); color: var(--accent); }
@@ -682,7 +682,7 @@
     gap: 14px;
     padding: 18px 22px;
     margin-bottom: 32px;
-    background: linear-gradient(to right, color-mix(in srgb, var(--accent) 8%, transparent), color-mix(in srgb, var(--accent) 2%, transparent));
+    background: linear-gradient(to right, rgba(212,163,86,0.08), rgba(212,163,86,0.02));
     border-left: 2px solid var(--accent);
     flex-wrap: wrap;
   }
@@ -692,7 +692,7 @@
     background: var(--accent);
     border-radius: 50%;
     margin-top: 8px;
-    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+    box-shadow: 0 0 12px rgba(212,163,86,0.7);
     animation: pulse 2.4s ease-in-out infinite;
     flex-shrink: 0;
   }
@@ -2174,8 +2174,8 @@
             <rect width="400" height="225" fill="url(#bg1)"/>
             <!-- Three stacked tenant boxes -->
             <g transform="translate(80, 50)">
-              <rect x="0" y="0" width="80" height="50" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
-              <rect x="0" y="0" width="80" height="6" fill="var(--accent)"/>
+              <rect x="0" y="0" width="80" height="50" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+              <rect x="0" y="0" width="80" height="6" fill="#d4a356"/>
               <text x="40" y="32" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">TENANT_A</text>
 
               <rect x="100" y="0" width="80" height="50" fill="none" stroke="#e9c98a" stroke-width="1.5"/>
@@ -2217,9 +2217,9 @@
             <!-- Circular flow -->
             <g transform="translate(200, 112)">
               <circle r="70" fill="none" stroke="#2a2823" stroke-width="1" stroke-dasharray="4,4"/>
-              <circle r="70" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="100 220" transform="rotate(-90)"/>
+              <circle r="70" fill="none" stroke="#d4a356" stroke-width="1.5" stroke-dasharray="100 220" transform="rotate(-90)"/>
               <!-- Arrow heads at quadrants -->
-              <g fill="var(--accent)">
+              <g fill="#d4a356">
                 <circle cx="0" cy="-70" r="4"/>
                 <circle cx="70" cy="0" r="4"/>
                 <circle cx="0" cy="70" r="4"/>
@@ -2229,7 +2229,7 @@
               <text x="92" y="4" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">MERGE</text>
               <text y="92" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">VALIDATE</text>
               <text x="-92" y="4" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">LOG</text>
-              <text y="-4" text-anchor="middle" fill="var(--accent)" font-family="Fraunces" font-size="11" font-style="italic">idempotent</text>
+              <text y="-4" text-anchor="middle" fill="#d4a356" font-family="Fraunces" font-size="11" font-style="italic">idempotent</text>
               <text y="14" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="8">retry-safe</text>
             </g>
           </svg>
@@ -2248,8 +2248,8 @@
             <!-- Descending bar chart -->
             <g transform="translate(40, 30)">
               <rect x="0" y="20" width="36" height="140" fill="#c47666" opacity="0.9"/>
-              <rect x="50" y="40" width="36" height="120" fill="var(--accent)" opacity="0.9"/>
-              <rect x="100" y="65" width="36" height="95" fill="var(--accent)" opacity="0.9"/>
+              <rect x="50" y="40" width="36" height="120" fill="#d4a356" opacity="0.9"/>
+              <rect x="100" y="65" width="36" height="95" fill="#d4a356" opacity="0.9"/>
               <rect x="150" y="85" width="36" height="75" fill="#e9c98a" opacity="0.9"/>
               <rect x="200" y="100" width="36" height="60" fill="#e9c98a" opacity="0.9"/>
               <rect x="250" y="115" width="36" height="45" fill="#6b8e5a" opacity="0.9"/>
@@ -2273,12 +2273,12 @@
             <!-- Three approach diagrams -->
             <g transform="translate(40, 50)">
               <!-- Snapshot -->
-              <text x="0" y="-10" fill="var(--accent)" font-family="JetBrains Mono" font-size="9" letter-spacing="2">SNAPSHOT</text>
-              <rect x="0" y="0" width="14" height="14" fill="var(--accent)" opacity="0.7"/>
-              <rect x="20" y="0" width="14" height="14" fill="var(--accent)" opacity="0.7"/>
-              <rect x="40" y="0" width="14" height="14" fill="var(--accent)" opacity="0.7"/>
-              <rect x="60" y="0" width="14" height="14" fill="var(--accent)" opacity="0.7"/>
-              <rect x="80" y="0" width="14" height="14" fill="var(--accent)" opacity="0.7"/>
+              <text x="0" y="-10" fill="#d4a356" font-family="JetBrains Mono" font-size="9" letter-spacing="2">SNAPSHOT</text>
+              <rect x="0" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="20" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="40" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="60" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
+              <rect x="80" y="0" width="14" height="14" fill="#d4a356" opacity="0.7"/>
 
               <!-- CDC -->
               <text x="0" y="50" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">CDC</text>
@@ -2322,7 +2322,7 @@
                 <line x1="0" y1="0" x2="0" y2="90"/>
               </g>
               <!-- Center fact -->
-              <rect x="-40" y="-22" width="80" height="44" fill="var(--accent)"/>
+              <rect x="-40" y="-22" width="80" height="44" fill="#d4a356"/>
               <text y="4" text-anchor="middle" fill="#0d0d0c" font-family="JetBrains Mono" font-size="9" font-weight="600">FACT</text>
               <!-- Dimensions -->
               <g fill="none" stroke="#e9c98a" stroke-width="1.2">
@@ -2355,8 +2355,8 @@
             <rect width="400" height="225" fill="#161614"/>
             <!-- Three system boxes converging -->
             <g>
-              <rect x="30" y="40" width="80" height="40" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
-              <text x="70" y="65" text-anchor="middle" fill="var(--accent)" font-family="JetBrains Mono" font-size="10" letter-spacing="1">CRM</text>
+              <rect x="30" y="40" width="80" height="40" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+              <text x="70" y="65" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="10" letter-spacing="1">CRM</text>
 
               <rect x="30" y="100" width="80" height="40" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
               <text x="70" y="125" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="10" letter-spacing="1">BILLING</text>
@@ -2391,21 +2391,21 @@
             <rect width="400" height="225" fill="#0d0d0c"/>
             <!-- Workflow horizontal -->
             <g transform="translate(30, 100)">
-              <g stroke="var(--accent)" stroke-width="1" fill="#0d0d0c">
+              <g stroke="#d4a356" stroke-width="1" fill="#0d0d0c">
                 <circle cx="0" cy="0" r="14"/>
                 <circle cx="80" cy="0" r="14"/>
                 <circle cx="160" cy="0" r="14"/>
                 <circle cx="240" cy="0" r="14"/>
                 <circle cx="320" cy="0" r="14"/>
               </g>
-              <g fill="var(--accent)" font-family="JetBrains Mono" font-size="9" text-anchor="middle">
+              <g fill="#d4a356" font-family="JetBrains Mono" font-size="9" text-anchor="middle">
                 <text y="4">1</text>
                 <text x="80" y="4">2</text>
                 <text x="160" y="4">3</text>
                 <text x="240" y="4">4</text>
                 <text x="320" y="4">5</text>
               </g>
-              <g stroke="var(--accent)" stroke-width="1" stroke-dasharray="3,3">
+              <g stroke="#d4a356" stroke-width="1" stroke-dasharray="3,3">
                 <line x1="14" y1="0" x2="66" y2="0"/>
                 <line x1="94" y1="0" x2="146" y2="0"/>
                 <line x1="174" y1="0" x2="226" y2="0"/>
@@ -2434,15 +2434,15 @@
             <rect width="400" height="225" fill="#161614"/>
             <!-- Phone-ish text bubble -->
             <g transform="translate(100, 50)">
-              <rect x="0" y="0" width="200" height="60" rx="14" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+              <rect x="0" y="0" width="200" height="60" rx="14" fill="none" stroke="#d4a356" stroke-width="1.5"/>
               <text x="100" y="28" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">Hi {name}, your appt</text>
               <text x="100" y="42" text-anchor="middle" fill="#ebe3d2" font-family="JetBrains Mono" font-size="9">is on {date}. Reply Y</text>
-              <text x="100" y="56" text-anchor="middle" fill="var(--accent)" font-family="JetBrains Mono" font-size="9">147 / 160 chars</text>
+              <text x="100" y="56" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="9">147 / 160 chars</text>
 
               <!-- Char meter -->
               <rect x="0" y="80" width="200" height="6" fill="#2a2823"/>
               <rect x="0" y="80" width="183" height="6" fill="#6b8e5a"/>
-              <rect x="183" y="80" width="17" height="6" fill="var(--accent)"/>
+              <rect x="183" y="80" width="17" height="6" fill="#d4a356"/>
             </g>
             <text x="200" y="180" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9" letter-spacing="2">$$$ SAVED PER SEGMENT</text>
           </svg>
@@ -2465,7 +2465,7 @@
             <rect width="400" height="225" fill="url(#tbg1)"/>
             <line x1="40" y1="112" x2="360" y2="112" stroke="#2a2823" stroke-width="1" stroke-dasharray="3,3"/>
             <circle cx="70" cy="112" r="8" fill="#6b8e5a"/>
-            <circle cx="200" cy="112" r="8" fill="var(--accent)"/>
+            <circle cx="200" cy="112" r="8" fill="#d4a356"/>
             <circle cx="330" cy="112" r="8" fill="#8a857a"/>
             <text x="200" y="150" text-anchor="middle" fill="#e9c98a" font-family="JetBrains Mono" font-size="11">4.5H LAG</text>
             <text x="200" y="90" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">HOURLY SLACK ALERTS</text>
@@ -2489,8 +2489,8 @@
             <rect width="400" height="225" fill="url(#tbg2)"/>
             <rect x="60" y="60" width="100" height="40" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
             <text x="110" y="84" text-anchor="middle" fill="#6b8e5a" font-family="JetBrains Mono" font-size="9">TIER 1</text>
-            <rect x="60" y="115" width="100" height="40" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
-            <text x="110" y="139" text-anchor="middle" fill="var(--accent)" font-family="JetBrains Mono" font-size="9">TIER 2</text>
+            <rect x="60" y="115" width="100" height="40" fill="none" stroke="#d4a356" stroke-width="1.5"/>
+            <text x="110" y="139" text-anchor="middle" fill="#d4a356" font-family="JetBrains Mono" font-size="9">TIER 2</text>
             <rect x="220" y="87" width="120" height="40" fill="none" stroke="#c8956a" stroke-width="1.5"/>
             <text x="280" y="111" text-anchor="middle" fill="#c8956a" font-family="JetBrains Mono" font-size="9">TIER 3 · AI</text>
             <text x="200" y="180" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">FLEET TELEMETRY DIAGNOSIS</text>
@@ -2536,7 +2536,7 @@
             </defs>
             <rect width="400" height="225" fill="url(#tbg4)"/>
             <rect x="50" y="80" width="90" height="60" fill="none" stroke="#c0605a" stroke-width="1.5"/>
-            <rect x="155" y="80" width="90" height="60" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+            <rect x="155" y="80" width="90" height="60" fill="none" stroke="#d4a356" stroke-width="1.5"/>
             <rect x="260" y="80" width="90" height="60" fill="none" stroke="#6b8e5a" stroke-width="1.5"/>
             <text x="200" y="170" text-anchor="middle" fill="#8a857a" font-family="JetBrains Mono" font-size="9">SELF-SERVE CASE QUEUE</text>
           </svg>
