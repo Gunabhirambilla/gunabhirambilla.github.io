@@ -712,12 +712,18 @@
   .el-d-note { font-size: 14.5px; line-height: 1.6; color: var(--cream); font-weight: 300; }
   #journey, #milestones { padding: 120px 0; }
   .timeline { margin-top: 56px; border-top: 1px solid var(--line); }
-  .tl-item { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--line); }
-  @media (max-width: 760px) { .tl-item { grid-template-columns: 1fr; gap: 12px; } }
-  .tl-group { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 48px 0 0; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .tl-group { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin: 48px 0 24px 10px; padding-left: 44px; }
   .tl-resume { color: var(--accent); margin-left: 8px; white-space: nowrap; }
-  .tl-when { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
-  .tl-when span { display: block; margin-top: 8px; color: var(--muted); letter-spacing: 0.06em; }
+  /* ladder: continuous rail with a rung and node per entry */
+  .timeline { position: relative; margin-left: 10px; padding-left: 44px; border-left: 2px solid var(--line); }
+  .tl-item { position: relative; display: block; padding: 8px 0 44px; border-bottom: 0; }
+  .tl-item::before { content: ""; position: absolute; left: -44px; top: 17px; width: 30px; height: 2px; background: var(--accent); opacity: .5; }
+  .tl-item::after { content: ""; position: absolute; left: -53px; top: 10px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); border: 2px solid var(--accent); box-shadow: 0 0 0 4px var(--ink); }
+  .tl-item:first-child::after { background: var(--accent); }
+  .tl-item:last-child { padding-bottom: 12px; }
+  .tl-when { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; padding-top: 3px; }
+  .tl-when span { display: inline; margin: 0 0 0 12px; color: var(--muted); letter-spacing: 0.06em; }
+  .tl-when span::before { content: "\00b7"; margin-right: 12px; }
   .tl-main h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.15; margin-bottom: 6px; }
   .tl-org { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 16px; }
   .tl-main ul { list-style: none; }
