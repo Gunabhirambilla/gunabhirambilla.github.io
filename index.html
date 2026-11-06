@@ -556,7 +556,7 @@
     transition: max-height 480ms ease, opacity 320ms ease, margin 380ms ease;
   }
   .project-row.expanded .proj-details {
-    max-height: 1200px;
+    max-height: 1800px;
     opacity: 1;
     margin-top: 32px;
     padding-top: 32px;
@@ -633,6 +633,17 @@
     color: var(--muted);
     text-transform: uppercase;
   }
+
+
+  .proj-adoption { margin-top: 4px; border-top: 1px solid var(--line-soft); }
+  .proj-adoption .adopt-row { display: grid; grid-template-columns: 78px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); align-items: baseline; }
+  .proj-adoption .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .proj-adoption .v { font-family: var(--sans); font-size: 14px; color: var(--paper); line-height: 1.5; }
+  .more-work { display: none; }
+  .more-work.open { display: block; }
+  .more-work-bar { margin: 28px 0; }
+  .more-work-btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px 22px; border: 1px solid var(--line); color: var(--paper); cursor: pointer; background: transparent; transition: all 220ms ease; }
+  .more-work-btn:hover { border-color: var(--paper); }
 
   @media (max-width: 900px) {
     .project-row {
@@ -1372,9 +1383,9 @@
 <section id="projects">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 03 · work · 16 entries</div>
+      <div class="sec-num">// 03 · work · 6 featured · 10 more</div>
       <h2 class="sec-title">Case <span class="italic">files.</span></h2>
-      <p class="sec-sub">Real systems I've shipped — the architecture that held, the bugs I traced through three layers, the trade-offs that mattered. Selected from a portfolio of 50+ production projects. Click any row to expand.</p>
+      <p class="sec-sub">Real systems I've shipped — the architecture that held, the bugs I traced through three layers, the trade-offs that mattered. Each one starts with the problem, then who uses it and what changed. Selected from a portfolio of 50+ production projects. Click any row to expand.</p>
     </div>
 
     <div class="project-filters reveal d1">
@@ -1392,9 +1403,276 @@
     <div class="projects-list">
 
       <!-- /01 -->
-      <div class="project-row reveal" data-tags="snowflake,python,optimization">
+      <div class="project-row reveal" data-tags="python,optimization">
         <div class="header-row">
           <div class="proj-num">/01</div>
+          <div class="proj-name">Hourly Slack Alerting on a Laggy Siebel CRM View</div>
+          <div class="proj-stack">
+            <span>Siebel CRM</span><span>SQL</span><span>Python</span><span>Slack API</span>
+          </div>
+          <div class="proj-impact">Hourly polling against a reporting view with multi-hour lag, diffed against last-seen state. <em>Used by 15 Commercial Ops teammates; they stopped missing new cases, replies, and assignments.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>The Siebel CRM reporting view Commercial Ops relied on lagged live case activity by several hours. New cases, customer replies, and assignments all sat invisible until someone happened to refresh a dashboard — there was no push notification layer on top of a CRM never built for one.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Used by</span><span class="v">15 Commercial Ops teammates</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">New cases, replies and assignments sat invisible until someone refreshed a lagging Siebel view</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">About 2 alerts a day, sent only when something new needs attention</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>Built an hourly polling job against the lagging view that diffs against a last-seen cursor to detect genuinely new activity by type — new case, customer reply, or assignment — then posts formatted alerts to the right Slack channel. The job is designed around the view's inherent staleness rather than fighting it.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Last-seen cursor prevents duplicate alerts across runs</li>
+                <li>Classifies activity into new case / reply / assignment before routing</li>
+                <li>Slack webhook integration with channel-specific formatting</li>
+                <li>Tolerant of the CRM's multi-hour reporting lag by design</li>
+                <li>Runs hourly on a schedule, no manual trigger required</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">15</div><div class="l">People alerted</div></div>
+                <div class="metric"><div class="v">~2</div><div class="l">Alerts per day</div></div>
+                <div class="metric"><div class="v">0</div><div class="l">Missed SLA windows</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /02 -->
+      <div class="project-row reveal" data-tags="ai,python">
+        <div class="header-row">
+          <div class="proj-num">/02</div>
+          <div class="proj-name">Tiered Diagnostic Notebook for Fleet Telemetry Support</div>
+          <div class="proj-stack">
+            <span>Python</span><span>SQL</span><span>LLM</span>
+          </div>
+          <div class="proj-impact">Three escalating tiers — deterministic rules first, AI case notes only when needed. <em>Used daily by 15 analysts; time per case dropped from ~45 to ~10 minutes.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>Support analysts needed to diagnose why a vehicle wasn't reporting telemetry, but root causes ranged from a simple connectivity gap to a multi-system fault. Running an LLM against every case was slow, costly, and unnecessary for the majority that a straightforward rule check could already explain.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Used by</span><span class="v">15 support analysts, daily (~6 cases each)</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">About 45 minutes per case, querying several backend systems and navigating the CRM by hand</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">About 10 minutes per case, with AI notes only when the case needs them</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>Structured the notebook as three escalating tiers: Tier 1 runs fast, deterministic SQL checks against the most common known failure patterns; Tier 2 adds cross-table correlation for less obvious cases; Tier 3 — AI-generated case notes — only fires for cases that survive both earlier tiers unresolved, summarizing the diagnostic trail for the analyst instead of leaving them to piece it together.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Tier 1: deterministic SQL rule checks for common failure signatures</li>
+                <li>Tier 2: cross-table correlation for subtler fault patterns</li>
+                <li>Tier 3: LLM-generated case notes, gated to unresolved cases only</li>
+                <li>Diagnostic trail logged per case for auditability</li>
+                <li>AI cost scoped to the minority of cases that actually need it</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">15</div><div class="l">Analysts, daily</div></div>
+                <div class="metric"><div class="v">45 → 10</div><div class="l">Minutes per case</div></div>
+                <div class="metric"><div class="v">3</div><div class="l">Diagnostic tiers</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /03 -->
+      <div class="project-row reveal" data-tags="modeling,optimization">
+        <div class="header-row">
+          <div class="proj-num">/03</div>
+          <div class="proj-name">Self-Serve Case Queue Report Built on Two Window Functions</div>
+          <div class="proj-stack">
+            <span>SQL</span><span>QUALIFY</span><span>Window Functions</span>
+          </div>
+          <div class="proj-impact">One parameter, three real-time queues, no Python and no dashboard team. <em>Used by 15 analysts about 4 times a day, and picked up by the Level 3 team.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>Analysts had no consolidated, real-time answer to three questions: what needs a response now, what's gone stale without follow-up, and what's the full state of everything still open. The data was all in the CRM — it just wasn't shaped for triage, and auto-acknowledgment emails made "needs response" counts noisy.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Used by</span><span class="v">15 analysts (~4 times a day) and the Level 3 team</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">Manual navigation of the CRM to piece together each queue</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">Three real-time queues from one cloned notebook, no dashboard team</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>A pure-SQL notebook driven by a single <code>:analyst_name</code> parameter, cloned per analyst for isolated execution state. A <code>UNION</code> bridges current case status with full historical activity, and <code>ROW_NUMBER</code> / <code>QUALIFY</code> isolate the most recent activity per case without subquery nesting. Auto-acks are filtered by treating a short-window inbound right after an outbound as system-generated, and pure-SQL weekday arithmetic powers business-day stale-follow-up flags with no UDF or calendar table.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Single string parameter makes the notebook portable across analysts</li>
+                <li><code>QUALIFY</code> replaces nested subqueries for "most recent per case"</li>
+                <li>Auto-acknowledgment filtering keeps "needs response" counts honest</li>
+                <li>Pure-SQL business-day arithmetic, no UDFs or calendar table</li>
+                <li>Inline <code>CASE</code> expressions derive urgency tiers automatically</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">15</div><div class="l">Analysts</div></div>
+                <div class="metric"><div class="v">~4×</div><div class="l">Opens per day</div></div>
+                <div class="metric"><div class="v">L3</div><div class="l">Team also uses it</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /04 -->
+      <div class="project-row reveal" data-tags="ai,python,snowflake">
+        <div class="header-row">
+          <div class="proj-num">/04</div>
+          <div class="proj-name">RAG Case Analysis &amp; Case-Note Generator on Databricks</div>
+          <div class="proj-stack">
+            <span>Databricks</span><span>Python</span><span>Vector DB</span><span>Embeddings</span>
+          </div>
+          <div class="proj-impact">Retrieval-augmented case analysis and note generation over CRM case history and vehicle telemetry, with a validation layer that catches stale, duplicate, or contradictory records before they reach the LLM. <em>Used by 15 analysts; notes go out as generated, saving ~25 minutes each.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>Case analysis and note generation are only as trustworthy as the records they retrieve from. Stale case history, duplicate or contradictory CRM entries, and telemetry that disagrees with what a case note says all silently corrupt LLM output downstream — with no easy way to detect the failure after the fact.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Used by</span><span class="v">15 analysts</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">Writing each case note by hand from CRM history and telemetry</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">Notes generated from validated records and sent as generated</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>Built the retrieval layer on Databricks over CRM case history and telemetry data, powering case analysis and a case-note generator. A quality framework runs on the source records before embedding: freshness checks (last-updated thresholds), deduplication (semantic similarity clustering), contradiction detection across records, and provenance tagging. Records that fail are quarantined; the rest enter the vector index with quality metadata attached.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Record freshness scoring with configurable thresholds</li>
+                <li>Semantic dedup via embedding similarity clusters</li>
+                <li>Cross-record contradiction detection (case history vs. telemetry)</li>
+                <li>Provenance metadata propagated to retrieval layer</li>
+                <li>Retrieval feeds case analysis and case-note generation</li>
+                <li>Quarantine queue for human review</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">15</div><div class="l">Analysts</div></div>
+                <div class="metric"><div class="v">~25 min</div><div class="l">Saved per note</div></div>
+                <div class="metric"><div class="v">As-is</div><div class="l">Notes sent unedited</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /05 -->
+      <div class="project-row reveal" data-tags="snowflake,modeling">
+        <div class="header-row">
+          <div class="proj-num">/05</div>
+          <div class="proj-name">Multi-Tenant Data Warehouse Architecture</div>
+          <div class="proj-stack">
+            <span>Snowflake</span><span>SQL</span><span>SCD II</span>
+          </div>
+          <div class="proj-impact">Fact/dimension models, time-aware joins, layered staging→intermediate→mart. <em>Serves 250 customers, internal and external, and cut delivery time by 8 hours.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>Multiple customers, shared infrastructure, divergent needs — and a warehouse that had grown organically into a tangle of one-off views. Cross-tenant benchmarking was unsafe, performance was inconsistent, and onboarding a new customer required custom code rather than configuration.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Serves</span><span class="v">250 customers, internal teams and external customers</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">A tangle of one-off views, unsafe cross-tenant benchmarking and inconsistent performance</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">Layered staging → intermediate → mart models with tenant-aware governance</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>Redesigned as a layered architecture: staging mirrors source systems, intermediate handles business logic and conformed dimensions, marts expose tenant-isolated semantic models. SCD Type 2 captures historical attribution. Tenant ID propagates through every fact for safe row-level isolation.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Three-layer architecture with clear contracts between layers</li>
+                <li>SCD Type 2 with effective_from / effective_to / is_current</li>
+                <li>Conformed dimensions shared across tenants</li>
+                <li>Row-access policies for tenant isolation</li>
+                <li>Foundation for 60+ multi-tenant dashboards</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">250</div><div class="l">Customers served</div></div>
+                <div class="metric"><div class="v">8 hrs</div><div class="l">Delivery time cut</div></div>
+                <div class="metric"><div class="v">60+</div><div class="l">Dashboards on top</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /06 -->
+      <div class="project-row reveal" data-tags="dbt,modeling,snowflake">
+        <div class="header-row">
+          <div class="proj-num">/06</div>
+          <div class="proj-name">dbt-Based Analytics Engineering Framework</div>
+          <div class="proj-stack">
+            <span>dbt</span><span>Snowflake</span><span>Jinja</span><span>YAML</span>
+          </div>
+          <div class="proj-impact">Migrated legacy SQL views to dbt with tests, docs, and CI/CD. <em>Built solo; 366 tests caught 50 failures before they reached production.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>Hundreds of business-critical views had grown over years with no tests, no documentation, and no consistent style. Logic was duplicated across views, dependencies were implicit, and a change in one place could quietly break a dashboard halfway across the warehouse.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Built by</span><span class="v">Me, solo, end to end</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">No tests, no docs and logic duplicated across hundreds of views</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">366 tests; 50 failures caught before they reached production</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>Migrated transformations to dbt with a layered staging → intermediate → mart structure. Added schema tests for uniqueness, referential integrity, and accepted values. Generated docs auto-publish on every merge. CI runs the full test suite before any change reaches production.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Layered model architecture with explicit DAG</li>
+                <li>Schema tests, custom tests, and freshness checks</li>
+                <li>Macros for reused logic (tenant filters, SCD merges)</li>
+                <li>Auto-generated docs with column-level lineage</li>
+                <li>GitHub Actions CI for slim builds on PRs</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">366</div><div class="l">Tests</div></div>
+                <div class="metric"><div class="v">50</div><div class="l">Failures caught</div></div>
+                <div class="metric"><div class="v">Solo</div><div class="l">Built end to end</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="more-work-bar"><button class="more-work-btn" id="moreWorkBtn" type="button" aria-expanded="false">Show 10 more projects <span class="arrow">+</span></button></div>
+      <div class="more-work" id="moreWork">
+      <!-- /07 -->
+      <div class="project-row reveal" data-tags="snowflake,python,optimization">
+        <div class="header-row">
+          <div class="proj-num">/07</div>
           <div class="proj-name">Automated KPI Reporting Pipeline</div>
           <div class="proj-stack">
             <span>Snowflake</span><span>Python</span><span>SQL</span><span>Word/PDF</span>
@@ -1405,7 +1683,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>Customer Success was spending two full days every week assembling a recurring KPI report — pulling SQL exports, copying values into Excel templates, refreshing charts manually, then re-typing summaries into a Word doc and exporting to PDF. The same humans were doing the same clicks every Monday.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Designed a parameterized Python pipeline that reads customer config from a control table, runs templated Snowflake queries, populates an Excel workbook (preserving formatting and pivot logic), and injects the results plus auto-generated narrative into a Word template via python-docx. Final step exports to PDF for leadership distribution.</p>
@@ -1429,10 +1707,10 @@
         </div>
       </div>
 
-      <!-- /02 -->
+      <!-- /08 -->
       <div class="project-row reveal" data-tags="snowflake,modeling">
         <div class="header-row">
-          <div class="proj-num">/02</div>
+          <div class="proj-num">/08</div>
           <div class="proj-name">Customer ROI Metrics Engine</div>
           <div class="proj-stack">
             <span>Snowflake</span><span>SQL</span><span>Excel</span>
@@ -1443,7 +1721,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>The Sales and Customer Success teams couldn't quantify product value at renewal conversations. Each rep was inventing their own ROI math, leading to inconsistent numbers across customers — and no defensible framework when leadership asked "what's the upsell story?"</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Built a unified Snowflake-backed ROI model that quantifies four pillars: intake completion lift, scheduling adoption, reminder effectiveness (no-show reduction), and engagement uplift. Each pillar maps to specific time and revenue assumptions configurable per customer segment.</p>
@@ -1467,48 +1745,10 @@
         </div>
       </div>
 
-      <!-- /03 -->
-      <div class="project-row reveal" data-tags="snowflake,modeling">
-        <div class="header-row">
-          <div class="proj-num">/03</div>
-          <div class="proj-name">Multi-Tenant Data Warehouse Architecture</div>
-          <div class="proj-stack">
-            <span>Snowflake</span><span>SQL</span><span>SCD II</span>
-          </div>
-          <div class="proj-impact">Fact/dimension models, time-aware joins, layered staging→intermediate→mart. <em>Improved query performance and tenant-aware governance.</em></div>
-          <div class="proj-arrow">+</div>
-        </div>
-        <div class="proj-details">
-          <div class="proj-details-grid">
-            <div class="proj-detail-block">
-              <h5>The Challenge</h5>
-              <p>Multiple customers, shared infrastructure, divergent needs — and a warehouse that had grown organically into a tangle of one-off views. Cross-tenant benchmarking was unsafe, performance was inconsistent, and onboarding a new customer required custom code rather than configuration.</p>
-              <h5 style="margin-top: 22px;">The Approach</h5>
-              <p>Redesigned as a layered architecture: staging mirrors source systems, intermediate handles business logic and conformed dimensions, marts expose tenant-isolated semantic models. SCD Type 2 captures historical attribution. Tenant ID propagates through every fact for safe row-level isolation.</p>
-            </div>
-            <div class="proj-detail-block">
-              <h5>Technical Details</h5>
-              <ul>
-                <li>Three-layer architecture with clear contracts between layers</li>
-                <li>SCD Type 2 with effective_from / effective_to / is_current</li>
-                <li>Conformed dimensions shared across tenants</li>
-                <li>Row-access policies for tenant isolation</li>
-                <li>Foundation for 60+ multi-tenant dashboards</li>
-              </ul>
-              <div class="proj-metrics">
-                <div class="metric"><div class="v">60+</div><div class="l">Dashboards on top</div></div>
-                <div class="metric"><div class="v">3</div><div class="l">Layers</div></div>
-                <div class="metric"><div class="v">Type 2</div><div class="l">Historical SCD</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- /04 -->
+      <!-- /09 -->
       <div class="project-row reveal" data-tags="snowflake,python">
         <div class="header-row">
-          <div class="proj-num">/04</div>
+          <div class="proj-num">/09</div>
           <div class="proj-name">Idempotent Incremental ETL Framework</div>
           <div class="proj-stack">
             <span>Snowflake</span><span>SQL</span><span>Python</span>
@@ -1519,7 +1759,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>Daily pipelines occasionally failed mid-run or produced duplicates after partial recovery. Engineers had to manually clean state before reruns, and late-arriving source records silently corrupted aggregates. Trust in the data was eroding.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Designed an incremental framework around three principles: deterministic watermark tracking, merge-based upserts (never plain inserts), and explicit validation gates. Every run logs to a control table; every failure can be safely retried without manual cleanup.</p>
@@ -1543,10 +1783,10 @@
         </div>
       </div>
 
-      <!-- /05 -->
+      <!-- /10 -->
       <div class="project-row reveal" data-tags="snowflake,reconciliation">
         <div class="header-row">
-          <div class="proj-num">/05</div>
+          <div class="proj-num">/10</div>
           <div class="proj-name">Cross-System Data Quality &amp; Reconciliation</div>
           <div class="proj-stack">
             <span>Snowflake</span><span>SQL</span>
@@ -1557,7 +1797,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>CRM said one number of active contracts. Billing said another. The operational system said a third. Finance was reconciling these by hand each month-end, and discrepancies often weren't surfaced until they had compounded across periods.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Built a reconciliation layer that joins all three systems on canonical entity keys and applies deterministic mismatch rules. Every mismatch is logged with a category, severity, and recommended action. Daily snapshots track drift over time, with exception reports surfaced to operations.</p>
@@ -1581,10 +1821,10 @@
         </div>
       </div>
 
-      <!-- /06 -->
+      <!-- /11 -->
       <div class="project-row reveal" data-tags="snowflake,optimization">
         <div class="header-row">
-          <div class="proj-num">/06</div>
+          <div class="proj-num">/11</div>
           <div class="proj-name">Snowflake Cost &amp; Query Optimization</div>
           <div class="proj-stack">
             <span>Snowflake</span><span>SQL</span>
@@ -1595,7 +1835,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>Snowflake credit consumption was growing faster than usage justified. A single oversized warehouse was running every workload, ad-hoc queries were doing full table scans, and no one had visibility into which queries were the actual cost drivers.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Mined query history and warehouse metering to attribute cost by workload. Split into purpose-sized warehouses (small for BI, medium for ETL, X-small for ad hoc), enforced auto-suspend, and rewrote the top expensive queries to use clustering and pruning. Built an internal cost dashboard for ongoing visibility.</p>
@@ -1619,10 +1859,10 @@
         </div>
       </div>
 
-      <!-- /07 -->
+      <!-- /12 -->
       <div class="project-row reveal" data-tags="python,modeling">
         <div class="header-row">
-          <div class="proj-num">/07</div>
+          <div class="proj-num">/12</div>
           <div class="proj-name">UrgentIQ Visit Status &amp; Event Analytics</div>
           <div class="proj-stack">
             <span>Python</span><span>SQL</span><span>Snowflake</span><span>API</span>
@@ -1633,7 +1873,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>Visit lifecycle data lived in a noisy event stream from the UrgentIQ API. Some statuses were skipped, some were emitted out of order, and timestamps were UTC while reporting expected EST. Operations couldn't answer basic questions like "how long are visits stuck in checked-in status?"</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Built an incremental ingestion pipeline that normalizes status timelines (1 → N), gap-fills missing transitions with deterministic rules, standardizes timezone, and computes transition durations. Output is a clean lifecycle fact ready for funnel and bottleneck analysis.</p>
@@ -1657,10 +1897,10 @@
         </div>
       </div>
 
-      <!-- /08 -->
+      <!-- /13 -->
       <div class="project-row reveal" data-tags="reconciliation">
         <div class="header-row">
-          <div class="proj-num">/08</div>
+          <div class="proj-num">/13</div>
           <div class="proj-name">Provider Count &amp; Billing Reconciliation</div>
           <div class="proj-stack">
             <span>SQL</span><span>Excel</span><span>QuickBooks</span>
@@ -1671,7 +1911,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>Customers were billed based on provider counts, but "provider" meant different things in different systems. Some part-time providers were counted as full FTEs, some full-time providers were missed entirely, and contract terms specified thresholds nobody was actively checking.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Designed a reconciliation workflow that joins operational provider activity with CRM contract terms and QuickBooks billing records. Applied FTE thresholds (active hours, encounter volume) to classify each provider into a billing category. Standardized monthly reconciliation checkpoints.</p>
@@ -1695,10 +1935,10 @@
         </div>
       </div>
 
-      <!-- /09 -->
+      <!-- /14 -->
       <div class="project-row reveal" data-tags="optimization">
         <div class="header-row">
-          <div class="proj-num">/09</div>
+          <div class="proj-num">/14</div>
           <div class="proj-name">SMS Optimization &amp; Number Rationalization</div>
           <div class="proj-stack">
             <span>SQL</span><span>Excel</span>
@@ -1709,7 +1949,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>SMS costs were inflated by two avoidable issues: messages tipping over the 160-character single-segment threshold (doubling per-message cost) and a fleet of 300+ phone numbers that were billed monthly but no longer in use. Nobody had audited either in years.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Audited message content across templates, identified those tipping over the segment boundary, and rewrote them under a 150-character target with a margin for personalization variables. Cross-referenced active phone numbers against actual outbound traffic and decommissioned the inactive ones.</p>
@@ -1733,10 +1973,10 @@
         </div>
       </div>
 
-      <!-- /10 -->
+      <!-- /15 -->
       <div class="project-row reveal" data-tags="optimization">
         <div class="header-row">
-          <div class="proj-num">/10</div>
+          <div class="proj-num">/15</div>
           <div class="proj-name">EMR API Usage &amp; Cost Analysis</div>
           <div class="proj-stack">
             <span>SQL</span><span>API Logs</span>
@@ -1747,7 +1987,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>EMR vendor API costs were rising without a clear understanding of what was driving usage. Were certain endpoints inefficient? Were features double-fetching data? Engineering needed evidence before making architectural changes.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Mined six months of API logs to surface usage patterns: top endpoints by volume, redundant call chains, customer-level cost attribution, and timing correlations with downstream features. Output was a structured report engineering used to prioritize caching and batching work.</p>
@@ -1771,48 +2011,10 @@
         </div>
       </div>
 
-      <!-- /11 -->
-      <div class="project-row reveal" data-tags="dbt,modeling,snowflake">
-        <div class="header-row">
-          <div class="proj-num">/11</div>
-          <div class="proj-name">dbt-Based Analytics Engineering Framework</div>
-          <div class="proj-stack">
-            <span>dbt</span><span>Snowflake</span><span>Jinja</span><span>YAML</span>
-          </div>
-          <div class="proj-impact">Migrated legacy SQL views to dbt with tests, docs, and CI/CD. <em>Replaced tribal knowledge with verifiable contracts.</em></div>
-          <div class="proj-arrow">+</div>
-        </div>
-        <div class="proj-details">
-          <div class="proj-details-grid">
-            <div class="proj-detail-block">
-              <h5>The Challenge</h5>
-              <p>Hundreds of business-critical views had grown over years with no tests, no documentation, and no consistent style. Logic was duplicated across views, dependencies were implicit, and a change in one place could quietly break a dashboard halfway across the warehouse.</p>
-              <h5 style="margin-top: 22px;">The Approach</h5>
-              <p>Migrated transformations to dbt with a layered staging → intermediate → mart structure. Added schema tests for uniqueness, referential integrity, and accepted values. Generated docs auto-publish on every merge. CI runs the full test suite before any change reaches production.</p>
-            </div>
-            <div class="proj-detail-block">
-              <h5>Technical Details</h5>
-              <ul>
-                <li>Layered model architecture with explicit DAG</li>
-                <li>Schema tests, custom tests, and freshness checks</li>
-                <li>Macros for reused logic (tenant filters, SCD merges)</li>
-                <li>Auto-generated docs with column-level lineage</li>
-                <li>GitHub Actions CI for slim builds on PRs</li>
-              </ul>
-              <div class="proj-metrics">
-                <div class="metric"><div class="v">200+</div><div class="l">Models migrated</div></div>
-                <div class="metric"><div class="v">100%</div><div class="l">Tested coverage</div></div>
-                <div class="metric"><div class="v">Auto</div><div class="l">Docs &amp; lineage</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- /12 -->
+      <!-- /16 -->
       <div class="project-row reveal" data-tags="streaming,python,snowflake">
         <div class="header-row">
-          <div class="proj-num">/12</div>
+          <div class="proj-num">/16</div>
           <div class="proj-name">Near-Real-Time Event Ingestion (Kafka → Snowflake)</div>
           <div class="proj-stack">
             <span>Kafka</span><span>Snowpipe</span><span>Python</span><span>Streams</span>
@@ -1823,7 +2025,7 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Challenge</h5>
+              <h5>The Problem</h5>
               <p>Operational teams needed visibility into events as they happened — not 24 hours later. The existing batch pipeline ran nightly, which meant by the time an issue showed up on the dashboard, the day was over. Switching to streaming meant rethinking watermarks, ordering, and failure recovery.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Built a Kafka-to-Snowflake pipeline using Snowpipe Streaming for sub-minute landing, then Snowflake Streams + Tasks for incremental transformation. Out-of-order events handled via watermark tolerance windows. Quality metrics (lag, dropped events, schema drift) emitted to a monitoring dashboard.</p>
@@ -1846,158 +2048,6 @@
           </div>
         </div>
       </div>
-
-      <!-- /13 -->
-      <div class="project-row reveal" data-tags="ai,python,snowflake">
-        <div class="header-row">
-          <div class="proj-num">/13</div>
-          <div class="proj-name">RAG Case Analysis &amp; Case-Note Generator on Databricks</div>
-          <div class="proj-stack">
-            <span>Databricks</span><span>Python</span><span>Vector DB</span><span>Embeddings</span>
-          </div>
-          <div class="proj-impact">Retrieval-augmented case analysis and note generation over CRM case history and vehicle telemetry, with a validation layer that catches stale, duplicate, or contradictory records before they reach the LLM. <em>Reduced hallucination risk in generated case notes.</em></div>
-          <div class="proj-arrow">+</div>
-        </div>
-        <div class="proj-details">
-          <div class="proj-details-grid">
-            <div class="proj-detail-block">
-              <h5>The Challenge</h5>
-              <p>Case analysis and note generation are only as trustworthy as the records they retrieve from. Stale case history, duplicate or contradictory CRM entries, and telemetry that disagrees with what a case note says all silently corrupt LLM output downstream — with no easy way to detect the failure after the fact.</p>
-              <h5 style="margin-top: 22px;">The Approach</h5>
-              <p>Built the retrieval layer on Databricks over CRM case history and telemetry data, powering case analysis and a case-note generator. A quality framework runs on the source records before embedding: freshness checks (last-updated thresholds), deduplication (semantic similarity clustering), contradiction detection across records, and provenance tagging. Records that fail are quarantined; the rest enter the vector index with quality metadata attached.</p>
-            </div>
-            <div class="proj-detail-block">
-              <h5>Technical Details</h5>
-              <ul>
-                <li>Record freshness scoring with configurable thresholds</li>
-                <li>Semantic dedup via embedding similarity clusters</li>
-                <li>Cross-record contradiction detection (case history vs. telemetry)</li>
-                <li>Provenance metadata propagated to retrieval layer</li>
-                <li>Retrieval feeds case analysis and case-note generation</li>
-                <li>Quarantine queue for human review</li>
-              </ul>
-              <div class="proj-metrics">
-                <div class="metric"><div class="v">↓</div><div class="l">Hallucination risk</div></div>
-                <div class="metric"><div class="v">↑</div><div class="l">Source trust</div></div>
-                <div class="metric"><div class="v">Auto</div><div class="l">Quality gates</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- /14 -->
-      <div class="project-row reveal" data-tags="python,optimization">
-        <div class="header-row">
-          <div class="proj-num">/14</div>
-          <div class="proj-name">Hourly Slack Alerting on a Laggy Siebel CRM View</div>
-          <div class="proj-stack">
-            <span>Siebel CRM</span><span>SQL</span><span>Python</span><span>Slack API</span>
-          </div>
-          <div class="proj-impact">Hourly polling against a reporting view with multi-hour lag, diffed against last-seen state. <em>Commercial Ops stopped missing new cases, replies, and assignments because of stale data.</em></div>
-          <div class="proj-arrow">+</div>
-        </div>
-        <div class="proj-details">
-          <div class="proj-details-grid">
-            <div class="proj-detail-block">
-              <h5>The Challenge</h5>
-              <p>The Siebel CRM reporting view Commercial Ops relied on lagged live case activity by several hours. New cases, customer replies, and assignments all sat invisible until someone happened to refresh a dashboard — there was no push notification layer on top of a CRM never built for one.</p>
-              <h5 style="margin-top: 22px;">The Approach</h5>
-              <p>Built an hourly polling job against the lagging view that diffs against a last-seen cursor to detect genuinely new activity by type — new case, customer reply, or assignment — then posts formatted alerts to the right Slack channel. The job is designed around the view's inherent staleness rather than fighting it.</p>
-            </div>
-            <div class="proj-detail-block">
-              <h5>Technical Details</h5>
-              <ul>
-                <li>Last-seen cursor prevents duplicate alerts across runs</li>
-                <li>Classifies activity into new case / reply / assignment before routing</li>
-                <li>Slack webhook integration with channel-specific formatting</li>
-                <li>Tolerant of the CRM's multi-hour reporting lag by design</li>
-                <li>Runs hourly on a schedule, no manual trigger required</li>
-              </ul>
-              <div class="proj-metrics">
-                <div class="metric"><div class="v">Hourly</div><div class="l">Cadence</div></div>
-                <div class="metric"><div class="v">3</div><div class="l">Alert types</div></div>
-                <div class="metric"><div class="v">0</div><div class="l">Missed SLA windows</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- /15 -->
-      <div class="project-row reveal" data-tags="ai,python">
-        <div class="header-row">
-          <div class="proj-num">/15</div>
-          <div class="proj-name">Tiered Diagnostic Notebook for Fleet Telemetry Support</div>
-          <div class="proj-stack">
-            <span>Python</span><span>SQL</span><span>LLM</span>
-          </div>
-          <div class="proj-impact">Three escalating tiers — deterministic rules first, AI case notes only when needed. <em>Fast on the easy cases, explainable on the hard ones.</em></div>
-          <div class="proj-arrow">+</div>
-        </div>
-        <div class="proj-details">
-          <div class="proj-details-grid">
-            <div class="proj-detail-block">
-              <h5>The Challenge</h5>
-              <p>Support analysts needed to diagnose why a vehicle wasn't reporting telemetry, but root causes ranged from a simple connectivity gap to a multi-system fault. Running an LLM against every case was slow, costly, and unnecessary for the majority that a straightforward rule check could already explain.</p>
-              <h5 style="margin-top: 22px;">The Approach</h5>
-              <p>Structured the notebook as three escalating tiers: Tier 1 runs fast, deterministic SQL checks against the most common known failure patterns; Tier 2 adds cross-table correlation for less obvious cases; Tier 3 — AI-generated case notes — only fires for cases that survive both earlier tiers unresolved, summarizing the diagnostic trail for the analyst instead of leaving them to piece it together.</p>
-            </div>
-            <div class="proj-detail-block">
-              <h5>Technical Details</h5>
-              <ul>
-                <li>Tier 1: deterministic SQL rule checks for common failure signatures</li>
-                <li>Tier 2: cross-table correlation for subtler fault patterns</li>
-                <li>Tier 3: LLM-generated case notes, gated to unresolved cases only</li>
-                <li>Diagnostic trail logged per case for auditability</li>
-                <li>AI cost scoped to the minority of cases that actually need it</li>
-              </ul>
-              <div class="proj-metrics">
-                <div class="metric"><div class="v">3</div><div class="l">Diagnostic tiers</div></div>
-                <div class="metric"><div class="v">Gated</div><div class="l">AI usage</div></div>
-                <div class="metric"><div class="v">Logged</div><div class="l">Diagnostic trail</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- /16 -->
-      <div class="project-row reveal" data-tags="modeling,optimization">
-        <div class="header-row">
-          <div class="proj-num">/16</div>
-          <div class="proj-name">Self-Serve Case Queue Report Built on Two Window Functions</div>
-          <div class="proj-stack">
-            <span>SQL</span><span>QUALIFY</span><span>Window Functions</span>
-          </div>
-          <div class="proj-impact">One parameter, three real-time queues, no Python and no dashboard team. <em>Analysts self-serve their own queue off a single cloned notebook.</em></div>
-          <div class="proj-arrow">+</div>
-        </div>
-        <div class="proj-details">
-          <div class="proj-details-grid">
-            <div class="proj-detail-block">
-              <h5>The Challenge</h5>
-              <p>Analysts had no consolidated, real-time answer to three questions: what needs a response now, what's gone stale without follow-up, and what's the full state of everything still open. The data was all in the CRM — it just wasn't shaped for triage, and auto-acknowledgment emails made "needs response" counts noisy.</p>
-              <h5 style="margin-top: 22px;">The Approach</h5>
-              <p>A pure-SQL notebook driven by a single <code>:analyst_name</code> parameter, cloned per analyst for isolated execution state. A <code>UNION</code> bridges current case status with full historical activity, and <code>ROW_NUMBER</code> / <code>QUALIFY</code> isolate the most recent activity per case without subquery nesting. Auto-acks are filtered by treating a short-window inbound right after an outbound as system-generated, and pure-SQL weekday arithmetic powers business-day stale-follow-up flags with no UDF or calendar table.</p>
-            </div>
-            <div class="proj-detail-block">
-              <h5>Technical Details</h5>
-              <ul>
-                <li>Single string parameter makes the notebook portable across analysts</li>
-                <li><code>QUALIFY</code> replaces nested subqueries for "most recent per case"</li>
-                <li>Auto-acknowledgment filtering keeps "needs response" counts honest</li>
-                <li>Pure-SQL business-day arithmetic, no UDFs or calendar table</li>
-                <li>Inline <code>CASE</code> expressions derive urgency tiers automatically</li>
-              </ul>
-              <div class="proj-metrics">
-                <div class="metric"><div class="v">3</div><div class="l">Queues per analyst</div></div>
-                <div class="metric"><div class="v">1</div><div class="l">Parameter</div></div>
-                <div class="metric"><div class="v">0</div><div class="l">Python / orchestration</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
     </div>
@@ -2520,6 +2570,18 @@
     });
   });
 
+
+  // ---------- MORE WORK TOGGLE ----------
+  const moreWork = document.getElementById('moreWork');
+  const moreBtn = document.getElementById('moreWorkBtn');
+  function setMore(open) {
+    if (!moreWork || !moreBtn) return;
+    moreWork.classList.toggle('open', open);
+    moreBtn.setAttribute('aria-expanded', String(open));
+    moreBtn.innerHTML = (open ? 'Hide 10 projects' : 'Show 10 more projects') + ' <span class="arrow">' + (open ? '−' : '+') + '</span>';
+  }
+  if (moreBtn) moreBtn.addEventListener('click', () => setMore(!moreWork.classList.contains('open')));
+
   // ---------- PROJECT FILTERS ----------
   const filters = document.querySelectorAll('.filter-chip');
   const rows = document.querySelectorAll('.project-row');
@@ -2538,6 +2600,7 @@
     f.addEventListener('click', () => {
       const filter = f.dataset.filter;
       filters.forEach((b) => b.classList.toggle('active', b === f));
+      if (filter !== 'all') setMore(true);
       rows.forEach((row) => {
         const tags = (row.dataset.tags || '').split(',');
         const show = filter === 'all' || tags.includes(filter);
