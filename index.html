@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Gunabhiram Billa — Data & Analytics Engineer</title>
-<meta name="description" content="Gunabhiram Billa — Data Engineer & Analytics Engineer. Snowflake, Python, healthcare and connected-vehicle operational analytics. Building data systems that drive operational clarity." />
+<meta name="description" content="Gunabhiram Billa — Data & Analytics Engineer. Snowflake, Databricks, dbt and Python. Healthcare and connected-vehicle analytics, RAG case analysis, and data systems used daily by analysts and customers." />
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0c' rx='10'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='34' font-weight='600' font-style='italic' fill='%23d4a356'%3EGB%3C/text%3E%3C/svg%3E">
@@ -13,11 +13,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://gunabhirambilla.github.io/" />
 <meta property="og:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
-<meta property="og:description" content="Snowflake, Python, healthcare and connected-vehicle operational analytics. 50+ production projects, 60+ multi-tenant dashboards. Building data systems that drive operational clarity." />
+<meta property="og:description" content="Snowflake, Databricks, dbt, Python. 50+ production projects, 250 customers served, RAG case-note generation. Data systems built to be used every day." />
 <meta property="og:image" content="https://gunabhirambilla.github.io/headshot.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
-<meta name="twitter:description" content="Snowflake, Python, healthcare and connected-vehicle operational analytics. Building data systems that drive operational clarity." />
+<meta name="twitter:description" content="Snowflake, Databricks, dbt, Python. Data systems built to be used every day." />
 <meta name="twitter:image" content="https://gunabhirambilla.github.io/headshot.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -556,7 +556,7 @@
     transition: max-height 480ms ease, opacity 320ms ease, margin 380ms ease;
   }
   .project-row.expanded .proj-details {
-    max-height: 1800px;
+    max-height: 2400px;
     opacity: 1;
     margin-top: 32px;
     padding-top: 32px;
@@ -644,6 +644,27 @@
   .more-work-bar { margin: 28px 0; }
   .more-work-btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 14px 22px; border: 1px solid var(--line); color: var(--paper); cursor: pointer; background: transparent; transition: all 220ms ease; }
   .more-work-btn:hover { border-color: var(--paper); }
+
+
+  .proj-diagram { margin: 36px 0 0; padding-top: 28px; border-top: 1px dashed var(--line); }
+  .proj-diagram svg { width: 100%; height: auto; display: block; }
+  .proj-diagram figcaption { margin-top: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--muted); }
+  .dg-box { fill: var(--ink-2); stroke: var(--line); stroke-width: 1.2; }
+  .dg-box.dg-hl { stroke: var(--accent); stroke-width: 1.8; }
+  .dg-bar { fill: none; stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 4 3; }
+  .dg-t { fill: var(--paper); font: 600 12.5px var(--sans); }
+  .dg-s { fill: var(--muted); font: 11px var(--sans); }
+  .dg-arrow { stroke: var(--accent); stroke-width: 1.3; fill: none; }
+  .dg-head { fill: var(--accent); }
+  @media (max-width: 760px) { .proj-diagram svg { min-width: 560px; } .proj-diagram { overflow-x: auto; } }
+  #learning { padding: 120px 0; }
+  .learn-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 1000px) { .learn-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .learn-grid { grid-template-columns: 1fr; } }
+  .learn-card { padding: 24px; background: var(--ink-2); border: 1px solid var(--line-soft); }
+  .learn-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .learn-card h4 { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.15; margin-bottom: 10px; color: var(--paper); }
+  .learn-card p { font-size: 14px; line-height: 1.6; color: var(--cream); font-weight: 300; }
 
   @media (max-width: 900px) {
     .project-row {
@@ -1056,6 +1077,7 @@
       <a href="#skills">Skills</a>
       <a href="#projects">Work</a>
       <a href="#principles">Principles</a>
+      <a href="#learning">Learning</a>
       <a href="#articles">Writing</a>
       <a href="#contact">Contact</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -1170,10 +1192,10 @@
         <div class="row"><span class="k">Role</span><span class="v">Data & Analytics Engineer</span></div>
         <div class="row"><span class="k">Based</span><span class="v">Michigan</span></div>
         <div class="row"><span class="k">Status</span><span class="v">Open to hybrid / remote</span></div>
-        <div class="row"><span class="k">Stack</span><span class="v">Snowflake · Python · SQL</span></div>
+        <div class="row"><span class="k">Stack</span><span class="v">Snowflake · Databricks · Python · SQL</span></div>
         <div class="row"><span class="k">Domain</span><span class="v">Healthcare &amp; connected-vehicle analytics</span></div>
         <div class="row"><span class="k">Shipped</span><span class="v">50+ projects · 60+ dashboards</span></div>
-        <div class="row"><span class="k">Direction</span><span class="v">Senior data system ownership</span></div>
+        <div class="row"><span class="k">Education</span><span class="v">M.S. Business Analytics, UNT</span></div>
       </div>
       <div class="about-prose reveal d1">
         <div class="now-status">
@@ -1371,7 +1393,7 @@
     <div class="reveal">
       <div class="sec-num">// 03 · work · 6 featured · 10 more</div>
       <h2 class="sec-title">Case <span class="italic">files.</span></h2>
-      <p class="sec-sub">Real systems I've shipped — the architecture that held, the bugs I traced through three layers, the trade-offs that mattered. Each one starts with the problem, then who uses it and what changed. Selected from a portfolio of 50+ production projects. Click any row to expand.</p>
+      <p class="sec-sub">Real systems I've shipped — the architecture that held, the bugs I traced through three layers, the trade-offs that mattered. Each one starts with the problem, then who uses it and what changed. Selected from a portfolio of 50+ production projects. Click any row to expand. Diagrams are simplified illustrations; no employer-confidential data or system details are shown.</p>
     </div>
 
     <div class="project-filters reveal d1">
@@ -1429,6 +1451,8 @@
               </div>
             </div>
           </div>
+
+        <figure class="proj-diagram"><svg viewBox="0 0 770 112" role="img" aria-label="Hourly Slack alerting flow"><defs><marker id="dg-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="dg-box" x="5" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="71.0" y="42" text-anchor="middle">Siebel CRM view</text><text class="dg-s" x="71.0" y="60" text-anchor="middle">multi-hour lag</text><rect class="dg-box" x="162" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="228.0" y="42" text-anchor="middle">Hourly poll job</text><text class="dg-s" x="228.0" y="60" text-anchor="middle">scheduled</text><rect class="dg-box dg-hl" x="319" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="385.0" y="42" text-anchor="middle">Diff vs cursor</text><text class="dg-s" x="385.0" y="60" text-anchor="middle">last-seen state</text><rect class="dg-box" x="476" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="542.0" y="42" text-anchor="middle">Classify by type</text><text class="dg-s" x="542.0" y="60" text-anchor="middle">case · reply · assignment</text><rect class="dg-box" x="633" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="699.0" y="42" text-anchor="middle">Slack alerts</text><text class="dg-s" x="699.0" y="60" text-anchor="middle">per-channel format</text><line class="dg-arrow" x1="137" y1="46" x2="160" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="294" y1="46" x2="317" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="451" y1="46" x2="474" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="608" y1="46" x2="631" y2="46" marker-end="url(#dg-head)"/><text class="dg-s" x="71" y="96" text-anchor="middle">lag handled by design</text><text class="dg-s" x="385" y="96" text-anchor="middle">cursor stops duplicate alerts</text></svg><figcaption>Simplified flow. Illustrative only: no employer data or confidential details are shown.</figcaption></figure>
         </div>
       </div>
 
@@ -1473,6 +1497,8 @@
               </div>
             </div>
           </div>
+
+        <figure class="proj-diagram"><svg viewBox="0 0 770 172" role="img" aria-label="Tiered telemetry diagnostic flow"><defs><marker id="dg-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="dg-box" x="5" y="20" width="150" height="52" rx="6"/><text class="dg-t" x="80.0" y="42" text-anchor="middle">Tier 1 · SQL rules</text><text class="dg-s" x="80.0" y="60" text-anchor="middle">common failure signatures</text><rect class="dg-box" x="205" y="20" width="150" height="52" rx="6"/><text class="dg-t" x="280.0" y="42" text-anchor="middle">Tier 2 · Correlation</text><text class="dg-s" x="280.0" y="60" text-anchor="middle">cross-table fault patterns</text><rect class="dg-box dg-hl" x="405" y="20" width="150" height="52" rx="6"/><text class="dg-t" x="480.0" y="42" text-anchor="middle">Tier 3 · LLM note</text><text class="dg-s" x="480.0" y="60" text-anchor="middle">unresolved cases only</text><rect class="dg-box" x="605" y="20" width="160" height="52" rx="6"/><text class="dg-t" x="685.0" y="42" text-anchor="middle">Analyst output</text><text class="dg-s" x="685.0" y="60" text-anchor="middle">case note + trail</text><line class="dg-arrow" x1="155" y1="46" x2="203" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="355" y1="46" x2="403" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="555" y1="46" x2="603" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="80" y1="72" x2="80" y2="98" marker-end="url(#dg-head)"/><text class="dg-s" x="80" y="118" text-anchor="middle">resolved here, stop</text><line class="dg-arrow" x1="280" y1="72" x2="280" y2="98" marker-end="url(#dg-head)"/><text class="dg-s" x="280" y="118" text-anchor="middle">resolved here, stop</text><rect class="dg-bar" x="5" y="134" width="760" height="26" rx="6"/><text class="dg-s dg-bt" x="385" y="151" text-anchor="middle">Diagnostic trail logged for every case</text></svg><figcaption>Simplified flow. Illustrative only: no employer data or confidential details are shown.</figcaption></figure>
         </div>
       </div>
 
@@ -1606,6 +1632,8 @@
               </div>
             </div>
           </div>
+
+        <figure class="proj-diagram"><svg viewBox="0 0 770 130" role="img" aria-label="Multi-tenant warehouse layers"><defs><marker id="dg-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="dg-box" x="5" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="71.0" y="42" text-anchor="middle">Source systems</text><text class="dg-s" x="71.0" y="60" text-anchor="middle">multiple customers</text><rect class="dg-box" x="162" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="228.0" y="42" text-anchor="middle">Staging</text><text class="dg-s" x="228.0" y="60" text-anchor="middle">mirrors sources</text><rect class="dg-box" x="319" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="385.0" y="42" text-anchor="middle">Intermediate</text><text class="dg-s" x="385.0" y="60" text-anchor="middle">conformed dims, SCD 2</text><rect class="dg-box dg-hl" x="476" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="542.0" y="42" text-anchor="middle">Marts</text><text class="dg-s" x="542.0" y="60" text-anchor="middle">tenant-isolated models</text><rect class="dg-box" x="633" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="699.0" y="42" text-anchor="middle">Dashboards</text><text class="dg-s" x="699.0" y="60" text-anchor="middle">60+ on top</text><line class="dg-arrow" x1="137" y1="46" x2="160" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="294" y1="46" x2="317" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="451" y1="46" x2="474" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="608" y1="46" x2="631" y2="46" marker-end="url(#dg-head)"/><rect class="dg-bar" x="162" y="92" width="446" height="26" rx="6"/><text class="dg-s dg-bt" x="385.0" y="109" text-anchor="middle">tenant_id on every fact · row-access policies</text></svg><figcaption>Simplified architecture. Illustrative only: no employer data or confidential details are shown.</figcaption></figure>
         </div>
       </div>
 
@@ -2110,10 +2138,26 @@
 </section>
 
 <!-- ARTICLES -->
+<section id="learning">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">// 05 · learning · ai data engineering</div>
+      <h2 class="sec-title">Currently <span class="italic">learning.</span></h2>
+      <p class="sec-sub">Moving from analytics engineering toward AI data engineering: the data foundations that LLM systems depend on. Some of it is already in production at work; the rest is where I'm building next.</p>
+    </div>
+    <div class="learn-grid reveal d1">
+      <div class="learn-card"><div class="learn-tag">In production</div><h4>Retrieval &amp; embeddings</h4><p>Running a RAG case-note generator on Databricks. Going deeper on chunking strategies, hybrid search and re-ranking.</p></div>
+      <div class="learn-card"><div class="learn-tag">Building next</div><h4>LLM evaluation</h4><p>Eval sets and automated scoring, so generated output is measured instead of assumed. The same reconciliation habit, aimed at model output.</p></div>
+      <div class="learn-card"><div class="learn-tag">Learning</div><h4>Data infrastructure at scale</h4><p>Airflow orchestration and PySpark for volume, plus containers and cloud deployment on AWS.</p></div>
+      <div class="learn-card"><div class="learn-tag">Learning</div><h4>Production AI operations</h4><p>Cost and latency monitoring, tracing and versioning for LLM applications.</p></div>
+    </div>
+  </div>
+</section>
+
 <section id="articles" class="articles-bg">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 05 · writing · 12 essays</div>
+      <div class="sec-num">// 06 · writing · 12 essays</div>
       <h2 class="sec-title">Field <span class="italic">notes.</span></h2>
       <p class="sec-sub">Technical writing on data modeling, architecture decisions, automation patterns, and governance. Most of these are post-mortems on something that broke first.</p>
     </div>
@@ -2511,7 +2555,7 @@
 <!-- CONTACT -->
 <section id="contact" class="contact wrap">
   <div class="reveal">
-    <div class="sec-num">// 06 · contact · door's open</div>
+    <div class="sec-num">// 07 · contact · door's open</div>
     <h2>Still here?<br>Let's build something <span class="italic">durable.</span></h2>
     <a href="mailto:gunabhiram.billa@gmail.com" class="email-link">say_hi — gunabhiram.billa@gmail.com</a>
     <div class="contact-links">
