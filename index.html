@@ -714,6 +714,8 @@
   .timeline { margin-top: 56px; border-top: 1px solid var(--line); }
   .tl-item { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--line); }
   @media (max-width: 760px) { .tl-item { grid-template-columns: 1fr; gap: 12px; } }
+  .tl-group { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin: 48px 0 0; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .tl-resume { color: var(--accent); margin-left: 8px; white-space: nowrap; }
   .tl-when { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
   .tl-when span { display: block; margin-top: 8px; color: var(--muted); letter-spacing: 0.06em; }
   .tl-main h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.15; margin-bottom: 6px; }
@@ -2051,9 +2053,10 @@
   <div class="wrap">
     <div class="reveal">
       <div class="sec-num">// 04 · journey</div>
-      <h2 class="sec-title">The path <span class="italic">so far.</span></h2>
-      <p class="sec-sub">Where the work happened, what I built there, and what I studied.</p>
+      <h2 class="sec-title">Experience <span class="italic">&amp; education.</span></h2>
+      <p class="sec-sub">Where the work happened, what I built there, and what I studied. <a class="tl-resume" href="resume.pdf" target="_blank" rel="noopener">Read the full r&eacute;sum&eacute; &darr;</a></p>
     </div>
+    <div class="tl-group reveal d1">Experience</div>
     <div class="timeline reveal d1">
       <div class="tl-item">
         <div class="tl-when">Jun 2026 &ndash; Present<span>Michigan</span></div>
@@ -2079,11 +2082,14 @@
           </ul>
         </div>
       </div>
+    </div>
+    <div class="tl-group reveal d1">Education</div>
+    <div class="timeline reveal d1">
       <div class="tl-item tl-edu">
-        <div class="tl-when">Education<span>Denton, TX</span></div>
+        <div class="tl-when">Denton, TX<span>GPA 3.6 / 4.0</span></div>
         <div class="tl-main">
-          <h3>M.S. Business Analytics</h3>
-          <div class="tl-org">University of North Texas &middot; Data Analytics &amp; Data Science &middot; GPA 3.6 / 4.0</div>
+          <h3>University of North Texas</h3>
+          <div class="tl-org">Master of Science, Business Analytics &middot; Data Analytics &amp; Data Science</div>
         </div>
       </div>
     </div>
