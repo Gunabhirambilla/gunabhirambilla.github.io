@@ -713,6 +713,31 @@
   #journey, #milestones { padding: 120px 0; }
   .timeline { margin-top: 56px; border-top: 1px solid var(--line); }
   .tl-resume { color: var(--accent); margin-left: 8px; white-space: nowrap; }
+
+  /* ---------- LIVE DEMO ---------- */
+  .demo-card { margin-top: 48px; border: 1px solid var(--line); border-radius: 16px; background: var(--ink-2); overflow: hidden; }
+  .demo-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+  .demo-top .lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+  .demo-pick { font-family: var(--mono); font-size: 12px; padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--cream); cursor: pointer; }
+  .demo-pick:hover, .demo-pick.on { border-color: var(--accent); color: var(--accent); }
+  .demo-body { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  .demo-col { padding: 24px 22px; min-width: 0; }
+  .demo-col + .demo-col { border-left: 1px solid var(--line); }
+  .demo-h { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .gate { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--line-soft); opacity: .35; transition: opacity .3s; }
+  .gate.show { opacity: 1; }
+  .gate .ic { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--muted); font: 600 12px/19px var(--mono); text-align: center; color: var(--muted); }
+  .gate.pass .ic { border-color: #6fbf8e; color: #6fbf8e; }
+  .gate.fail .ic { border-color: #e0715f; color: #e0715f; }
+  .gate b { display: block; font-weight: 500; font-size: 14px; color: var(--cream); }
+  .gate small { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; word-break: break-word; }
+  .demo-verdict { margin-top: 16px; padding: 14px 16px; border: 1px solid var(--accent); border-radius: 10px; font-size: 14px; line-height: 1.55; color: var(--cream); display: none; }
+  .demo-verdict.show { display: block; }
+  .demo-verdict code { font-family: var(--mono); color: var(--accent); }
+  .demo-note { font-family: var(--mono); font-size: 12.5px; line-height: 1.7; color: var(--cream); white-space: pre-wrap; min-height: 180px; }
+  .demo-run { margin: 0 22px 22px; }
+  .demo-fine { padding: 14px 22px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+  @media (max-width: 860px) { .demo-body { grid-template-columns: minmax(0,1fr); } .demo-col + .demo-col { border-left: 0; border-top: 1px solid var(--line); } }
   /* centered rail, cards alternating left and right */
   .timeline { position: relative; margin-top: 56px; padding: 0; }
   .timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: linear-gradient(var(--accent), var(--line)); }
@@ -1256,16 +1281,16 @@
             <div class="lbl">Production Projects</div>
           </div>
           <div class="stat">
-            <div class="num"><span data-count="60" data-suffix="+">0</span></div>
-            <div class="lbl">Customer Dashboards</div>
+            <div class="num"><span data-count="250">0</span></div>
+            <div class="lbl">Customers, One Warehouse</div>
           </div>
           <div class="stat">
             <div class="num"><span data-count="80" data-suffix="%">0</span></div>
             <div class="lbl">Reporting Time Saved</div>
           </div>
           <div class="stat">
-            <div class="num"><span data-count="12">0</span></div>
-            <div class="lbl">Technical Articles</div>
+            <div class="num"><span data-count="366">0</span></div>
+            <div class="lbl">dbt Tests, Zero Prod Errors</div>
           </div>
         </div>
       </div>
@@ -2064,6 +2089,38 @@
   </div>
 </section>
 
+<!-- DEMO -->
+<section id="demo" class="skills-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">// 03b · try it</div>
+      <h2 class="sec-title">Diagnose a vehicle, <span class="italic">live.</span></h2>
+      <p class="sec-sub">The idea behind my telemetry diagnostic: walk a fixed decision tree, stop at the first failed gate, and write the case note from the evidence. Pick a case and run it. Everything here is synthetic.</p>
+    </div>
+    <div class="demo-card reveal d1">
+      <div class="demo-top">
+        <span class="lbl">Case</span>
+        <button class="demo-pick on" data-c="0">DEMO-1001 &middot; no data for 3 days</button>
+        <button class="demo-pick" data-c="1">DEMO-1002 &middot; partial pushes</button>
+        <button class="demo-pick" data-c="2">DEMO-1003 &middot; healthy</button>
+      </div>
+      <div class="demo-body">
+        <div class="demo-col">
+          <div class="demo-h">Tier 1 &middot; quick diagnostic</div>
+          <div id="dGates"></div>
+          <div class="demo-verdict" id="dVerdict"></div>
+        </div>
+        <div class="demo-col">
+          <div class="demo-h">Tier 3 &middot; generated case note</div>
+          <div class="demo-note" id="dNote">Run the diagnostic to generate the note.</div>
+        </div>
+      </div>
+      <button class="btn primary demo-run" id="dRun">Run diagnostic <span class="arrow">&rarr;</span></button>
+      <div class="demo-fine">Synthetic VINs and values. Illustrates the approach only, not any employer's data or rules.</div>
+    </div>
+  </div>
+</section>
+
 <!-- PRINCIPLES -->
 <section id="journey">
   <div class="wrap">
@@ -2808,6 +2865,36 @@
     }
     tick();
     setInterval(tick, 1000);
+  })();
+
+  // ---------- LIVE DEMO ----------
+  (function(){
+    const gates=['Customer consent on file','Account and vehicle active','Telemetry unit state','Connectivity signals agree','Recent push history'];
+    const cases=[
+      {vin:'DEMO0000000001001',res:[['pass','consent = granted'],['pass','account active, vehicle enrolled'],['fail','unit state = DORMANT since 3 days ago']],
+        code:'UNIT_DORMANT',next:'Request a wake command and recheck in 30 minutes. If it stays dormant, escalate for a hardware check.',
+        sum:'The vehicle has not reported because its telemetry unit went dormant.'},
+      {vin:'DEMO0000000001002',res:[['pass','consent = granted'],['pass','account active, vehicle enrolled'],['pass','unit state = ACTIVE'],['pass','network reachable'],['fail','last 7 pushes: 2 delivered, 5 blocked (app ID mismatch)']],
+        code:'PUSH_BLOCKED',next:'Correct the partner app mapping, then replay the blocked pushes.',
+        sum:'The unit is healthy, but pushes are blocked by a partner mapping error.'},
+      {vin:'DEMO0000000001003',res:[['pass','consent = granted'],['pass','account active, vehicle enrolled'],['pass','unit state = ACTIVE'],['pass','network reachable'],['pass','last push 4 minutes ago, 7 of 7 delivered']],
+        code:'HEALTHY',next:'No action needed. Close the case with the evidence below.',
+        sum:'The vehicle is reporting normally.'}];
+    let cur=0,busy=false;
+    const g=document.getElementById('dGates'),v=document.getElementById('dVerdict'),n=document.getElementById('dNote');
+    if(!g)return;
+    function reset(){g.innerHTML=gates.map(t=>'<div class="gate"><span class="ic">&middot;</span><div><b>'+t+'</b><small>not run</small></div></div>').join('');v.className='demo-verdict';n.textContent='Run the diagnostic to generate the note.';}
+    document.querySelectorAll('.demo-pick').forEach(b=>b.addEventListener('click',()=>{if(busy)return;document.querySelectorAll('.demo-pick').forEach(x=>x.classList.remove('on'));b.classList.add('on');cur=+b.dataset.c;reset();}));
+    document.getElementById('dRun').addEventListener('click',async()=>{
+      if(busy)return;busy=true;reset();const c=cases[cur],rows=g.children;
+      for(let i=0;i<c.res.length;i++){await new Promise(r=>setTimeout(r,550));const [st,d]=c.res[i],r=rows[i];r.classList.add('show',st);r.querySelector('.ic').textContent=st==='pass'?'\u2713':'\u2715';r.querySelector('small').textContent=d;if(st==='fail')break;}
+      await new Promise(r=>setTimeout(r,400));
+      v.innerHTML='Verdict <code>'+c.code+'</code><br>'+c.sum+'<br><b>Next step:</b> '+c.next;v.classList.add('show');
+      const ev=c.res.map(x=>(x[0]==='pass'?'[ok]   ':'[FAIL] ')+x[1]).join('\n');
+      const txt='VERDICT: '+c.code+'\nVIN: '+c.vin+'\n\nFINDINGS\n'+ev+'\n\nNEXT STEPS\n'+c.next;
+      n.textContent='';for(let i=0;i<txt.length;i+=3){n.textContent=txt.slice(0,i+3);await new Promise(r=>setTimeout(r,12));}
+      n.textContent=txt;busy=false;});
+    reset();
   })();
 </script>
 </body>
