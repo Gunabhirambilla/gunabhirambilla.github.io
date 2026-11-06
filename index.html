@@ -656,7 +656,7 @@
 
 
   .proj-adoption { margin-top: 4px; border-top: 1px solid var(--line-soft); }
-  .proj-adoption .adopt-row { display: grid; grid-template-columns: 78px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); align-items: baseline; }
+  .proj-adoption .adopt-row { display: grid; grid-template-columns: 86px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); align-items: baseline; }
   .proj-adoption .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
   .proj-adoption .v { font-family: var(--sans); font-size: 14px; color: var(--paper); line-height: 1.5; }
   .more-work { display: none; }
@@ -1451,6 +1451,8 @@
                 <div class="adopt-row"><span class="k">Used by</span><span class="v">15 Commercial Ops teammates</span></div>
                 <div class="adopt-row"><span class="k">Before</span><span class="v">New cases, replies and assignments sat invisible until someone refreshed a lagging Siebel view</span></div>
                 <div class="adopt-row"><span class="k">Now</span><span class="v">About 2 alerts a day, sent only when something new needs attention</span></div>
+                <div class="adopt-row"><span class="k">Decision</span><span class="v">Widened the lookback window from 60 to 720 minutes after tracing missed alerts to a roughly 4.5-hour lag in the source view, instead of just retrying.</span></div>
+                <div class="adopt-row"><span class="k">Incident</span><span class="v">A mid-run crash re-sent 17 alerts. Fixed by saving the watermark after every send, disabling job retries and seeding the 17 already sent.</span></div>
               </div>
             </div>
             <div class="proj-detail-block">
@@ -1485,6 +1487,7 @@
             <span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span>SQL</span><span>LLM</span>
           </div>
           <div class="proj-impact">Three escalating tiers — deterministic rules first, AI case notes only when needed. <em>Used daily by 15 analysts; time per case dropped from ~45 to ~10 minutes, roughly 50 analyst-hours saved a day.</em></div>
+                <div class="adopt-row"><span class="k">Decision</span><span class="v">Fixed decision tree first, deep-dive cells only when the verdict calls for them, and the LLM last. Most cases resolve on the cheap, predictable path.</span></div>
           <div class="proj-arrow">+</div>
         </div>
         <div class="proj-details">
@@ -1543,6 +1546,7 @@
                 <div class="adopt-row"><span class="k">Used by</span><span class="v">15 analysts (~4 times a day) and the Level 3 team</span></div>
                 <div class="adopt-row"><span class="k">Before</span><span class="v">Manual navigation of the CRM to piece together each queue</span></div>
                 <div class="adopt-row"><span class="k">Now</span><span class="v">Three real-time queues from one cloned notebook, no dashboard team</span></div>
+                <div class="adopt-row"><span class="k">Decision</span><span class="v">Pure SQL, cloned per analyst rather than one shared notebook, so no analyst&rsquo;s run affects another&rsquo;s and non-engineers can maintain it.</span></div>
               </div>
             </div>
             <div class="proj-detail-block">
