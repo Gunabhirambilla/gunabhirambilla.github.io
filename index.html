@@ -747,6 +747,35 @@
   .lane-tiles .el { min-width: 150px; }
   .el-detail { position: static; margin-top: 32px; max-width: 640px; }
 
+
+  .slide-bar { margin-top: 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .slide-bar-bottom { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .slide-count { font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; color: var(--paper); display: flex; align-items: center; gap: 8px; }
+  .slide-count #slideNow, .slide-count .slide-now2 { color: var(--accent); }
+  .slide-tag { margin-left: 10px; padding: 4px 10px; border: 1px solid var(--line); font-size: 10px; text-transform: uppercase; color: var(--muted); }
+  .slide-dots { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; justify-content: center; }
+  .slide-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--muted-2); background: transparent; padding: 0; cursor: pointer; transition: all 200ms ease; }
+  .slide-dot.feat { border-color: var(--accent); }
+  .slide-dot:hover { background: var(--muted-2); }
+  .slide-dot.on { background: var(--accent); border-color: var(--accent); transform: scale(1.25); }
+  .slide-nav { display: flex; gap: 10px; }
+  .slide-nav button { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; min-width: 48px; padding: 12px 18px; border: 1px solid var(--line); color: var(--paper); background: transparent; cursor: pointer; transition: all 200ms ease; }
+  .slide-nav button:hover { border-color: var(--accent); color: var(--accent); }
+  .slide-nav button:focus-visible, .slide-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #slides { margin-top: 24px; }
+  #slides .project-row { display: none; border-bottom: 1px solid var(--line); }
+  #slides .project-row.current { display: grid; animation: slideIn 420ms ease; }
+  #slides .project-row:hover { padding-left: 0; padding-right: 0; background: none; }
+  #slides .project-row:hover .proj-name { color: inherit; }
+  #slides .header-row { cursor: default; }
+  #slides .proj-arrow { display: none; }
+  #slides .proj-details { max-height: none; opacity: 1; margin-top: 32px; padding-top: 32px; border-top: 1px dashed var(--line); overflow: visible; }
+  #slides .project-row, #slides .proj-details, #slides .proj-details-grid, #slides .proj-detail-block, #slides .proj-diagram { min-width: 0; }
+  @media (max-width: 900px) { #slides .project-row.current { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 760px) { #slides .proj-details-grid { grid-template-columns: minmax(0, 1fr); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { #slides .project-row.current { animation: none; } }
+
   @media (max-width: 900px) {
     .project-row {
       grid-template-columns: 1fr;
@@ -1333,9 +1362,9 @@
 <section id="projects">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 03 · work · 6 featured · 10 more</div>
+      <div class="sec-num">// 03 · work · 16 case files</div>
       <h2 class="sec-title">Case <span class="italic">files.</span></h2>
-      <p class="sec-sub">Real systems I've shipped — the architecture that held, the bugs I traced through three layers, the trade-offs that mattered. Each one starts with the problem, then who uses it and what changed. Selected from a portfolio of 50+ production projects. Click any row to expand. Diagrams are simplified illustrations; no employer-confidential data or system details are shown.</p>
+      <p class="sec-sub">Real systems I've shipped — the architecture that held, the bugs I traced through three layers, the trade-offs that mattered. Each one starts with the problem, then who uses it and what changed. Selected from a portfolio of 50+ production projects. Use the arrows, dots, swipe or arrow keys to move through them. Diagrams are simplified illustrations; no employer-confidential data or system details are shown.</p>
     </div>
 
     <div class="project-filters reveal d1">
@@ -1350,10 +1379,16 @@
       <button class="filter-chip" data-filter="optimization">Optimization</button>
     </div>
 
-    <div class="projects-list">
+    <div class="slide-bar reveal d1">
+      <div class="slide-count"><span id="slideNow">01</span> / <span id="slideTotal">16</span><span class="slide-tag" id="slideTag">Featured</span></div>
+      <div class="slide-dots" id="slideDots" role="tablist" aria-label="Choose a case file"></div>
+      <div class="slide-nav"><button type="button" class="slide-prev" aria-label="Previous case file">&larr;</button><button type="button" class="slide-next" aria-label="Next case file">&rarr;</button></div>
+    </div>
+
+    <div class="projects-list" id="slides">
 
       <!-- /01 -->
-      <div class="project-row reveal" data-tags="python,optimization">
+      <div class="project-row reveal" data-featured="1" data-tags="python,optimization">
         <div class="header-row">
           <div class="proj-num">/01</div>
           <div class="proj-name">Hourly Slack Alerting on a Laggy Siebel CRM View</div>
@@ -1399,7 +1434,7 @@
       </div>
 
       <!-- /02 -->
-      <div class="project-row reveal" data-tags="ai,python">
+      <div class="project-row reveal" data-featured="1" data-tags="ai,python">
         <div class="header-row">
           <div class="proj-num">/02</div>
           <div class="proj-name">Tiered Diagnostic Notebook for Fleet Telemetry Support</div>
@@ -1445,7 +1480,7 @@
       </div>
 
       <!-- /03 -->
-      <div class="project-row reveal" data-tags="modeling,optimization">
+      <div class="project-row reveal" data-featured="1" data-tags="modeling,optimization">
         <div class="header-row">
           <div class="proj-num">/03</div>
           <div class="proj-name">Self-Serve Case Queue Report Built on Two Window Functions</div>
@@ -1489,7 +1524,7 @@
       </div>
 
       <!-- /04 -->
-      <div class="project-row reveal" data-tags="ai,python,snowflake">
+      <div class="project-row reveal" data-featured="1" data-tags="ai,python,snowflake">
         <div class="header-row">
           <div class="proj-num">/04</div>
           <div class="proj-name">RAG Case Analysis &amp; Case-Note Generator on Databricks</div>
@@ -1534,7 +1569,7 @@
       </div>
 
       <!-- /05 -->
-      <div class="project-row reveal" data-tags="snowflake,modeling">
+      <div class="project-row reveal" data-featured="1" data-tags="snowflake,modeling">
         <div class="header-row">
           <div class="proj-num">/05</div>
           <div class="proj-name">Multi-Tenant Data Warehouse Architecture</div>
@@ -1580,7 +1615,7 @@
       </div>
 
       <!-- /06 -->
-      <div class="project-row reveal" data-tags="dbt,modeling,snowflake">
+      <div class="project-row reveal" data-featured="1" data-tags="dbt,modeling,snowflake">
         <div class="header-row">
           <div class="proj-num">/06</div>
           <div class="proj-name">dbt-Based Analytics Engineering Framework</div>
@@ -1623,8 +1658,6 @@
         </div>
       </div>
 
-      <div class="more-work-bar"><button class="more-work-btn" id="moreWorkBtn" type="button" aria-expanded="false">Show 10 more projects <span class="arrow">+</span></button></div>
-      <div class="more-work" id="moreWork">
       <!-- /07 -->
       <div class="project-row reveal" data-tags="snowflake,python,optimization">
         <div class="header-row">
@@ -2004,8 +2037,11 @@
           </div>
         </div>
       </div>
-      </div>
 
+    </div>
+    <div class="slide-bar slide-bar-bottom">
+      <div class="slide-count"><span class="slide-now2">01</span> / <span class="slide-total2">16</span></div>
+      <div class="slide-nav"><button type="button" class="slide-prev" aria-label="Previous case file">&larr; Previous</button><button type="button" class="slide-next" aria-label="Next case file">Next &rarr;</button></div>
     </div>
   </div>
 </section>
@@ -2606,16 +2642,53 @@
   });
 
 
-  // ---------- MORE WORK TOGGLE ----------
-  const moreWork = document.getElementById('moreWork');
-  const moreBtn = document.getElementById('moreWorkBtn');
-  function setMore(open) {
-    if (!moreWork || !moreBtn) return;
-    moreWork.classList.toggle('open', open);
-    moreBtn.setAttribute('aria-expanded', String(open));
-    moreBtn.innerHTML = (open ? 'Hide 10 projects' : 'Show 10 more projects') + ' <span class="arrow">' + (open ? '−' : '+') + '</span>';
+  // ---------- CASE FILE SLIDESHOW ----------
+  const slideList = document.getElementById('slides');
+  let slideIdx = 0;
+  const visibleSlides = () => Array.from(slideList.querySelectorAll('.project-row')).filter((r) => !r.classList.contains('hidden'));
+  const dotsEl = document.getElementById('slideDots');
+  function renderSlides(scroll) {
+    const vis = visibleSlides();
+    if (!vis.length) return;
+    slideIdx = (slideIdx + vis.length) % vis.length;
+    slideList.querySelectorAll('.project-row').forEach((r) => r.classList.toggle('current', r === vis[slideIdx]));
+    const pad = (n) => String(n).padStart(2, '0');
+    document.getElementById('slideNow').textContent = pad(slideIdx + 1);
+    document.getElementById('slideTotal').textContent = pad(vis.length);
+    document.querySelector('.slide-now2').textContent = pad(slideIdx + 1);
+    document.querySelector('.slide-total2').textContent = pad(vis.length);
+    document.getElementById('slideTag').textContent = vis[slideIdx].dataset.featured ? 'Featured' : 'More work';
+    dotsEl.innerHTML = '';
+    vis.forEach((r, i) => {
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'slide-dot' + (r.dataset.featured ? ' feat' : '') + (i === slideIdx ? ' on' : '');
+      d.setAttribute('aria-label', 'Go to case file ' + (i + 1));
+      d.addEventListener('click', () => { slideIdx = i; renderSlides(true); });
+      dotsEl.appendChild(d);
+    });
+    if (scroll) {
+      const top = document.querySelector('.slide-bar').getBoundingClientRect().top;
+      if (top < 80) window.scrollTo({ top: window.scrollY + top - 96, behavior: 'smooth' });
+    }
   }
-  if (moreBtn) moreBtn.addEventListener('click', () => setMore(!moreWork.classList.contains('open')));
+  document.querySelectorAll('.slide-prev').forEach((b) => b.addEventListener('click', () => { slideIdx--; renderSlides(true); }));
+  document.querySelectorAll('.slide-next').forEach((b) => b.addEventListener('click', () => { slideIdx++; renderSlides(true); }));
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea, select') || e.metaKey || e.ctrlKey || e.altKey) return;
+    const r = document.getElementById('projects').getBoundingClientRect();
+    if (r.top > window.innerHeight * 0.6 || r.bottom < window.innerHeight * 0.3) return;
+    if (e.key === 'ArrowRight') { slideIdx++; renderSlides(false); }
+    if (e.key === 'ArrowLeft') { slideIdx--; renderSlides(false); }
+  });
+  let touchX = null;
+  slideList.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].clientX; }, { passive: true });
+  slideList.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+    if (Math.abs(dx) > 60) { slideIdx += dx < 0 ? 1 : -1; renderSlides(true); }
+  }, { passive: true });
+  renderSlides(false);
 
   // ---------- PROJECT FILTERS ----------
   const filters = document.querySelectorAll('.filter-chip');
@@ -2635,13 +2708,13 @@
     f.addEventListener('click', () => {
       const filter = f.dataset.filter;
       filters.forEach((b) => b.classList.toggle('active', b === f));
-      if (filter !== 'all') setMore(true);
       rows.forEach((row) => {
         const tags = (row.dataset.tags || '').split(',');
         const show = filter === 'all' || tags.includes(filter);
         row.classList.toggle('hidden', !show);
         if (!show) row.classList.remove('expanded');
       });
+      slideIdx = 0; renderSlides(false);
     });
   });
 
