@@ -712,18 +712,28 @@
   .el-d-note { font-size: 14.5px; line-height: 1.6; color: var(--cream); font-weight: 300; }
   #journey, #milestones { padding: 120px 0; }
   .timeline { margin-top: 56px; border-top: 1px solid var(--line); }
-  .tl-group { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin: 48px 0 24px 10px; padding-left: 44px; }
   .tl-resume { color: var(--accent); margin-left: 8px; white-space: nowrap; }
-  /* ladder: continuous rail with a rung and node per entry */
-  .timeline { position: relative; margin-left: 10px; padding-left: 44px; border-left: 2px solid var(--line); }
-  .tl-item { position: relative; display: block; padding: 8px 0 44px; border-bottom: 0; }
-  .tl-item::before { content: ""; position: absolute; left: -44px; top: 17px; width: 30px; height: 2px; background: var(--accent); opacity: .5; }
-  .tl-item::after { content: ""; position: absolute; left: -53px; top: 10px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink); border: 2px solid var(--accent); box-shadow: 0 0 0 4px var(--ink); }
-  .tl-item:first-child::after { background: var(--accent); }
-  .tl-item:last-child { padding-bottom: 12px; }
-  .tl-when { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; padding-top: 3px; }
-  .tl-when span { display: inline; margin: 0 0 0 12px; color: var(--muted); letter-spacing: 0.06em; }
+  /* centered rail, cards alternating left and right */
+  .timeline { position: relative; margin-top: 56px; padding: 0; }
+  .timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: linear-gradient(var(--accent), var(--line)); }
+  .tl-item { position: relative; width: calc(50% - 44px); margin: 0 0 40px; padding: 28px 30px; background: var(--ink-2); border: 1px solid var(--line); border-radius: 16px; display: block; }
+  .tl-item:nth-child(even) { margin-left: auto; }
+  .tl-item::after { content: ""; position: absolute; top: 34px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px var(--ink); }
+  .tl-item:nth-child(odd)::after { right: -51px; }
+  .tl-item:nth-child(even)::after { left: -51px; }
+  .tl-item::before { content: ""; position: absolute; top: 40px; width: 44px; height: 1px; background: var(--accent); opacity: .5; }
+  .tl-item:nth-child(odd)::before { right: -44px; }
+  .tl-item:nth-child(even)::before { left: -44px; }
+  .tl-kind { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .tl-when { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .tl-when span { display: inline; margin-left: 12px; color: var(--muted); letter-spacing: 0.06em; }
   .tl-when span::before { content: "\00b7"; margin-right: 12px; }
+  @media (max-width: 860px) {
+    .timeline::before { left: 8px; margin-left: 0; }
+    .tl-item { width: auto; margin-left: 36px !important; padding: 22px 20px; }
+    .tl-item::after { left: -36px !important; right: auto !important; top: 28px; }
+    .tl-item::before { left: -28px !important; right: auto !important; width: 28px; top: 34px; }
+  }
   .tl-main h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.15; margin-bottom: 6px; }
   .tl-org { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 16px; }
   .tl-main ul { list-style: none; }
@@ -2062,9 +2072,9 @@
       <h2 class="sec-title">Experience <span class="italic">&amp; education.</span></h2>
       <p class="sec-sub">Where the work happened, what I built there, and what I studied. <a class="tl-resume" href="resume.pdf" target="_blank" rel="noopener">Read the full r&eacute;sum&eacute; &darr;</a></p>
     </div>
-    <div class="tl-group reveal d1">Experience</div>
     <div class="timeline reveal d1">
       <div class="tl-item">
+        <div class="tl-kind">Experience</div>
         <div class="tl-when">Jun 2026 &ndash; Present<span>Michigan</span></div>
         <div class="tl-main">
           <h3>Data &amp; Analytics Engineer</h3>
@@ -2077,6 +2087,7 @@
         </div>
       </div>
       <div class="tl-item">
+        <div class="tl-kind">Experience</div>
         <div class="tl-when">Oct 2023 &ndash; Jun 2026<span>New York</span></div>
         <div class="tl-main">
           <h3>Senior Data Analyst, Analytics Engineering focus</h3>
@@ -2088,10 +2099,8 @@
           </ul>
         </div>
       </div>
-    </div>
-    <div class="tl-group reveal d1">Education</div>
-    <div class="timeline reveal d1">
       <div class="tl-item tl-edu">
+        <div class="tl-kind">Education</div>
         <div class="tl-when">Denton, TX<span>GPA 3.6 / 4.0</span></div>
         <div class="tl-main">
           <h3>University of North Texas</h3>
