@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -463,6 +463,26 @@
     border-color: var(--accent);
     color: var(--ink);
   }
+  .el-chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: all 240ms ease;
+    cursor: pointer;
+    background: transparent;
+  }
+  @media (max-width: 900px) { .el-chip { cursor: pointer; } }
+  .el-chip:hover { color: var(--paper); border-color: var(--paper); }
+  .el-chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
   .filter-chip .count {
     margin-left: 6px;
     opacity: 0.6;
@@ -665,6 +685,47 @@
   .learn-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
   .learn-card h4 { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.15; margin-bottom: 10px; color: var(--paper); }
   .learn-card p { font-size: 14px; line-height: 1.6; color: var(--cream); font-weight: 300; }
+
+
+  .lg { width: 14px; height: 14px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; flex: none; }
+  [data-theme="light"] .lg { filter: brightness(0); opacity: 0.75; }
+  .proj-stack span { display: inline-flex; align-items: center; gap: 6px; }
+  .el-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 48px; }
+  .el-layout { margin-top: 32px; display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start; }
+  @media (max-width: 1000px) { .el-layout { grid-template-columns: 1fr; } }
+  .el-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+  .el { --c: var(--accent); position: relative; text-align: left; padding: 10px 10px 12px; min-height: 104px; display: flex; flex-direction: column; justify-content: space-between; background: var(--ink-2); border: 1px solid var(--line-soft); border-top: 3px solid var(--c); color: var(--paper); cursor: pointer; transition: transform 180ms ease, opacity 220ms ease, border-color 180ms ease; }
+  .el[data-cat="mp"] { --c: #6b8e5a; } .el[data-cat="lg"] { --c: #6f9cc4; } .el[data-cat="bi"] { --c: #c47666; } .el[data-cat="ci"] { --c: #9a86c4; } .el[data-cat="ai"] { --c: #4fae9f; }
+  .el:hover, .el.active { transform: translateY(-3px); border-color: var(--c); }
+  .el.active { box-shadow: 0 0 0 1px var(--c); }
+  .el.dim { opacity: 0.22; }
+  .el-n { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+  .el-body { display: flex; align-items: center; justify-content: center; height: 36px; }
+  .el-sym { font-family: var(--serif); font-size: 28px; font-style: italic; color: var(--c); line-height: 1; }
+  .el.has-logo .el-sym { display: none; }
+  .el .lg { width: 28px; height: 28px; opacity: 0.9; }
+  .el:hover .lg, .el.active .lg { filter: none; opacity: 1; }
+  .el-name { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.04em; text-align: center; color: var(--cream); line-height: 1.25; }
+  .el-detail { position: sticky; top: 96px; padding: 24px; background: var(--ink-2); border: 1px solid var(--line-soft); }
+  .el-d-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .el-d-name { font-family: var(--serif); font-size: 28px; line-height: 1.1; margin-bottom: 12px; color: var(--paper); }
+  .el-d-note { font-size: 14.5px; line-height: 1.6; color: var(--cream); font-weight: 300; }
+  #journey, #milestones { padding: 120px 0; }
+  .timeline { margin-top: 56px; border-top: 1px solid var(--line); }
+  .tl-item { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--line); }
+  @media (max-width: 760px) { .tl-item { grid-template-columns: 1fr; gap: 12px; } }
+  .tl-when { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .tl-when span { display: block; margin-top: 8px; color: var(--muted); letter-spacing: 0.06em; }
+  .tl-main h3 { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.15; margin-bottom: 6px; }
+  .tl-org { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 16px; }
+  .tl-main ul { list-style: none; }
+  .tl-main li { position: relative; padding: 6px 0 6px 22px; font-size: 15px; line-height: 1.6; color: var(--cream); font-weight: 300; }
+  .tl-main li::before { content: "\2192"; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+  .ms-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); }
+  @media (max-width: 1000px) { .ms-grid { grid-template-columns: 1fr 1fr; } }
+  .ms { background: var(--ink); padding: 32px 24px; }
+  .ms-v { font-family: var(--serif); font-style: italic; font-size: clamp(36px, 4vw, 52px); color: var(--accent-2); line-height: 1; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .ms-l { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); line-height: 1.5; }
 
   @media (max-width: 900px) {
     .project-row {
@@ -1076,6 +1137,7 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Work</a>
+      <a href="#journey">Journey</a>
       <a href="#principles">Principles</a>
       <a href="#learning">Learning</a>
       <a href="#articles">Writing</a>
@@ -1227,162 +1289,55 @@
   <div class="wrap">
     <div class="reveal">
       <div class="sec-num">// 02 · stack</div>
-      <h2 class="sec-title">What I reach <span class="italic">for.</span></h2>
-      <p class="sec-sub">A working toolkit, sharpened across data warehousing, automation, and cross-system integration in healthcare and connected-vehicle operational analytics. No boilerplate languages I've touched once on a tutorial. Tap a category to explore.</p>
+      <h2 class="sec-title">The periodic table <span class="italic">of my stack.</span></h2>
+      <p class="sec-sub">A working toolkit, sharpened across data warehousing, automation, and cross-system integration in healthcare and connected-vehicle operational analytics. No boilerplate languages I've touched once on a tutorial. Filter by category, then tap a tile.</p>
     </div>
 
-    <div class="skills-tabs reveal d1">
-      <button class="tab-btn active" data-tab="engineering">Engineering</button>
-      <button class="tab-btn" data-tab="platforms">Platforms</button>
-      <button class="tab-btn" data-tab="modeling">Modeling</button>
-      <button class="tab-btn" data-tab="business">Business</button>
-    </div>
-
-    <div class="skills-panels">
-      <div class="skill-panel active" data-panel="engineering">
-        <div class="skill-card">
-          <div class="num">// 01</div>
-          <h3>SQL Mastery</h3>
-          <ul>
-            <li>Complex joins &amp; CTE pipelines</li>
-            <li>Window functions &amp; analytics</li>
-            <li>Query plan analysis</li>
-            <li>Performance &amp; scan reduction</li>
-            <li>Procedural SQL &amp; scripting</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 02</div>
-          <h3>Python Automation</h3>
-          <ul>
-            <li>Snowflake connector workflows</li>
-            <li>Pandas &amp; openpyxl reporting</li>
-            <li>Word/PDF document generation</li>
-            <li>API ingestion &amp; pagination</li>
-            <li>Scheduled job orchestration</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 03</div>
-          <h3>Pipeline Engineering</h3>
-          <ul>
-            <li>Idempotent incremental loads</li>
-            <li>Watermark &amp; control tables</li>
-            <li>Merge upsert patterns</li>
-            <li>Late-arriving data handling</li>
-            <li>Recovery &amp; retry logic</li>
-          </ul>
-        </div>
+    <div class="el-filters reveal d1"><button class="el-chip active" data-fil="all">All elements</button><button class="el-chip" data-fil="wh">Warehouse &amp; Lakehouse</button><button class="el-chip" data-fil="mp">Modeling &amp; Pipelines</button><button class="el-chip" data-fil="lg">Languages</button><button class="el-chip" data-fil="bi">BI &amp; Reporting</button><button class="el-chip" data-fil="ci">Cloud &amp; Integrations</button><button class="el-chip" data-fil="ai">AI &amp; LLM</button></div>
+    <div class="el-layout reveal d2">
+      <div class="el-grid" id="elGrid">
+<button class="el" type="button" data-cat="wh" data-name="Snowflake" data-note="Multi-tenant warehouse serving 250 customers, cost and query tuning, Kafka ingestion."><span class="el-n">01</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Sf</span></span><span class="el-name">Snowflake</span></button>
+<button class="el" type="button" data-cat="wh" data-name="Databricks" data-note="RAG case analysis and note generation over CRM history and telemetry at GM OnStar."><span class="el-n">02</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/databricks" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Db</span></span><span class="el-name">Databricks</span></button>
+<button class="el" type="button" data-cat="wh" data-name="BigQuery" data-note="Cloud data warehousing alongside Snowflake and Databricks."><span class="el-n">03</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/googlebigquery" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Bq</span></span><span class="el-name">BigQuery</span></button>
+<button class="el" type="button" data-cat="mp" data-name="dbt" data-note="Models, tests, snapshots and macros. 366-test quality framework, 200+ models migrated."><span class="el-n">04</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/dbt" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">dbt</span></span><span class="el-name">dbt</span></button>
+<button class="el" type="button" data-cat="mp" data-name="Star schema" data-note="Fact and dimension design behind the multi-tenant warehouse."><span class="el-n">05</span><span class="el-body"><span class="el-sym">St</span></span><span class="el-name">Star schema</span></button>
+<button class="el" type="button" data-cat="mp" data-name="SCD Type 2" data-note="Historical attribution with effective_from / effective_to / is_current."><span class="el-n">06</span><span class="el-body"><span class="el-sym">Sc</span></span><span class="el-name">SCD Type 2</span></button>
+<button class="el" type="button" data-cat="mp" data-name="Multi-tenant" data-note="Tenant ID on every fact, with row-access policies for isolation."><span class="el-n">07</span><span class="el-body"><span class="el-sym">Mt</span></span><span class="el-name">Multi-tenant</span></button>
+<button class="el" type="button" data-cat="mp" data-name="Idempotent ETL" data-note="Watermarks, merge upserts and safe retries so reruns never double-count."><span class="el-n">08</span><span class="el-body"><span class="el-sym">Id</span></span><span class="el-name">Idempotent ETL</span></button>
+<button class="el" type="button" data-cat="mp" data-name="Kafka" data-note="Near-real-time event ingestion into Snowflake with under a minute of lag."><span class="el-n">09</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/apachekafka" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Kf</span></span><span class="el-name">Kafka</span></button>
+<button class="el" type="button" data-cat="mp" data-name="Spark SQL" data-note="Scheduled Python and Spark SQL tools at GM OnStar."><span class="el-n">10</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/apachespark" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Sp</span></span><span class="el-name">Spark SQL</span></button>
+<button class="el" type="button" data-cat="lg" data-name="SQL" data-note="Daily: CTEs, window functions, query plans and performance tuning."><span class="el-n">11</span><span class="el-body"><span class="el-sym">Sq</span></span><span class="el-name">SQL</span></button>
+<button class="el" type="button" data-cat="lg" data-name="Python" data-note="Automation, pipelines, notebooks and report generation."><span class="el-n">12</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Py</span></span><span class="el-name">Python</span></button>
+<button class="el" type="button" data-cat="lg" data-name="Bash" data-note="Scripting and scheduling around pipelines."><span class="el-n">13</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/gnubash" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Sh</span></span><span class="el-name">Bash</span></button>
+<button class="el" type="button" data-cat="lg" data-name="pandas" data-note="Transformation and reporting logic."><span class="el-n">14</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/pandas" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Pd</span></span><span class="el-name">pandas</span></button>
+<button class="el" type="button" data-cat="lg" data-name="NumPy" data-note="Numeric work inside analysis and automation scripts."><span class="el-n">15</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/numpy" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Np</span></span><span class="el-name">NumPy</span></button>
+<button class="el" type="button" data-cat="bi" data-name="Power BI" data-note="Advanced DAX, time intelligence, row-level security and drillthrough."><span class="el-n">16</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/powerbi" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Pb</span></span><span class="el-name">Power BI</span></button>
+<button class="el" type="button" data-cat="bi" data-name="Tableau" data-note="Dashboards and scorecards for operational and executive audiences."><span class="el-n">17</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/tableau" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Tb</span></span><span class="el-name">Tableau</span></button>
+<button class="el" type="button" data-cat="bi" data-name="Looker" data-note="Governed self-service analytics on a semantic layer."><span class="el-n">18</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/looker" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Lk</span></span><span class="el-name">Looker</span></button>
+<button class="el" type="button" data-cat="bi" data-name="Hex" data-note="Notebooks and shareable analysis."><span class="el-n">19</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/hex" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Hx</span></span><span class="el-name">Hex</span></button>
+<button class="el" type="button" data-cat="bi" data-name="QuickSight" data-note="Customer-facing multi-tenant dashboards."><span class="el-n">20</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/amazonquicksight" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Qs</span></span><span class="el-name">QuickSight</span></button>
+<button class="el" type="button" data-cat="ci" data-name="AWS" data-note="S3, API logs and IAM around data pipelines."><span class="el-n">21</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/amazonaws" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Aw</span></span><span class="el-name">AWS</span></button>
+<button class="el" type="button" data-cat="ci" data-name="Azure" data-note="Cloud platform experience."><span class="el-n">22</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/microsoftazure" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Az</span></span><span class="el-name">Azure</span></button>
+<button class="el" type="button" data-cat="ci" data-name="GCP" data-note="Cloud platform experience."><span class="el-n">23</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/googlecloud" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Gc</span></span><span class="el-name">GCP</span></button>
+<button class="el" type="button" data-cat="ci" data-name="Siebel CRM" data-note="Hourly Slack alerting and case-queue reporting at GM OnStar."><span class="el-n">24</span><span class="el-body"><span class="el-sym">Sb</span></span><span class="el-name">Siebel CRM</span></button>
+<button class="el" type="button" data-cat="ci" data-name="Zoho CRM / Desk" data-note="CRM and help-desk data integrations."><span class="el-n">25</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/zoho" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Zo</span></span><span class="el-name">Zoho CRM / Desk</span></button>
+<button class="el" type="button" data-cat="ci" data-name="Slack API" data-note="Alert delivery to the right channel in the right format."><span class="el-n">26</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/slack" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Sl</span></span><span class="el-name">Slack API</span></button>
+<button class="el" type="button" data-cat="ci" data-name="QuickBooks" data-note="Finance system integration and reconciliation."><span class="el-n">27</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/quickbooks" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Qb</span></span><span class="el-name">QuickBooks</span></button>
+<button class="el" type="button" data-cat="ci" data-name="Git / CI" data-note="GitHub workflows with automated tests on pull requests."><span class="el-n">28</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/git" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Gt</span></span><span class="el-name">Git / CI</span></button>
+<button class="el" type="button" data-cat="ci" data-name="REST APIs" data-note="API ingestion with pagination and retries."><span class="el-n">29</span><span class="el-body"><span class="el-sym">Rt</span></span><span class="el-name">REST APIs</span></button>
+<button class="el" type="button" data-cat="ai" data-name="Claude" data-note="AI coding agent used daily; every output reviewed before it ships."><span class="el-n">30</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/claude" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Cl</span></span><span class="el-name">Claude</span></button>
+<button class="el" type="button" data-cat="ai" data-name="ChatGPT" data-note="AI assistant for SQL and Python drafting, reviewed and refined."><span class="el-n">31</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/openai" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Cg</span></span><span class="el-name">ChatGPT</span></button>
+<button class="el" type="button" data-cat="ai" data-name="Cursor" data-note="AI-assisted development, with generated code reviewed line by line."><span class="el-n">32</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/cursor" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Cu</span></span><span class="el-name">Cursor</span></button>
+<button class="el" type="button" data-cat="ai" data-name="Copilot" data-note="AI pair programming inside the editor."><span class="el-n">33</span><span class="el-body"><img class="lg" src="https://cdn.simpleicons.org/githubcopilot" alt="" loading="lazy" referrerpolicy="no-referrer" onload="this.closest('.el').classList.add('has-logo')" onerror="this.remove()"><span class="el-sym">Cp</span></span><span class="el-name">Copilot</span></button>
+<button class="el" type="button" data-cat="ai" data-name="RAG" data-note="Case analysis and note generation, with a data quality layer on the source records."><span class="el-n">34</span><span class="el-body"><span class="el-sym">Ra</span></span><span class="el-name">RAG</span></button>
+<button class="el" type="button" data-cat="ai" data-name="Embeddings" data-note="Vector representations that power retrieval over case history."><span class="el-n">35</span><span class="el-body"><span class="el-sym">Em</span></span><span class="el-name">Embeddings</span></button>
+<button class="el" type="button" data-cat="ai" data-name="Vector DB" data-note="Indexes records with quality metadata attached for retrieval."><span class="el-n">36</span><span class="el-body"><span class="el-sym">Vd</span></span><span class="el-name">Vector DB</span></button>
       </div>
-
-      <div class="skill-panel" data-panel="platforms">
-        <div class="skill-card">
-          <div class="num">// 01</div>
-          <h3>Snowflake</h3>
-          <ul>
-            <li>Warehouse design &amp; sizing</li>
-            <li>Role/grant/secure-share patterns</li>
-            <li>Query optimization &amp; clustering</li>
-            <li>Credit metering &amp; cost tuning</li>
-            <li>Streams, tasks, &amp; materialized views</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 02</div>
-          <h3>BI &amp; Visualization</h3>
-          <ul>
-            <li>Tableau dashboards</li>
-            <li>Amazon QuickSight (embedded)</li>
-            <li>Excel automation &amp; charting</li>
-            <li>Multi-tenant dashboard frameworks</li>
-            <li>Semantic layer design</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 03</div>
-          <h3>Integrations &amp; Cloud</h3>
-          <ul>
-            <li>AWS — S3, API logs, IAM</li>
-            <li>Siebel CRM &amp; Zoho CRM / Desk integrations</li>
-            <li>QuickBooks reconciliation</li>
-            <li>Slack API &amp; webhook alerting</li>
-            <li>REST API ingestion</li>
-            <li>Git / GitHub workflows</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="skill-panel" data-panel="modeling">
-        <div class="skill-card">
-          <div class="num">// 01</div>
-          <h3>Dimensional Modeling</h3>
-          <ul>
-            <li>Star &amp; snowflake schemas</li>
-            <li>SCD Type 1 &amp; Type 2</li>
-            <li>Conformed dimensions</li>
-            <li>Bridge &amp; junk tables</li>
-            <li>Grain definition discipline</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 02</div>
-          <h3>Multi-Tenant Architecture</h3>
-          <ul>
-            <li>Tenant-aware fact tables</li>
-            <li>Row-level isolation patterns</li>
-            <li>Cross-tenant benchmarking</li>
-            <li>Shared dimension governance</li>
-            <li>Customer-specific overrides</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 03</div>
-          <h3>Layered Transformations</h3>
-          <ul>
-            <li>Staging → intermediate → mart</li>
-            <li>Snapshot vs CDC vs full-load</li>
-            <li>Behavioral fact patterns</li>
-            <li>Time-aware joins</li>
-            <li>Semantic exposure layers</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="skill-panel" data-panel="business">
-        <div class="skill-card">
-          <div class="num">// 01</div>
-          <h3>Operational Analytics</h3>
-          <ul>
-            <li>Funnel &amp; drop-off analysis</li>
-            <li>Provider productivity metrics</li>
-            <li>Visit lifecycle tracking</li>
-            <li>Engagement &amp; adoption KPIs</li>
-            <li>Customer health scoring</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 02</div>
-          <h3>Financial Reconciliation</h3>
-          <ul>
-            <li>CRM ↔ billing alignment</li>
-            <li>FTE thresholds &amp; classification</li>
-            <li>Daily reconciliation snapshots</li>
-            <li>Exception reporting views</li>
-            <li>Audit trail design</li>
-          </ul>
-        </div>
-        <div class="skill-card">
-          <div class="num">// 03</div>
-          <h3>Cross-Functional Delivery</h3>
-          <ul>
-            <li>Stakeholder requirement capture</li>
-            <li>ROI framework design</li>
-            <li>Renewal &amp; upsell analytics</li>
-            <li>Executive reporting cadence</li>
-            <li>Documentation &amp; handoff</li>
-          </ul>
-        </div>
-      </div>
+      <aside class="el-detail" id="elDetail" aria-live="polite">
+        <div class="el-d-tag" id="elDTag">Select an element</div>
+        <div class="el-d-name" id="elDName">The periodic table of my stack</div>
+        <p class="el-d-note" id="elDNote">Tap any tile to see what I've actually used it for. Logos are shown where available.</p>
+      </aside>
     </div>
   </div>
 </section>
@@ -1416,7 +1371,7 @@
           <div class="proj-num">/01</div>
           <div class="proj-name">Hourly Slack Alerting on a Laggy Siebel CRM View</div>
           <div class="proj-stack">
-            <span>Siebel CRM</span><span>SQL</span><span>Python</span><span>Slack API</span>
+            <span>Siebel CRM</span><span>SQL</span><span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span><img class="lg" src="https://cdn.simpleicons.org/slack" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Slack API</span>
           </div>
           <div class="proj-impact">Hourly polling against a reporting view with multi-hour lag, diffed against last-seen state. <em>Used by 15 Commercial Ops teammates; they stopped missing new cases, replies, and assignments.</em></div>
           <div class="proj-arrow">+</div>
@@ -1462,7 +1417,7 @@
           <div class="proj-num">/02</div>
           <div class="proj-name">Tiered Diagnostic Notebook for Fleet Telemetry Support</div>
           <div class="proj-stack">
-            <span>Python</span><span>SQL</span><span>LLM</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span>SQL</span><span>LLM</span>
           </div>
           <div class="proj-impact">Three escalating tiers — deterministic rules first, AI case notes only when needed. <em>Used daily by 15 analysts; time per case dropped from ~45 to ~10 minutes, roughly 50 analyst-hours saved a day.</em></div>
           <div class="proj-arrow">+</div>
@@ -1552,7 +1507,7 @@
           <div class="proj-num">/04</div>
           <div class="proj-name">RAG Case Analysis &amp; Case-Note Generator on Databricks</div>
           <div class="proj-stack">
-            <span>Databricks</span><span>Python</span><span>Vector DB</span><span>Embeddings</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/databricks" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Databricks</span><span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span>Vector DB</span><span>Embeddings</span>
           </div>
           <div class="proj-impact">Retrieval-augmented case analysis and note generation over CRM case history and vehicle telemetry, with a validation layer that catches stale, duplicate, or contradictory records before they reach the LLM. <em>Used by 15 analysts; notes go out as generated, saving ~25 minutes each.</em></div>
           <div class="proj-arrow">+</div>
@@ -1597,7 +1552,7 @@
           <div class="proj-num">/05</div>
           <div class="proj-name">Multi-Tenant Data Warehouse Architecture</div>
           <div class="proj-stack">
-            <span>Snowflake</span><span>SQL</span><span>SCD II</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span>SQL</span><span>SCD II</span>
           </div>
           <div class="proj-impact">Fact/dimension models, time-aware joins, layered staging→intermediate→mart. <em>Serves 250 customers, internal and external, and cut delivery time by 8 hours.</em></div>
           <div class="proj-arrow">+</div>
@@ -1643,7 +1598,7 @@
           <div class="proj-num">/06</div>
           <div class="proj-name">dbt-Based Analytics Engineering Framework</div>
           <div class="proj-stack">
-            <span>dbt</span><span>Snowflake</span><span>Jinja</span><span>YAML</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/dbt" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">dbt</span><span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span>Jinja</span><span>YAML</span>
           </div>
           <div class="proj-impact">Migrated legacy SQL views to dbt with tests, docs, and CI/CD. <em>Built solo; 366 tests caught 50 failures before they reached production.</em></div>
           <div class="proj-arrow">+</div>
@@ -1689,7 +1644,7 @@
           <div class="proj-num">/07</div>
           <div class="proj-name">Automated KPI Reporting Pipeline</div>
           <div class="proj-stack">
-            <span>Snowflake</span><span>Python</span><span>SQL</span><span>Word/PDF</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span>SQL</span><span>Word/PDF</span>
           </div>
           <div class="proj-impact">Fully automated extraction → templated Excel charts → Word reports → PDF distribution. <em>~80% reduction in manual reporting time.</em></div>
           <div class="proj-arrow">+</div>
@@ -1727,7 +1682,7 @@
           <div class="proj-num">/08</div>
           <div class="proj-name">Customer ROI Metrics Engine</div>
           <div class="proj-stack">
-            <span>Snowflake</span><span>SQL</span><span>Excel</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span>SQL</span><span>Excel</span>
           </div>
           <div class="proj-impact">Standardized ROI framework modeling intake, scheduling, reminders, and engagement. <em>Backed renewal &amp; upsell with measurable product value.</em></div>
           <div class="proj-arrow">+</div>
@@ -1765,7 +1720,7 @@
           <div class="proj-num">/09</div>
           <div class="proj-name">Idempotent Incremental ETL Framework</div>
           <div class="proj-stack">
-            <span>Snowflake</span><span>SQL</span><span>Python</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span>SQL</span><span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span>
           </div>
           <div class="proj-impact">Watermark tracking, merge upserts, late-arriving data validation, control tables for recovery. <em>Daily pipelines hardened for safe reruns.</em></div>
           <div class="proj-arrow">+</div>
@@ -1803,7 +1758,7 @@
           <div class="proj-num">/10</div>
           <div class="proj-name">Cross-System Data Quality &amp; Reconciliation</div>
           <div class="proj-stack">
-            <span>Snowflake</span><span>SQL</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span>SQL</span>
           </div>
           <div class="proj-impact">Automated mismatch detection across CRM, billing, and ops systems with daily reconciliation snapshots. <em>Improved trust in financial reporting.</em></div>
           <div class="proj-arrow">+</div>
@@ -1841,7 +1796,7 @@
           <div class="proj-num">/11</div>
           <div class="proj-name">Snowflake Cost &amp; Query Optimization</div>
           <div class="proj-stack">
-            <span>Snowflake</span><span>SQL</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span>SQL</span>
           </div>
           <div class="proj-impact">Workload segmentation (ETL / BI / ad hoc), right-sizing, auto-suspend policies, full-scan reduction. <em>Long-term compute cost predictability.</em></div>
           <div class="proj-arrow">+</div>
@@ -1879,7 +1834,7 @@
           <div class="proj-num">/12</div>
           <div class="proj-name">UrgentIQ Visit Status &amp; Event Analytics</div>
           <div class="proj-stack">
-            <span>Python</span><span>SQL</span><span>Snowflake</span><span>API</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span>SQL</span><span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span>API</span>
           </div>
           <div class="proj-impact">Event-driven pipeline, status timeline normalization, transition-duration analysis, configurable schema mapping. <em>Eliminated manual lifecycle analysis.</em></div>
           <div class="proj-arrow">+</div>
@@ -2031,7 +1986,7 @@
           <div class="proj-num">/16</div>
           <div class="proj-name">Near-Real-Time Event Ingestion (Kafka → Snowflake)</div>
           <div class="proj-stack">
-            <span>Kafka</span><span>Snowpipe</span><span>Python</span><span>Streams</span>
+            <span><img class="lg" src="https://cdn.simpleicons.org/apachekafka" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Kafka</span><span>Snowpipe</span><span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span>Streams</span>
           </div>
           <div class="proj-impact">Sub-minute event ingestion with quality monitoring and out-of-order handling. <em>Powered live operational dashboards with no batch lag.</em></div>
           <div class="proj-arrow">+</div>
@@ -2069,10 +2024,73 @@
 </section>
 
 <!-- PRINCIPLES -->
+<section id="journey">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">// 04 · journey</div>
+      <h2 class="sec-title">Education &amp; <span class="italic">experience.</span></h2>
+      <p class="sec-sub">Where the work happened, and what I learned to build there.</p>
+    </div>
+    <div class="timeline reveal d1">
+      <div class="tl-item">
+        <div class="tl-when">Jun 2026 &ndash; Present<span>Michigan</span></div>
+        <div class="tl-main">
+          <h3>Data &amp; Analytics Engineer</h3>
+          <div class="tl-org">GM OnStar &middot; Connected Services</div>
+          <ul>
+            <li>Built a tiered diagnostic notebook for fleet telemetry support, used daily by 15 analysts, cutting time per case from about 45 to 10 minutes.</li>
+            <li>Shipped hourly Slack alerting on a lagging Siebel CRM view and a self-serve case-queue report adopted by analysts and the Level 3 team.</li>
+            <li>Built a RAG case-analysis and case-note generator on Databricks over CRM case history and telemetry.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">Oct 2023 &ndash; Jun 2026<span>New York</span></div>
+        <div class="tl-main">
+          <h3>Senior Data Analyst, Analytics Engineering focus</h3>
+          <div class="tl-org">Yosi Health</div>
+          <ul>
+            <li>Built dbt and Snowflake data models, KPI marts and semantic layers across 6+ healthcare product domains and 25M+ records.</li>
+            <li>Created a 366-test dbt data quality framework with zero production errors.</li>
+            <li>Automated recurring reporting, validation and reconciliation in Python, improving operational efficiency by 80%.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item tl-edu">
+        <div class="tl-when">Education<span>Denton, TX</span></div>
+        <div class="tl-main">
+          <h3>M.S. Business Analytics</h3>
+          <div class="tl-org">University of North Texas &middot; Data Analytics &amp; Data Science &middot; GPA 3.6 / 4.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="milestones" class="skills-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">// 05 · milestones</div>
+      <h2 class="sec-title">Things I'm <span class="italic">proud of.</span></h2>
+      <p class="sec-sub">Numbers that came from systems people kept using.</p>
+    </div>
+    <div class="ms-grid reveal d1">
+      <div class="ms"><div class="ms-v">50+</div><div class="ms-l">production projects shipped</div></div>
+      <div class="ms"><div class="ms-v">250</div><div class="ms-l">customers served by one multi-tenant warehouse</div></div>
+      <div class="ms"><div class="ms-v">366</div><div class="ms-l">dbt tests, 50 failures caught before production</div></div>
+      <div class="ms"><div class="ms-v">45 &rarr; 10</div><div class="ms-l">minutes per telemetry case, 15 analysts daily</div></div>
+      <div class="ms"><div class="ms-v">8 hrs</div><div class="ms-l">taken off delivery time</div></div>
+      <div class="ms"><div class="ms-v">60+</div><div class="ms-l">customer dashboards live</div></div>
+      <div class="ms"><div class="ms-v">~80%</div><div class="ms-l">less manual reporting time</div></div>
+      <div class="ms"><div class="ms-v">12</div><div class="ms-l">technical essays published</div></div>
+    </div>
+  </div>
+</section>
+
 <section id="principles" class="principles-bg">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 04 · principles · 8 rules</div>
+      <div class="sec-num">// 06 · principles · 8 rules</div>
       <h2 class="sec-title">How I <span class="italic">think.</span></h2>
       <p class="sec-sub">Opinions earned shipping data systems. Each one has a scar behind it — a 3 a.m. page, a quarter-end mismatch, a dashboard that lied for two months before anyone noticed. I write them down so I don't forget.</p>
     </div>
@@ -2141,7 +2159,7 @@
 <section id="learning">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 05 · learning · ai data engineering</div>
+      <div class="sec-num">// 07 · learning · ai data engineering</div>
       <h2 class="sec-title">Currently <span class="italic">learning.</span></h2>
       <p class="sec-sub">Moving from analytics engineering toward AI data engineering: the data foundations that LLM systems depend on. Some of it is already in production at work; the rest is where I'm building next.</p>
     </div>
@@ -2157,7 +2175,7 @@
 <section id="articles" class="articles-bg">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-num">// 06 · writing · 12 essays</div>
+      <div class="sec-num">// 08 · writing · 12 essays</div>
       <h2 class="sec-title">Field <span class="italic">notes.</span></h2>
       <p class="sec-sub">Technical writing on data modeling, architecture decisions, automation patterns, and governance. Most of these are post-mortems on something that broke first.</p>
     </div>
@@ -2555,7 +2573,7 @@
 <!-- CONTACT -->
 <section id="contact" class="contact wrap">
   <div class="reveal">
-    <div class="sec-num">// 07 · contact · door's open</div>
+    <div class="sec-num">// 09 · contact · door's open</div>
     <h2>Still here?<br>Let's build something <span class="italic">durable.</span></h2>
     <a href="mailto:gunabhiram.billa@gmail.com" class="email-link">say_hi — gunabhiram.billa@gmail.com</a>
     <div class="contact-links">
@@ -2640,6 +2658,24 @@
     });
   });
 
+
+  // ---------- SKILLS GRID ----------
+  (function setupElements() {
+    const tiles = Array.from(document.querySelectorAll('.el'));
+    const chips = document.querySelectorAll('.el-filters .el-chip');
+    const cats = {wh: 'Warehouse & Lakehouse', mp: 'Modeling & Pipelines', lg: 'Languages', bi: 'BI & Reporting', ci: 'Cloud & Integrations', ai: 'AI & LLM'};
+    const tag = document.getElementById('elDTag'), nm = document.getElementById('elDName'), nt = document.getElementById('elDNote');
+    chips.forEach((c) => c.addEventListener('click', () => {
+      chips.forEach((x) => x.classList.toggle('active', x === c));
+      const f = c.dataset.fil;
+      tiles.forEach((t) => t.classList.toggle('dim', f !== 'all' && t.dataset.cat !== f));
+    }));
+    tiles.forEach((t) => t.addEventListener('click', () => {
+      tiles.forEach((x) => x.classList.toggle('active', x === t));
+      tag.textContent = cats[t.dataset.cat]; nm.textContent = t.dataset.name; nt.textContent = t.dataset.note;
+    }));
+  })();
+
   // ---------- SCROLL TO TOP ----------
   const scrollBtn = document.querySelector('.scroll-top');
   if (scrollBtn) {
@@ -2656,10 +2692,10 @@
     const root = document.documentElement;
     const toggle = document.getElementById('themeToggle');
 
-    // On first load: respect saved preference, else default to light
+    // On first load: respect saved preference, else default to dark
     let saved = null;
     try { saved = localStorage.getItem('theme'); } catch (e) {}
-    const initial = saved || 'light';
+    const initial = saved || 'dark';
     root.setAttribute('data-theme', initial);
 
     if (toggle) {
