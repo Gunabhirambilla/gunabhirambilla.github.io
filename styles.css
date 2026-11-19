@@ -419,3 +419,4 @@ footer {
 .theme-toggle .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
 [data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0deg) scale(1); }
 [data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.6); }
+.nav-links a.active { color: var(--accent); }
