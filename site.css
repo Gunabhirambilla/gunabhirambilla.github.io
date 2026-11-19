@@ -1313,3 +1313,43 @@
 .portrait-corner, .portrait-tag, .portrait-side-text { display: none !important; }
 .portrait:hover { transform: none; }
 @media (max-width: 900px) { .hero-grid { grid-template-columns: minmax(0,1fr) !important; } .portrait { width: 140px; margin: 0; } .portrait-wrap { order: -1; } }
+
+/* ---------- banner cards (large, colourful) ---------- */
+.wgrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 56px 36px; margin: 36px 0 32px; }
+.wcard { display: block; text-decoration: none; color: inherit; min-width: 0; }
+.cbanner { position: relative; aspect-ratio: 16/10; border-radius: 22px; overflow: hidden; background: linear-gradient(135deg,var(--g1),var(--g2) 58%,var(--g3)); border: 1px solid rgba(255,255,255,.14); transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; isolation: isolate; }
+.wcard:hover .cbanner { transform: translateY(-5px); box-shadow: 0 22px 50px rgba(0,0,0,.45); }
+.cb-pill { position: absolute; left: 18px; top: 18px; z-index: 3; display: inline-flex; align-items: center; gap: 8px; background: #fff; color: #14120d; font: 600 11px var(--mono); letter-spacing: .16em; padding: 8px 14px; border-radius: 999px; }
+.cb-pill b { width: 8px; height: 8px; border-radius: 50%; background: #14120d; display: inline-block; }
+.cb-title { position: absolute; left: 24px; top: 70px; z-index: 2; width: 46%; color: #fff; font: 700 clamp(22px,2.7vw,36px)/1.05 'Inter Tight',sans-serif; letter-spacing: -.01em; text-shadow: 0 2px 18px rgba(0,0,0,.25); }
+.cb-tiles { position: absolute; left: 24px; bottom: 22px; z-index: 2; display: grid; grid-template-columns: repeat(2,40px); gap: 8px; }
+.cb-tile { position: relative; width: 40px; height: 40px; border-radius: 10px; background: #fff; display: grid; place-items: center; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+.cb-tile i { font: 600 9px var(--mono); font-style: normal; letter-spacing: .04em; color: #333; }
+.cb-tile img { position: absolute; width: 24px; height: 24px; background: #fff; }
+.cb-tile.has-logo i { visibility: hidden; }
+.cb-screen { position: absolute; z-index: 1; right: -8%; top: 24%; width: 60%; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px rgba(0,0,0,.38); transform: rotate(-3.5deg); background: #f7f3ea; --ink: #ffffff; --ink-2: #f7f3ea; --muted: #6d675b; --accent: #b4802a; --line: #d9d3c5; }
+.cb-screen svg { display: block; width: 100%; height: auto; }
+.wc-title { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.2; margin: 26px 0 10px; color: var(--cream); }
+.wc-desc { color: var(--muted); font-size: 15.5px; line-height: 1.65; margin: 0 0 16px; }
+.wc-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; align-items: center; }
+.wc-tags span { font: 500 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+.wc-tags em { font: 400 12px var(--mono); color: var(--muted); font-style: normal; }
+.wc-link { display: inline-block; font: 500 13px var(--mono); letter-spacing: .06em; color: var(--cream); padding-bottom: 5px; border-bottom: 2px solid var(--accent); }
+.wcard:hover .wc-link { color: var(--accent); }
+.wcard[hidden] { display: none; }
+.case-top { grid-template-columns: minmax(0,560px) minmax(0,1fr) !important; }
+.case-fig { border: 0 !important; border-radius: 22px !important; overflow: visible !important; }
+@media (max-width: 900px) { .wgrid { grid-template-columns: minmax(0,1fr); gap: 44px; } .case-top { grid-template-columns: minmax(0,1fr) !important; } .cb-title { font-size: 26px; } }
+/* hero portrait: medium rounded photo */
+.hero-grid { grid-template-columns: minmax(0,1fr) 360px !important; align-items: center !important; }
+.portrait { width: 100% !important; max-width: 360px; aspect-ratio: 4/5 !important; border-radius: 22px !important; padding: 0 !important; border: 1px solid var(--line) !important; box-shadow: 0 24px 60px rgba(0,0,0,.4); overflow: hidden; margin: 0 auto !important; }
+.portrait img { border-radius: 0 !important; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: minmax(0,1fr) !important; } .portrait { max-width: 300px; margin: 0 !important; } }
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+@media (max-width: 600px) {
+  .cb-title { font-size: 21px; top: 62px; left: 18px; width: 52%; }
+  .cb-tiles { grid-template-columns: repeat(4,32px); left: 18px; bottom: 16px; gap: 6px; }
+  .cb-tile { width: 32px; height: 32px; border-radius: 8px; }
+  .cb-tile img { width: 18px; height: 18px; }
+  .cb-pill { left: 14px; top: 14px; padding: 7px 12px; }
+}
