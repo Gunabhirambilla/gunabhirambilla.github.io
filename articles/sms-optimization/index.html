@@ -28,6 +28,7 @@
 <nav>
   <div class="inner">
     <div class="brand"><span class="brand-dot"></span><span>GB / Data Engineer</span></div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/about/">About</a>
@@ -252,5 +253,6 @@
 </footer>
 
 <script src="/script.js"></script>
+<script>try{var nb=document.getElementById("navBurger"),nv=nb&&nb.closest("nav");if(nb&&nv){nb.addEventListener("click",function(){var o=nv.classList.toggle("open");nb.setAttribute("aria-expanded",o)});nv.querySelectorAll(".nav-links a").forEach(function(a){a.addEventListener("click",function(){nv.classList.remove("open")})})}}catch(e){}</script>
 </body>
 </html>

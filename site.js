@@ -83,3 +83,5 @@
 }catch(e){}}
 
 ;{try{var r=document.querySelector('.story-rail i');if(r){var u=function(){var d=document.documentElement,m=d.scrollHeight-innerHeight;r.style.height=(m>0?Math.min(100,scrollY/m*100):0)+'%'};addEventListener('scroll',u,{passive:true});u()}}catch(e){}}
+
+;{try{var nb=document.getElementById('navBurger'),nv=nb&&nb.closest('nav');if(nb&&nv){nb.addEventListener('click',function(){var o=nv.classList.toggle('open');nb.setAttribute('aria-expanded',o)});nv.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){nv.classList.remove('open')})})}}catch(e){}}
