@@ -404,3 +404,10 @@ h1.article-title .italic {
   color: var(--paper);
 }
 .related-tile:hover h5 { color: var(--accent-2); }
+
+/* mobile overflow fixes */
+@media (max-width: 900px) {
+  .article-body-grid { grid-template-columns: minmax(0, 1fr); }
+  .article-body-grid > *, .toc { min-width: 0; max-width: 100%; }
+  .toc a { white-space: normal; overflow-wrap: anywhere; }
+}

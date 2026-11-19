@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About — Gunabhiram Billa</title>
-<meta name="description" content="Long-form background: skills, experience, education and milestones of Gunabhiram Billa, Data & Analytics Engineer." />
+<meta name="description" content="Long-form background: skills, experience, education, milestones and principles of Gunabhiram Billa." />
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0c' rx='10'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='34' font-weight='600' font-style='italic' fill='%23d4a356'%3EGB%3C/text%3E%3C/svg%3E">
@@ -58,15 +58,7 @@
   </div>
 </nav>
 
-<div class="page-head">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="sec-num">// about · long form</div>
-      <h1 class="page-title">About <span class="italic">me.</span></h1>
-      <p class="sec-sub">The long version: who I am, what I work with, where I have worked and studied, and what I am learning next.</p>
-    </div>
-  </div>
-</div>
+<div class="page-head"><div class="wrap"><div class="reveal"><div class="sec-num">// about · long form</div><h1 class="page-title">About <span class="italic">me.</span></h1><p class="sec-sub">The long version: who I am, what I work with, where I have worked and studied, and how I think.</p></div></div></div>
 <section id="about">
   <div class="wrap">
     <div class="reveal">
@@ -188,6 +180,72 @@
       <div class="ms"><div class="ms-v">60+</div><div class="ms-l">customer dashboards live</div></div>
       <div class="ms"><div class="ms-v">~80%</div><div class="ms-l">less manual reporting time</div></div>
       <div class="ms"><div class="ms-v">12</div><div class="ms-l">technical essays published</div></div>
+    </div>
+  </div>
+</section><section id="principles" class="principles-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-num">// 05 · principles · 8 rules</div>
+      <h2 class="sec-title">How I <span class="italic">think.</span></h2>
+      <p class="sec-sub">Opinions earned shipping data systems. Each one has a scar behind it — a 3 a.m. page, a quarter-end mismatch, a dashboard that lied for two months before anyone noticed. I write them down so I don't forget.</p>
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle reveal">
+        <div class="p-num">01 · grain</div>
+        <span class="p-tag">// design</span>
+        <h3 class="p-title">If you can't state the grain in one <span class="italic">sentence</span>, the model isn't ready.</h3>
+        <p class="p-body">Most analytics bugs aren't typos. They're cardinality surprises hiding in a vague join. Pin the grain first, write SQL second. Twenty minutes of sketching saves four hours of debugging.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">02 · idempotency</div>
+        <span class="p-tag">// pipelines</span>
+        <h3 class="p-title">A pipeline that needs human cleanup to retry is <span class="italic">not</span> a pipeline.</h3>
+        <p class="p-body">It's a script with a person attached. Watermarks, merge upserts, control tables — make rerunning safe by construction. The first time a 3 a.m. failure becomes a 3:02 a.m. retry, you'll know it's working.</p>
+      </div>
+
+      <div class="principle reveal">
+        <div class="p-num">03 · isolation</div>
+        <span class="p-tag">// multi-tenant</span>
+        <h3 class="p-title">There's no <span class="italic">"mostly correct"</span> in tenant isolation.</h3>
+        <p class="p-body">The row policy either holds for every query or it doesn't. Test isolation like a security control — write queries that try to violate it and confirm they can't. The worst-case bug is silent.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">04 · reconciliation</div>
+        <span class="p-tag">// governance</span>
+        <h3 class="p-title">Reconciliation isn't a <span class="italic">project</span>. It's a control plane you operate.</h3>
+        <p class="p-body">Run it daily, review weekly, audit monthly. Drift compounds; cadence catches it early. By month-end, three systems disagreeing has cost real money. Make every mismatch visible within 24 hours.</p>
+      </div>
+
+      <div class="principle reveal">
+        <div class="p-num">05 · documentation</div>
+        <span class="p-tag">// craft</span>
+        <h3 class="p-title">The next engineer is a <span class="italic">stranger.</span></h3>
+        <p class="p-body">Write SQL, comments, and docs like the person debugging this at 3 a.m. has zero context. Eventually they will. That stranger might be future you. The empathy is the same.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">06 · latency</div>
+        <span class="p-tag">// reliability</span>
+        <h3 class="p-title">A source that's always a few hours behind isn't broken — it's a <span class="italic">contract</span> you design around.</h3>
+        <p class="p-body">Fighting a laggy upstream system to make it feel real-time is a losing game. Diff against last-seen state, alert on what actually changed, and let the lag be a known quantity instead of a surprise someone discovers at 9 a.m.</p>
+      </div>
+
+      <div class="principle reveal">
+        <div class="p-num">07 · escalation</div>
+        <span class="p-tag">// judgment</span>
+        <h3 class="p-title">Not every case needs an LLM. Most need a <span class="italic">rule</span> that already knows the answer.</h3>
+        <p class="p-body">Run the cheap, deterministic check first. Reserve the expensive model for whatever survives it unresolved. Tiering isn't a cost hack — it's what keeps the expensive tool's output trustworthy on the cases where it actually runs.</p>
+      </div>
+
+      <div class="principle reveal d1">
+        <div class="p-num">08 · tooling</div>
+        <span class="p-tag">// pragmatism</span>
+        <h3 class="p-title">The right amount of tooling is the amount the problem <span class="italic">actually</span> needs.</h3>
+        <p class="p-body">A notebook with one parameter and two window functions can outperform a pipeline with a scheduler, a queue, and a dashboard nobody asked for. Match the architecture to the audience, not the resume.</p>
+      </div>
     </div>
   </div>
 </section>
