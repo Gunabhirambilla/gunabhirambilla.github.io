@@ -59,8 +59,18 @@
 </nav>
 
 <div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
-<div class="sec-num">// case file &middot; 14 of 16</div></div></div>
+<div class="sec-num">// case file</div></div></div>
 <section style="padding-top:8px"><div class="wrap">
+  <div class="case-meta">
+  <div class="cm-badges"><span class="cm-status">&#9679; Shipped</span><span class="cm-count">case file &middot; 14 / 16</span></div>
+  <dl class="cm-grid">
+    <div><dt>Case</dt><dd>#14</dd></div>
+    <div><dt>Where</dt><dd>Yosi Health</dd></div>
+    <div><dt>Categories</dt><dd>Optimization</dd></div>
+    <div><dt>Read</dt><dd>~2 min</dd></div>
+  </dl>
+  <div class="cm-toc"><span>// contents</span><a href="#problem">The problem</a><a href="#adoption">Adoption</a><a href="#built">How it's built</a><a href="#details">Technical details</a></div>
+</div>
   <div class="case-page">
 <div class="project-row current" data-tags="optimization">
         <div class="header-row">
@@ -75,13 +85,13 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Problem</h5>
+              <h5 id="problem">The Problem</h5>
               <p>SMS costs were inflated by two avoidable issues: messages tipping over the 160-character single-segment threshold (doubling per-message cost) and a fleet of 300+ phone numbers that were billed monthly but no longer in use. Nobody had audited either in years.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Audited message content across templates, identified those tipping over the segment boundary, and rewrote them under a 150-character target with a margin for personalization variables. Cross-referenced active phone numbers against actual outbound traffic and decommissioned the inactive ones.</p>
             </div>
             <div class="proj-detail-block">
-              <h5>Technical Details</h5>
+              <h5 id="details">Technical Details</h5>
               <ul>
                 <li>Segment count analysis across all templates</li>
                 <li>~150-character optimization threshold</li>

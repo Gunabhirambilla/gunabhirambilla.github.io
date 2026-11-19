@@ -81,35 +81,3 @@
 
 
 }catch(e){}}
-;{try{
-  // ---------- LIVE DEMO ----------
-  (function(){
-    const gates=['Customer consent on file','Account and vehicle active','Telemetry unit state','Connectivity signals agree','Recent push history'];
-    const cases=[
-      {vin:'DEMO0000000001001',res:[['pass','consent = granted'],['pass','account active, vehicle enrolled'],['fail','unit state = DORMANT since 3 days ago']],
-        code:'UNIT_DORMANT',next:'Request a wake command and recheck in 30 minutes. If it stays dormant, escalate for a hardware check.',
-        sum:'The vehicle has not reported because its telemetry unit went dormant.'},
-      {vin:'DEMO0000000001002',res:[['pass','consent = granted'],['pass','account active, vehicle enrolled'],['pass','unit state = ACTIVE'],['pass','network reachable'],['fail','last 7 pushes: 2 delivered, 5 blocked (app ID mismatch)']],
-        code:'PUSH_BLOCKED',next:'Correct the partner app mapping, then replay the blocked pushes.',
-        sum:'The unit is healthy, but pushes are blocked by a partner mapping error.'},
-      {vin:'DEMO0000000001003',res:[['pass','consent = granted'],['pass','account active, vehicle enrolled'],['pass','unit state = ACTIVE'],['pass','network reachable'],['pass','last push 4 minutes ago, 7 of 7 delivered']],
-        code:'HEALTHY',next:'No action needed. Close the case with the evidence below.',
-        sum:'The vehicle is reporting normally.'}];
-    let cur=0,busy=false;
-    const g=document.getElementById('dGates'),v=document.getElementById('dVerdict'),n=document.getElementById('dNote');
-    if(!g)return;
-    function reset(){g.innerHTML=gates.map(t=>'<div class="gate"><span class="ic">&middot;</span><div><b>'+t+'</b><small>not run</small></div></div>').join('');v.className='demo-verdict';n.textContent='Run the diagnostic to generate the note.';}
-    document.querySelectorAll('.demo-pick').forEach(b=>b.addEventListener('click',()=>{if(busy)return;document.querySelectorAll('.demo-pick').forEach(x=>x.classList.remove('on'));b.classList.add('on');cur=+b.dataset.c;reset();}));
-    document.getElementById('dRun').addEventListener('click',async()=>{
-      if(busy)return;busy=true;reset();const c=cases[cur],rows=g.children;
-      for(let i=0;i<c.res.length;i++){await new Promise(r=>setTimeout(r,550));const [st,d]=c.res[i],r=rows[i];r.classList.add('show',st);r.querySelector('.ic').textContent=st==='pass'?'\u2713':'\u2715';r.querySelector('small').textContent=d;if(st==='fail')break;}
-      await new Promise(r=>setTimeout(r,400));
-      v.innerHTML='Verdict <code>'+c.code+'</code><br>'+c.sum+'<br><b>Next step:</b> '+c.next;v.classList.add('show');
-      const ev=c.res.map(x=>(x[0]==='pass'?'[ok]   ':'[FAIL] ')+x[1]).join('\n');
-      const txt='VERDICT: '+c.code+'\nVIN: '+c.vin+'\n\nFINDINGS\n'+ev+'\n\nNEXT STEPS\n'+c.next;
-      n.textContent='';for(let i=0;i<txt.length;i+=3){n.textContent=txt.slice(0,i+3);await new Promise(r=>setTimeout(r,12));}
-      n.textContent=txt;busy=false;});
-    reset();
-  })();
-
-}catch(e){}}

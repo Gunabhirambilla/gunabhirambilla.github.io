@@ -59,8 +59,18 @@
 </nav>
 
 <div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
-<div class="sec-num">// case file &middot; 03 of 16</div></div></div>
+<div class="sec-num">// case file</div></div></div>
 <section style="padding-top:8px"><div class="wrap">
+  <div class="case-meta">
+  <div class="cm-badges"><span class="cm-status">&#9679; In production</span><span class="cm-count">case file &middot; 03 / 16</span></div>
+  <dl class="cm-grid">
+    <div><dt>Case</dt><dd>#03</dd></div>
+    <div><dt>Where</dt><dd>GM OnStar</dd></div>
+    <div><dt>Categories</dt><dd>Modeling &middot; Optimization</dd></div>
+    <div><dt>Read</dt><dd>~2 min</dd></div>
+  </dl>
+  <div class="cm-toc"><span>// contents</span><a href="#problem">The problem</a><a href="#adoption">Adoption</a><a href="#built">How it's built</a><a href="#details">Technical details</a></div>
+</div>
   <div class="case-page">
 <div class="project-row current" data-featured="1" data-tags="modeling,optimization">
         <div class="header-row">
@@ -75,9 +85,9 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Problem</h5>
+              <h5 id="problem">The Problem</h5>
               <p>Analysts had no consolidated, real-time answer to three questions: what needs a response now, what's gone stale without follow-up, and what's the full state of everything still open. The data was all in the CRM — it just wasn't shaped for triage, and auto-acknowledgment emails made "needs response" counts noisy.</p>
-              <h5 style="margin-top: 22px;">Adoption</h5>
+              <h5 id="adoption" style="margin-top: 22px;">Adoption</h5>
               <div class="proj-adoption">
                 <div class="adopt-row"><span class="k">Used by</span><span class="v">15 analysts (~4 times a day) and the Level 3 team</span></div>
                 <div class="adopt-row"><span class="k">Before</span><span class="v">Manual navigation of the CRM to piece together each queue</span></div>
@@ -86,9 +96,9 @@
               </div>
             </div>
             <div class="proj-detail-block">
-              <h5>How it's built</h5>
+              <h5 id="built">How it's built</h5>
               <p>A pure-SQL notebook driven by a single <code>:analyst_name</code> parameter, cloned per analyst for isolated execution state. A <code>UNION</code> bridges current case status with full historical activity, and <code>ROW_NUMBER</code> / <code>QUALIFY</code> isolate the most recent activity per case without subquery nesting. Auto-acks are filtered by treating a short-window inbound right after an outbound as system-generated, and pure-SQL weekday arithmetic powers business-day stale-follow-up flags with no UDF or calendar table.</p>
-              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <h5 id="details" style="margin-top: 22px;">Technical Details</h5>
               <ul>
                 <li>Single string parameter makes the notebook portable across analysts</li>
                 <li><code>QUALIFY</code> replaces nested subqueries for "most recent per case"</li>

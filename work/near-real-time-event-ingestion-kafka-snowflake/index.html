@@ -59,8 +59,18 @@
 </nav>
 
 <div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
-<div class="sec-num">// case file &middot; 16 of 16</div></div></div>
+<div class="sec-num">// case file</div></div></div>
 <section style="padding-top:8px"><div class="wrap">
+  <div class="case-meta">
+  <div class="cm-badges"><span class="cm-status">&#9679; Shipped</span><span class="cm-count">case file &middot; 16 / 16</span></div>
+  <dl class="cm-grid">
+    <div><dt>Case</dt><dd>#16</dd></div>
+    <div><dt>Where</dt><dd>Yosi Health</dd></div>
+    <div><dt>Categories</dt><dd>Streaming &middot; Python &middot; Snowflake</dd></div>
+    <div><dt>Read</dt><dd>~2 min</dd></div>
+  </dl>
+  <div class="cm-toc"><span>// contents</span><a href="#problem">The problem</a><a href="#adoption">Adoption</a><a href="#built">How it's built</a><a href="#details">Technical details</a></div>
+</div>
   <div class="case-page">
 <div class="project-row current" data-tags="streaming,python,snowflake">
         <div class="header-row">
@@ -75,13 +85,13 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Problem</h5>
+              <h5 id="problem">The Problem</h5>
               <p>Operational teams needed visibility into events as they happened — not 24 hours later. The existing batch pipeline ran nightly, which meant by the time an issue showed up on the dashboard, the day was over. Switching to streaming meant rethinking watermarks, ordering, and failure recovery.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Built a Kafka-to-Snowflake pipeline using Snowpipe Streaming for sub-minute landing, then Snowflake Streams + Tasks for incremental transformation. Out-of-order events handled via watermark tolerance windows. Quality metrics (lag, dropped events, schema drift) emitted to a monitoring dashboard.</p>
             </div>
             <div class="proj-detail-block">
-              <h5>Technical Details</h5>
+              <h5 id="details">Technical Details</h5>
               <ul>
                 <li>Snowpipe Streaming with row-level latency under 60s</li>
                 <li>Streams + Tasks for incremental aggregation</li>

@@ -59,8 +59,18 @@
 </nav>
 
 <div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
-<div class="sec-num">// case file &middot; 08 of 16</div></div></div>
+<div class="sec-num">// case file</div></div></div>
 <section style="padding-top:8px"><div class="wrap">
+  <div class="case-meta">
+  <div class="cm-badges"><span class="cm-status">&#9679; Shipped</span><span class="cm-count">case file &middot; 08 / 16</span></div>
+  <dl class="cm-grid">
+    <div><dt>Case</dt><dd>#08</dd></div>
+    <div><dt>Where</dt><dd>Yosi Health</dd></div>
+    <div><dt>Categories</dt><dd>Snowflake &middot; Modeling</dd></div>
+    <div><dt>Read</dt><dd>~2 min</dd></div>
+  </dl>
+  <div class="cm-toc"><span>// contents</span><a href="#problem">The problem</a><a href="#adoption">Adoption</a><a href="#built">How it's built</a><a href="#details">Technical details</a></div>
+</div>
   <div class="case-page">
 <div class="project-row current" data-tags="snowflake,modeling">
         <div class="header-row">
@@ -75,13 +85,13 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Problem</h5>
+              <h5 id="problem">The Problem</h5>
               <p>The Sales and Customer Success teams couldn't quantify product value at renewal conversations. Each rep was inventing their own ROI math, leading to inconsistent numbers across customers — and no defensible framework when leadership asked "what's the upsell story?"</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Built a unified Snowflake-backed ROI model that quantifies four pillars: intake completion lift, scheduling adoption, reminder effectiveness (no-show reduction), and engagement uplift. Each pillar maps to specific time and revenue assumptions configurable per customer segment.</p>
             </div>
             <div class="proj-detail-block">
-              <h5>Technical Details</h5>
+              <h5 id="details">Technical Details</h5>
               <ul>
                 <li>Per-customer baseline measurement (pre-product window)</li>
                 <li>Configurable assumption layer for time/cost values</li>

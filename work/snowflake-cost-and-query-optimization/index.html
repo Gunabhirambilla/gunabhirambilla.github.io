@@ -59,8 +59,18 @@
 </nav>
 
 <div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
-<div class="sec-num">// case file &middot; 11 of 16</div></div></div>
+<div class="sec-num">// case file</div></div></div>
 <section style="padding-top:8px"><div class="wrap">
+  <div class="case-meta">
+  <div class="cm-badges"><span class="cm-status">&#9679; Shipped</span><span class="cm-count">case file &middot; 11 / 16</span></div>
+  <dl class="cm-grid">
+    <div><dt>Case</dt><dd>#11</dd></div>
+    <div><dt>Where</dt><dd>Yosi Health</dd></div>
+    <div><dt>Categories</dt><dd>Snowflake &middot; Optimization</dd></div>
+    <div><dt>Read</dt><dd>~2 min</dd></div>
+  </dl>
+  <div class="cm-toc"><span>// contents</span><a href="#problem">The problem</a><a href="#adoption">Adoption</a><a href="#built">How it's built</a><a href="#details">Technical details</a></div>
+</div>
   <div class="case-page">
 <div class="project-row current" data-tags="snowflake,optimization">
         <div class="header-row">
@@ -75,13 +85,13 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Problem</h5>
+              <h5 id="problem">The Problem</h5>
               <p>Snowflake credit consumption was growing faster than usage justified. A single oversized warehouse was running every workload, ad-hoc queries were doing full table scans, and no one had visibility into which queries were the actual cost drivers.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Mined query history and warehouse metering to attribute cost by workload. Split into purpose-sized warehouses (small for BI, medium for ETL, X-small for ad hoc), enforced auto-suspend, and rewrote the top expensive queries to use clustering and pruning. Built an internal cost dashboard for ongoing visibility.</p>
             </div>
             <div class="proj-detail-block">
-              <h5>Technical Details</h5>
+              <h5 id="details">Technical Details</h5>
               <ul>
                 <li>Query history mining &amp; cost attribution</li>
                 <li>Workload segmentation across multiple warehouses</li>

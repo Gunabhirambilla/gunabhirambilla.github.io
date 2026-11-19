@@ -59,8 +59,18 @@
 </nav>
 
 <div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
-<div class="sec-num">// case file &middot; 13 of 16</div></div></div>
+<div class="sec-num">// case file</div></div></div>
 <section style="padding-top:8px"><div class="wrap">
+  <div class="case-meta">
+  <div class="cm-badges"><span class="cm-status">&#9679; Shipped</span><span class="cm-count">case file &middot; 13 / 16</span></div>
+  <dl class="cm-grid">
+    <div><dt>Case</dt><dd>#13</dd></div>
+    <div><dt>Where</dt><dd>Yosi Health</dd></div>
+    <div><dt>Categories</dt><dd>Reconciliation</dd></div>
+    <div><dt>Read</dt><dd>~2 min</dd></div>
+  </dl>
+  <div class="cm-toc"><span>// contents</span><a href="#problem">The problem</a><a href="#adoption">Adoption</a><a href="#built">How it's built</a><a href="#details">Technical details</a></div>
+</div>
   <div class="case-page">
 <div class="project-row current" data-tags="reconciliation">
         <div class="header-row">
@@ -75,13 +85,13 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Problem</h5>
+              <h5 id="problem">The Problem</h5>
               <p>Customers were billed based on provider counts, but "provider" meant different things in different systems. Some part-time providers were counted as full FTEs, some full-time providers were missed entirely, and contract terms specified thresholds nobody was actively checking.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Designed a reconciliation workflow that joins operational provider activity with CRM contract terms and QuickBooks billing records. Applied FTE thresholds (active hours, encounter volume) to classify each provider into a billing category. Standardized monthly reconciliation checkpoints.</p>
             </div>
             <div class="proj-detail-block">
-              <h5>Technical Details</h5>
+              <h5 id="details">Technical Details</h5>
               <ul>
                 <li>Three-system join: ops, CRM, billing</li>
                 <li>FTE threshold logic with multiple inputs</li>

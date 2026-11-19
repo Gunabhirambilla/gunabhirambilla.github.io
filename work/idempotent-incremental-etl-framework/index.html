@@ -59,8 +59,18 @@
 </nav>
 
 <div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
-<div class="sec-num">// case file &middot; 09 of 16</div></div></div>
+<div class="sec-num">// case file</div></div></div>
 <section style="padding-top:8px"><div class="wrap">
+  <div class="case-meta">
+  <div class="cm-badges"><span class="cm-status">&#9679; Shipped</span><span class="cm-count">case file &middot; 09 / 16</span></div>
+  <dl class="cm-grid">
+    <div><dt>Case</dt><dd>#09</dd></div>
+    <div><dt>Where</dt><dd>Yosi Health</dd></div>
+    <div><dt>Categories</dt><dd>Snowflake &middot; Python</dd></div>
+    <div><dt>Read</dt><dd>~2 min</dd></div>
+  </dl>
+  <div class="cm-toc"><span>// contents</span><a href="#problem">The problem</a><a href="#adoption">Adoption</a><a href="#built">How it's built</a><a href="#details">Technical details</a></div>
+</div>
   <div class="case-page">
 <div class="project-row current" data-tags="snowflake,python">
         <div class="header-row">
@@ -75,13 +85,13 @@
         <div class="proj-details">
           <div class="proj-details-grid">
             <div class="proj-detail-block">
-              <h5>The Problem</h5>
+              <h5 id="problem">The Problem</h5>
               <p>Daily pipelines occasionally failed mid-run or produced duplicates after partial recovery. Engineers had to manually clean state before reruns, and late-arriving source records silently corrupted aggregates. Trust in the data was eroding.</p>
               <h5 style="margin-top: 22px;">The Approach</h5>
               <p>Designed an incremental framework around three principles: deterministic watermark tracking, merge-based upserts (never plain inserts), and explicit validation gates. Every run logs to a control table; every failure can be safely retried without manual cleanup.</p>
             </div>
             <div class="proj-detail-block">
-              <h5>Technical Details</h5>
+              <h5 id="details">Technical Details</h5>
               <ul>
                 <li>Watermark column tracked per source-target pair</li>
                 <li>MERGE statements with deterministic match keys</li>
