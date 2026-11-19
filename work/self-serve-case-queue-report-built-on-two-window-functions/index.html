@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Self-Serve Case Queue Report Built on Two Window Functions — Gunabhiram Billa</title>
+<meta name="description" content="One parameter, three real-time queues, no Python and no dashboard team." />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0c' rx='10'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='34' font-weight='600' font-style='italic' fill='%23d4a356'%3EGB%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gunabhirambilla.github.io/" />
+<meta property="og:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta property="og:description" content="Snowflake, Databricks, dbt, Python. 50+ production projects, 250 customers served, RAG case-note generation. Data systems built to be used every day." />
+<meta property="og:image" content="https://gunabhirambilla.github.io/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta name="twitter:description" content="Snowflake, Databricks, dbt, Python. Data systems built to be used every day." />
+<meta name="twitter:image" content="https://gunabhirambilla.github.io/og-image.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/site.css">
+
+</head>
+
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>GB / Data Engineer</span>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/work/" class="active">Work</a>
+      <a href="/resources/">Resources</a>
+      <a href="/#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
+<div class="sec-num">// case file &middot; 03 of 16</div></div></div>
+<section style="padding-top:8px"><div class="wrap">
+  <div class="case-page">
+<div class="project-row current" data-featured="1" data-tags="modeling,optimization">
+        <div class="header-row">
+          <div class="proj-num">/03</div>
+          <h1 class="proj-name">Self-Serve Case Queue Report Built on Two Window Functions</h1>
+          <div class="proj-stack">
+            <span>SQL</span><span>QUALIFY</span><span>Window Functions</span>
+          </div>
+          <div class="proj-impact">One parameter, three real-time queues, no Python and no dashboard team. <em>Used by 15 analysts about 4 times a day, and picked up by the Level 3 team.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>Analysts had no consolidated, real-time answer to three questions: what needs a response now, what's gone stale without follow-up, and what's the full state of everything still open. The data was all in the CRM — it just wasn't shaped for triage, and auto-acknowledgment emails made "needs response" counts noisy.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Used by</span><span class="v">15 analysts (~4 times a day) and the Level 3 team</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">Manual navigation of the CRM to piece together each queue</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">Three real-time queues from one cloned notebook, no dashboard team</span></div>
+                <div class="adopt-row"><span class="k">Decision</span><span class="v">Pure SQL, cloned per analyst rather than one shared notebook, so no analyst&rsquo;s run affects another&rsquo;s and non-engineers can maintain it.</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>A pure-SQL notebook driven by a single <code>:analyst_name</code> parameter, cloned per analyst for isolated execution state. A <code>UNION</code> bridges current case status with full historical activity, and <code>ROW_NUMBER</code> / <code>QUALIFY</code> isolate the most recent activity per case without subquery nesting. Auto-acks are filtered by treating a short-window inbound right after an outbound as system-generated, and pure-SQL weekday arithmetic powers business-day stale-follow-up flags with no UDF or calendar table.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Single string parameter makes the notebook portable across analysts</li>
+                <li><code>QUALIFY</code> replaces nested subqueries for "most recent per case"</li>
+                <li>Auto-acknowledgment filtering keeps "needs response" counts honest</li>
+                <li>Pure-SQL business-day arithmetic, no UDFs or calendar table</li>
+                <li>Inline <code>CASE</code> expressions derive urgency tiers automatically</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">15</div><div class="l">Analysts</div></div>
+                <div class="metric"><div class="v">~4×</div><div class="l">Opens per day</div></div>
+                <div class="metric"><div class="v">L3</div><div class="l">Team also uses it</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="case-pn" role="navigation" aria-label="More case files">
+    <a href="/work/tiered-diagnostic-notebook-for-fleet-telemetry-support/"><small>&larr; Previous</small><span>Tiered Diagnostic Notebook for Fleet Telemetry Support</span></a>
+    <a href="/work/rag-case-analysis-and-case-note-generator-on-databricks/"><small>Next &rarr;</small><span>RAG Case Analysis &amp; Case-Note Generator on Databricks</span></a>
+  </div>
+</div></section>
+
+<!-- Scroll to top -->
+<button class="scroll-top" aria-label="Scroll to top" title="Back to top">↑</button>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>Michigan · 44.3148° N, 85.6024° W</span>
+    <span class="right">
+      <span class="dot"></span>
+      Available for new opportunities
+    </span>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
+<script src="/site.js"></script>
+</body>
+</html>

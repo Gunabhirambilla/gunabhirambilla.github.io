@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hourly Slack Alerting on a Laggy Siebel CRM View — Gunabhiram Billa</title>
+<meta name="description" content="Hourly polling against a reporting view with multi-hour lag, diffed against last-seen state." />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0c' rx='10'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='34' font-weight='600' font-style='italic' fill='%23d4a356'%3EGB%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gunabhirambilla.github.io/" />
+<meta property="og:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta property="og:description" content="Snowflake, Databricks, dbt, Python. 50+ production projects, 250 customers served, RAG case-note generation. Data systems built to be used every day." />
+<meta property="og:image" content="https://gunabhirambilla.github.io/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta name="twitter:description" content="Snowflake, Databricks, dbt, Python. Data systems built to be used every day." />
+<meta name="twitter:image" content="https://gunabhirambilla.github.io/og-image.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/site.css">
+
+</head>
+
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>GB / Data Engineer</span>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/work/" class="active">Work</a>
+      <a href="/resources/">Resources</a>
+      <a href="/#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
+<div class="sec-num">// case file &middot; 01 of 16</div></div></div>
+<section style="padding-top:8px"><div class="wrap">
+  <div class="case-page">
+<div class="project-row current" data-featured="1" data-tags="python,optimization">
+        <div class="header-row">
+          <div class="proj-num">/01</div>
+          <h1 class="proj-name">Hourly Slack Alerting on a Laggy Siebel CRM View</h1>
+          <div class="proj-stack">
+            <span>Siebel CRM</span><span>SQL</span><span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span><img class="lg" src="https://cdn.simpleicons.org/slack" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Slack API</span>
+          </div>
+          <div class="proj-impact">Hourly polling against a reporting view with multi-hour lag, diffed against last-seen state. <em>Used by 15 Commercial Ops teammates; they stopped missing new cases, replies, and assignments.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>The Siebel CRM reporting view Commercial Ops relied on lagged live case activity by several hours. New cases, customer replies, and assignments all sat invisible until someone happened to refresh a dashboard — there was no push notification layer on top of a CRM never built for one.</p>
+              <h5 style="margin-top: 22px;">Adoption</h5>
+              <div class="proj-adoption">
+                <div class="adopt-row"><span class="k">Used by</span><span class="v">15 Commercial Ops teammates</span></div>
+                <div class="adopt-row"><span class="k">Before</span><span class="v">New cases, replies and assignments sat invisible until someone refreshed a lagging Siebel view</span></div>
+                <div class="adopt-row"><span class="k">Now</span><span class="v">About 2 alerts a day, sent only when something new needs attention</span></div>
+                <div class="adopt-row"><span class="k">Decision</span><span class="v">Widened the lookback window from 60 to 720 minutes after tracing missed alerts to a roughly 4.5-hour lag in the source view, instead of just retrying.</span></div>
+                <div class="adopt-row"><span class="k">Incident</span><span class="v">A mid-run crash re-sent 17 alerts. Fixed by saving the watermark after every send, disabling job retries and seeding the 17 already sent.</span></div>
+              </div>
+            </div>
+            <div class="proj-detail-block">
+              <h5>How it's built</h5>
+              <p>Built an hourly polling job against the lagging view that diffs against a last-seen cursor to detect genuinely new activity by type — new case, customer reply, or assignment — then posts formatted alerts to the right Slack channel. The job is designed around the view's inherent staleness rather than fighting it.</p>
+              <h5 style="margin-top: 22px;">Technical Details</h5>
+              <ul>
+                <li>Last-seen cursor prevents duplicate alerts across runs</li>
+                <li>Classifies activity into new case / reply / assignment before routing</li>
+                <li>Slack webhook integration with channel-specific formatting</li>
+                <li>Tolerant of the CRM's multi-hour reporting lag by design</li>
+                <li>Runs hourly on a schedule, no manual trigger required</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">15</div><div class="l">People alerted</div></div>
+                <div class="metric"><div class="v">~2</div><div class="l">Alerts per day</div></div>
+                <div class="metric"><div class="v">0</div><div class="l">Missed SLA windows</div></div>
+              </div>
+            </div>
+          </div>
+
+        <figure class="proj-diagram"><svg viewBox="0 0 770 112" role="img" aria-label="Hourly Slack alerting flow"><defs><marker id="dg-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path class="dg-head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="dg-box" x="5" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="71.0" y="42" text-anchor="middle">Siebel CRM view</text><text class="dg-s" x="71.0" y="60" text-anchor="middle">multi-hour lag</text><rect class="dg-box" x="162" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="228.0" y="42" text-anchor="middle">Hourly poll job</text><text class="dg-s" x="228.0" y="60" text-anchor="middle">scheduled</text><rect class="dg-box dg-hl" x="319" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="385.0" y="42" text-anchor="middle">Diff vs cursor</text><text class="dg-s" x="385.0" y="60" text-anchor="middle">last-seen state</text><rect class="dg-box" x="476" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="542.0" y="42" text-anchor="middle">Classify by type</text><text class="dg-s" x="542.0" y="60" text-anchor="middle">case · reply · assignment</text><rect class="dg-box" x="633" y="20" width="132" height="52" rx="6"/><text class="dg-t" x="699.0" y="42" text-anchor="middle">Slack alerts</text><text class="dg-s" x="699.0" y="60" text-anchor="middle">per-channel format</text><line class="dg-arrow" x1="137" y1="46" x2="160" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="294" y1="46" x2="317" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="451" y1="46" x2="474" y2="46" marker-end="url(#dg-head)"/><line class="dg-arrow" x1="608" y1="46" x2="631" y2="46" marker-end="url(#dg-head)"/><text class="dg-s" x="71" y="96" text-anchor="middle">lag handled by design</text><text class="dg-s" x="385" y="96" text-anchor="middle">cursor stops duplicate alerts</text></svg><figcaption>Simplified flow. Illustrative only: no employer data or confidential details are shown.</figcaption></figure>
+        </div>
+      </div>
+  </div>
+  <div class="case-pn" role="navigation" aria-label="More case files">
+    <a href="/work/near-real-time-event-ingestion-kafka-snowflake/"><small>&larr; Previous</small><span>Near-Real-Time Event Ingestion (Kafka → Snowflake)</span></a>
+    <a href="/work/tiered-diagnostic-notebook-for-fleet-telemetry-support/"><small>Next &rarr;</small><span>Tiered Diagnostic Notebook for Fleet Telemetry Support</span></a>
+  </div>
+</div></section>
+
+<!-- Scroll to top -->
+<button class="scroll-top" aria-label="Scroll to top" title="Back to top">↑</button>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>Michigan · 44.3148° N, 85.6024° W</span>
+    <span class="right">
+      <span class="dot"></span>
+      Available for new opportunities
+    </span>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
+<script src="/site.js"></script>
+</body>
+</html>

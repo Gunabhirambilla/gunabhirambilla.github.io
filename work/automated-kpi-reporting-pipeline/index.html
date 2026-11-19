@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Automated KPI Reporting Pipeline — Gunabhiram Billa</title>
+<meta name="description" content="Fully automated extraction → templated Excel charts → Word reports → PDF distribution." />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230d0d0c' rx='10'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='34' font-weight='600' font-style='italic' fill='%23d4a356'%3EGB%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://gunabhirambilla.github.io/" />
+<meta property="og:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta property="og:description" content="Snowflake, Databricks, dbt, Python. 50+ production projects, 250 customers served, RAG case-note generation. Data systems built to be used every day." />
+<meta property="og:image" content="https://gunabhirambilla.github.io/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Gunabhiram Billa — Data & Analytics Engineer" />
+<meta name="twitter:description" content="Snowflake, Databricks, dbt, Python. Data systems built to be used every day." />
+<meta name="twitter:image" content="https://gunabhirambilla.github.io/og-image.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/site.css">
+
+</head>
+
+<body>
+
+<!-- Background design layers -->
+<div class="bg-grid"></div>
+<div class="bg-rules">
+  <span class="corner tl"></span><span class="corner tr"></span>
+  <span class="corner bl"></span><span class="corner br"></span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>GB / Data Engineer</span>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/work/" class="active">Work</a>
+      <a href="/resources/">Resources</a>
+      <a href="/#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-head"><div class="wrap"><a class="case-back" href="/work/">&larr; All case files</a>
+<div class="sec-num">// case file &middot; 07 of 16</div></div></div>
+<section style="padding-top:8px"><div class="wrap">
+  <div class="case-page">
+<div class="project-row current" data-tags="snowflake,python,optimization">
+        <div class="header-row">
+          <div class="proj-num">/07</div>
+          <h1 class="proj-name">Automated KPI Reporting Pipeline</h1>
+          <div class="proj-stack">
+            <span><img class="lg" src="https://cdn.simpleicons.org/snowflake" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Snowflake</span><span><img class="lg" src="https://cdn.simpleicons.org/python" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">Python</span><span>SQL</span><span>Word/PDF</span>
+          </div>
+          <div class="proj-impact">Fully automated extraction → templated Excel charts → Word reports → PDF distribution. <em>~80% reduction in manual reporting time.</em></div>
+          <div class="proj-arrow">+</div>
+        </div>
+        <div class="proj-details">
+          <div class="proj-details-grid">
+            <div class="proj-detail-block">
+              <h5>The Problem</h5>
+              <p>Customer Success was spending two full days every week assembling a recurring KPI report — pulling SQL exports, copying values into Excel templates, refreshing charts manually, then re-typing summaries into a Word doc and exporting to PDF. The same humans were doing the same clicks every Monday.</p>
+              <h5 style="margin-top: 22px;">The Approach</h5>
+              <p>Designed a parameterized Python pipeline that reads customer config from a control table, runs templated Snowflake queries, populates an Excel workbook (preserving formatting and pivot logic), and injects the results plus auto-generated narrative into a Word template via python-docx. Final step exports to PDF for leadership distribution.</p>
+            </div>
+            <div class="proj-detail-block">
+              <h5>Technical Details</h5>
+              <ul>
+                <li>Parameterized SQL with config-driven date windows and tenant filters</li>
+                <li>openpyxl for chart-preserving Excel population</li>
+                <li>python-docx with bookmarked placeholder injection</li>
+                <li>Reusable across 30+ customers with no code changes</li>
+                <li>Scheduled via cron with email distribution on success</li>
+              </ul>
+              <div class="proj-metrics">
+                <div class="metric"><div class="v">~80%</div><div class="l">Time saved</div></div>
+                <div class="metric"><div class="v">30+</div><div class="l">Customers</div></div>
+                <div class="metric"><div class="v">Weekly</div><div class="l">Cadence</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="case-pn" role="navigation" aria-label="More case files">
+    <a href="/work/dbt-based-analytics-engineering-framework/"><small>&larr; Previous</small><span>dbt-Based Analytics Engineering Framework</span></a>
+    <a href="/work/customer-roi-metrics-engine/"><small>Next &rarr;</small><span>Customer ROI Metrics Engine</span></a>
+  </div>
+</div></section>
+
+<!-- Scroll to top -->
+<button class="scroll-top" aria-label="Scroll to top" title="Back to top">↑</button>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Gunabhiram Billa</span>
+    <span>Michigan · 44.3148° N, 85.6024° W</span>
+    <span class="right">
+      <span class="dot"></span>
+      Available for new opportunities
+    </span>
+  </div>
+</footer>
+
+<script src="/script.js"></script>
+<script src="/site.js"></script>
+</body>
+</html>
