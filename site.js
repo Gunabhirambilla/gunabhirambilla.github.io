@@ -81,3 +81,5 @@
 
 
 }catch(e){}}
+
+;{try{var r=document.querySelector('.story-rail i');if(r){var u=function(){var d=document.documentElement,m=d.scrollHeight-innerHeight;r.style.height=(m>0?Math.min(100,scrollY/m*100):0)+'%'};addEventListener('scroll',u,{passive:true});u()}}catch(e){}}
